@@ -4,52 +4,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles2.css">
 </head>
 <body>
+
+    <!-- Header Section -->
     <header>
-        <h1>Admin Dashboard</h1>
-        <button onclick="logout()">Logout</button>
+        <div class="logo-container">
+            <div class="logo">
+                <a href="https://www.sti.edu" target="_blank">
+                    <img src="stilogo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="title">Admin Dashboard</div>
+        </div>
     </header>
 
-    <!-- Product Management Section -->
-    <section>
-        <h2>Product Management</h2>
-        <button onclick="addProduct()">Add New Product</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody id="admin-product-list">
-                <!-- Products will be dynamically loaded here -->
-            </tbody>
-        </table>
-    </section>
+    <!-- Admin Features Section -->
+    <main>
+        <section class="admin-features">
+            <h2>Admin Features</h2>
 
-    <!-- Order Management Section -->
-    <section>
-        <h2>Order Management</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Product</th>
-                    <th>Status</th>
-                    <th>Update Status</th>
-                </tr>
-            </thead>
-            <tbody id="admin-order-list">
-                <!-- Orders will be dynamically loaded here -->
-            </tbody>
-        </table>
-    </section>
+            <!-- Manage Products -->
+            <div class="manage-products">
+                <h3>Manage Products</h3>
+                <form id="productForm">
+                    <label for="productName">Product Name:</label>
+                    <input type="text" id="productName" required>
+                    <label for="productPrice">Product Price:</label>
+                    <input type="number" id="productPrice" required>
+                    <label for="productImage">Product Image URL:</label>
+                    <input type="text" id="productImage" required>
+                    <button type="submit">Add Product</button>
+                </form>
+                <div id="productList">
+                    <h4>Current Products</h4>
+                    <ul id="productItems"></ul>
+                </div>
+            </div>
 
-    <script src="admin.js"></script>
+            <!-- View User Activity -->
+            <div class="user-activity">
+                <h3>User Activity</h3>
+                <button onclick="viewUserActivity()">View User Activity</button>
+                <div id="userActivityLog"></div>
+            </div>
+
+            <!-- Order Management -->
+            <div class="order-management">
+                <h3>Manage Orders</h3>
+                <button onclick="viewOrders()">View Orders</button>
+                <div id="orderList"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <div class="social-media">
+            <a href="https://www.facebook.com/calamba.sti.edu" target="_blank">
+                <img src="fbicon.png" alt="Facebook">
+            </a>
+            <a href="https://www.youtube.com/@STIdotEdu" target="_blank">
+                <img src="yticon.png" alt="YouTube">
+            </a>
+            <a href="https://www.tiktok.com/@sti.edu" target="_blank">
+                <img src="tiktokicon.png" alt="TikTok">
+            </a>
+        </div>
+    </footer>
+
+    <!-- JavaScript to handle admin functionality -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const userRole = localStorage.getItem('userRole');
+            if (userRole !== 'admin') {
+                alert("Access denied! You are not an admin.");
+                window.location.href = 'login.html'; // Redirect if not admin
+            }
+        });
+
+        // Add product function
+        document.getElementById('productForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            const productName = document.getElementById('productName').value;
+            const productPrice = document.getElementById('productPrice').value;
+            const productImage = document.getElementById('productImage').value;
+
+            // Create new product item
+            const productItemsList = document.getElementById('productItems');
+            const newItem = document.createElement('li');
+            newItem.innerHTML = `${productName} - ₱${productPrice} <img src="${productImage}" alt="${productName}" style="width: 50px;">`;
+            productItemsList.appendChild(newItem);
+
+            // Clear form fields
+            document.getElementById('productForm').reset();
+        });
+
+        // Simulated view user activity function
+        function viewUserActivity() {
+            const userActivityLog = document.getElementById('userActivityLog');
+            userActivityLog.innerHTML = '<p>Loading user activity...</p>';
+            // Simulate fetching user activity data
+            setTimeout(() => {
+                userActivityLog.innerHTML = `
+                    <h4>User Activity Log</h4>
+                    <ul>
+                        <li>User1: Logged in at ${new Date().toLocaleTimeString()}</li>
+                        <li>User2: Added item to cart at ${new Date().toLocaleTimeString()}</li>
+                    </ul>
+                `;
+            }, 1000);
+        }
+
+        // Simulated view orders function
+        function viewOrders() {
+            const orderList = document.getElementById('orderList');
+            orderList.innerHTML = '<p>Loading orders...</p>';
+            // Simulate fetching orders data
+            setTimeout(() => {
+                orderList.innerHTML = `
+                    <h4>Orders</h4>
+                    <ul>
+                        <li>Order #1: User1 - 2x Daily Uniform</li>
+                        <li>Order #2: User2 - 1x PE Uniform</li>
+                    </ul>
+                `;
+            }, 1000);
+        }
+    </script>
 </body>
 </html>

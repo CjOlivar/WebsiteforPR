@@ -1,452 +1,416 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home Page</title>
 
-    <!-- Link to external CSS file -->
-    <link rel="stylesheet" href="styles2.css">
-</head>
-<body>
+        <!-- Link to external CSS file -->
+        <link rel="stylesheet" href="styles2.css">
+    </head>
+    <body>
 
-    <!-- Header Section -->
-    <header>
-        <div class="logo-container">
-            <div class="logo">
-                <a href="https://www.sti.edu" target="_blank">
-                    <img src="stilogo.png" alt="Logo">
-                </a>
+        <!-- Header Section -->
+        <header>
+            <div class="logo-container">
+                <div class="logo">
+                    <a href="https://www.sti.edu" target="_blank">
+                        <img src="stilogo.png" alt="Logo">
+                    </a>
+                </div>
+                <div class="title">Unistique</div>
             </div>
-            <div class="title">uniSTIque</div>
+        <!-- Search Bar and Cart -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for products...">
+            <button onclick="searchProducts()">Search</button>
         </div>
-    <!-- Search Bar and Cart -->
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search for products...">
-        <button onclick="searchProducts()">Search</button>
-    </div>
-    
-    <div class="cart-container">
-        <img src="shoppingcarticon.png" alt="Shopping Cart" class="cart-icon" onclick="viewCart()">
-        <span id="cartCount" class="cart-count">0</span>
-    </div>
-    <!-- User Profile Icon -->
-    <div class="profile-container">
-        <img src="user-icon.png" alt="User Icon" class="user-icon" onclick="toggleProfileDropdown()">
-        <!-- Profile Dropdown -->
-        <div id="profileDropdown" class="profile-dropdown">
-            <a href="#" onclick="viewProfile()">Profile</a>
-            <a href="#" onclick="logout()">Logout</a>
+        
+        <div class="cart-container">
+            <img src="shoppingcarticon.png" alt="Shopping Cart" class="cart-icon" onclick="viewCart()">
+            <span id="cartCount" class="cart-count">0</span>
         </div>
-    </div>       
-    </header>
+        <!-- User Profile Icon -->
+        <div class="profile-container">
+            <img src="user-icon.png" alt="User Icon" class="user-icon" onclick="toggleProfileDropdown()">
+            <!-- Profile Dropdown -->
+            <div id="profileDropdown" class="profile-dropdown">
+                <a href="#" onclick="viewProfile()">Profile</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>       
+        </header>
 
-    <!-- Recommendations Section -->
-    <section class="recommendations">
-        <h2>Recommended for You</h2>
-        <div class="recommendation product-item" data-price="200" data-requires-size="true" data-max-qty="10" onclick="openModal('daily-uniform.png', 'Daily Uniform', 200, true, 10)">
-            <img src="daily-uniform.png" alt="Recommended Product">
-            <p>Daily Uniform</p>
-        </div>
-        <div class="recommendation product-item" data-price="250" data-requires-size="true" data-max-qty="10" onclick="openModal('pe-uniform.png', 'PE Uniform', 250, true, 10)">
-            <img src="pe-uniform.png" alt="Recommended Product">
-            <p>PE Uniform</p>
-        </div>
-    </section>
-
-        <!-- Available Section -->
-        <section class="available-section"> 
-            <h2>Available:</h2> 
-            <div class="available-items"> 
-                <div class="product-item" data-price="200" data-requires-size="true" data-max-qty="10" onclick="openModal('daily-uniform.png', 'Daily Uniform', 200, true, 10)">
-                    <img src="daily-uniform.png" alt="Daily Uniform">
-                    <p>Daily Uniform</p>
-                </div>
-                <div class="product-item" data-price="40" data-requires-size="false" data-max-qty="10" onclick="openModal('id-lace.png', 'ID Lace', 40, false, 10)">
-                    <img src="id-lace.png" alt="ID Lace">
-                    <p>ID Lace</p>
-                </div>
-                <div class="product-item" data-price="250" data-requires-size="true" data-max-qty="10" onclick="openModal('pe-uniform.png', 'PE Uniform', 250, true, 10)">
-                    <img src="pe-uniform.png" alt="PE Uniform">
-                    <p>PE Uniform</p>
-                </div>
-                <div class="product-item" data-price="10" data-requires-size="false" data-max-qty="10" onclick="openModal('sti-pin.png', 'Pin', 10, false, 10)">
-                    <img src="sti-pin.jpg" alt="Pin">
-                    <p>Pin</p>
-                </div>
+        <!-- Recommendations Section -->
+        <section class="recommendations">
+            <h2>Recommended for You</h2>
+            <div class="recommendation product-item" data-price="200" data-requires-size="true" data-max-qty="10" onclick="openModal('daily-uniform.png', 'Daily Uniform', 200, true, 10)">
+                <img src="daily-uniform.png" alt="Recommended Product">
+                <p>Daily Uniform</p>
+            </div>
+            <div class="recommendation product-item" data-price="250" data-requires-size="true" data-max-qty="10" onclick="openModal('pe-uniform.png', 'PE Uniform', 250, true, 10)">
+                <img src="pe-uniform.png" alt="Recommended Product">
+                <p>PE Uniform</p>
             </div>
         </section>
 
-<!-- News Section -->
-<div class="news-section">
-    <h2>New Products</h2>
-    <div class="news-slider">
-        <div class="news-slide">
-            <img src="polo-shirt.png" alt="News Image 1">
-            <div class="news-info">
-                <h3>Alumni Poloshirt</h3>
-                <p>New Polo shirt in stock</p>
-                <a href="https://alumni.sti.edu/alumni-shop.asp">Read More</a>
-            </div>
-        </div>
-        <div class="news-slide">
-            <img src="grey-jacket.png" alt="News Image 2">
-            <div class="news-info">
-                <h3>Grey Hooded Jacket</h3>
-                <p>New Grey jacket in stock</p>
-                <a href="https://alumni.sti.edu/alumni-shop.asp">Read More</a>
-            </div>
-        </div>
-        <div class="news-slide">
-            <img src="blue-jacket.png" alt="News Image 3">
-            <div class="news-info">
-                <h3>Blue Hooded Jacket</h3>
-                <p>New Blue jacket in stock</p>
-                <a href="https://alumni.sti.edu/alumni-shop.asp">Read More</a>
-            </div>
-        </div>
-    </div>
-    <div class="news-slider-controls">
-        <button class="prev" onclick="moveSlide(-1)">&lt;</button>
-        <button class="next" onclick="moveSlide(1)">&gt;</button>
-    </div>
-</div>
-
-
-    <!-- Modal for Available Item --> 
-    <div id="availableModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modalImage" src="" alt="Product Image">
-            <div id="caption"></div>
-            <div class="modal-details">
-                <p id="productPrice"></p>
-                <div id="sizeContainer" style="display: none;">
-                    <label for="sizeSelect">Select Size:</label>
-                    <select id="sizeSelect">
-                        <option value="small">Small</option>
-                        <option value="medium">Medium</option>
-                        <option value="large">Large</option>
-                        <option value="xl">XL</option>
-                        <option value="2xl">2XL</option>
-                    </select>
-                    <br>
+            <!-- Available Section -->
+            <section class="available-section"> 
+                <h2>Available:</h2> 
+                <div class="available-items"> 
+                    <div class="product-item" data-price="200" data-requires-size="true" data-max-qty="10" onclick="openModal('daily-uniform.png', 'Daily Uniform', 200, true, 10)">
+                        <img src="daily-uniform.png" alt="Daily Uniform">
+                        <p>Daily Uniform</p>
+                    </div>
+                    <div class="product-item" data-price="40" data-requires-size="false" data-max-qty="10" onclick="openModal('id-lace.png', 'ID Lace', 40, false, 10)">
+                        <img src="id-lace.png" alt="ID Lace">
+                        <p>ID Lace</p>
+                    </div>
+                    <div class="product-item" data-price="250" data-requires-size="true" data-max-qty="10" onclick="openModal('pe-uniform.png', 'PE Uniform', 250, true, 10)">
+                        <img src="pe-uniform.png" alt="PE Uniform">
+                        <p>PE Uniform</p>
+                    </div>
+                    <div class="product-item" data-price="10" data-requires-size="false" data-max-qty="10" onclick="openModal('sti-pin.png', 'Pin', 10, false, 10)">
+                        <img src="sti-pin.jpg" alt="Pin">
+                        <p>Pin</p>
+                    </div>
                 </div>
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" value="1" min="1">
-                <p id="quantityError" style="color: red; display: none;"></p>
-                <br>
-                <button class="cta-button" onclick="buyNow()">Buy Now</button>
+            </section>
+
+    <!-- News Section -->
+    <div class="news-section">
+        <h2>New Products</h2>
+        <div class="news-slider">
+            <div class="news-slide">
+                <img src="polo-shirt.png" alt="News Image 1">
+                <div class="news-info">
+                    <h3>Alumni Poloshirt</h3>
+                    <p>New Polo shirt in stock</p>
+                    <a href="https://alumni.sti.edu/alumni-shop.asp">Read More</a>
+                </div>
+            </div>
+            <div class="news-slide">
+                <img src="grey-jacket.png" alt="News Image 2">
+                <div class="news-info">
+                    <h3>Grey Hooded Jacket</h3>
+                    <p>New Grey jacket in stock</p>
+                    <a href="https://alumni.sti.edu/alumni-shop.asp">Read More</a>
+                </div>
+            </div>
+            <div class="news-slide">
+                <img src="blue-jacket.png" alt="News Image 3">
+                <div class="news-info">
+                    <h3>Blue Hooded Jacket</h3>
+                    <p>New Blue jacket in stock</p>
+                    <a href="https://alumni.sti.edu/alumni-shop.asp">Read More</a>
+                </div>
             </div>
         </div>
+        <div class="news-slider-controls">
+            <button class="prev" onclick="moveSlide(-1)">&lt;</button>
+            <button class="next" onclick="moveSlide(1)">&gt;</button>
+        </div>
     </div>
 
-    <!-- Modal for Shopping Cart -->
-    <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeCartModal()">&times;</span>
-            <h2>Shopping Cart</h2>
-            <div id="cartItems"></div>
-            <div id="cartTotal">
-                <p>Total: ₱<span id="totalAmount">0</span></p>
+
+        <!-- Modal for Available Item --> 
+        <div id="availableModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <img id="modalImage" src="" alt="Product Image">
+                <div id="caption"></div>
+                <div class="modal-details">
+                    <p id="productPrice"></p>
+                    <div id="sizeContainer" style="display: none;">
+                        <label for="sizeSelect">Select Size:</label>
+                        <select id="sizeSelect">
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                            <option value="xl">XL</option>
+                            <option value="2xl">2XL</option>
+                        </select>
+                        <br>
+                    </div>
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" value="1" min="1">
+                    <p id="quantityError" style="color: red; display: none;"></p>
+                    <br>
+                    <button class="cta-button" onclick="buyNow()">Buy Now</button>
+                </div>
             </div>
-            <button class="cta-button" onclick="checkout()">Checkout</button>
         </div>
-    </div>
 
-    <!-- Modal for Payment QR Code -->
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closePaymentModal()">&times;</span>
-            <h2>Payment</h2>
-            <p>Scan the QR code below to complete your payment:</p>
-            <img id="paymentQRCode" src="" alt="QR Code">
+        <!-- Modal for Shopping Cart -->
+        <div id="cartModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeCartModal()">&times;</span>
+                <h2>Shopping Cart</h2>
+                <div id="cartItems"></div>
+                <div id="cartTotal">
+                    <p>Total: ₱<span id="totalAmount">0</span></p>
+                </div>
+                <button class="cta-button" onclick="checkout()">Checkout</button>
+            </div>
         </div>
-    </div>
 
-    <!-- Footer Section -->
-    <footer>
-        <div class="footer-links">
-            <a href="#">Terms & Conditions</a>
-            <a href="#">Privacy Policy</a>
+        <!-- Modal for Payment QR Code -->
+        <div id="paymentModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closePaymentModal()">&times;</span>
+                <h2>Payment</h2>
+                <p>Scan the QR code below to complete your payment:</p>
+                <img id="paymentQRCode" src="" alt="QR Code">
+            </div>
         </div>
-        <div class="social-media">
-            <a href="https://www.facebook.com/calamba.sti.edu" target="_blank">
-                <img src="fbicon.png" alt="Facebook">
-            </a>
-            <a href="https://www.youtube.com/@STIdotEdu" target="_blank">
-                <img src="yticon.png" alt="YouTube">
-            </a>
-            <a href="https://www.tiktok.com/@sti.edu" target="_blank">
-                <img src="tiktokicon.png" alt="TikTok">
-            </a>
-        </div>
-    </footer>
 
-    <!-- JavaScript to handle the modal and cart functionality -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-    <script>
-        let cartCount = 0;
-        let cartItems = [];
-        let totalAmount = 0;
-        let maxQuantity = 0;
-        let slideIndex = 0;
-        showSlides(slideIndex);
+        <!-- Footer Section -->
+        <footer>
+            <div class="footer-links">
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+            <div class="social-media">
+                <a href="https://www.facebook.com/calamba.sti.edu" target="_blank">
+                    <img src="fbicon.png" alt="Facebook">
+                </a>
+                <a href="https://www.youtube.com/@STIdotEdu" target="_blank">
+                    <img src="yticon.png" alt="YouTube">
+                </a>
+                <a href="https://www.tiktok.com/@sti.edu" target="_blank">
+                    <img src="tiktokicon.png" alt="TikTok">
+                </a>
+            </div>
+        </footer>
 
-        function openModal(imageSrc, productName, price, requiresSize, maxQty) {
-            document.getElementById("modalImage").src = imageSrc;
-            document.getElementById("caption").innerHTML = productName;
-            document.getElementById("productPrice").innerHTML = "Price: ₱" + price;
-            maxQuantity = maxQty;  // Set the max quantity for the product
-            
-            if (requiresSize) {
-                document.getElementById("sizeContainer").style.display = "block";
-            } else {
-                document.getElementById("sizeContainer").style.display = "none";
-            }
-            
-            document.getElementById("availableModal").style.display = "block";  // Show modal
-        }
+        <!-- JavaScript to handle the modal and cart functionality -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+        <script>
+            let cartCount = 0;
+            let cartItems = [];
+            let totalAmount = 0;
+            let maxQuantity = 0;
+            let slideIndex = 0;
+            showSlides(slideIndex);
 
-        function closeModal() {
-            document.getElementById("availableModal").style.display = "none";  // Hide modal
-        }
-
-        function buyNow() {
-            const size = document.getElementById("sizeContainer").style.display === "block" ? document.getElementById("sizeSelect").value : null;
-            const quantity = parseInt(document.getElementById("quantity").value);
-            const productName = document.getElementById("caption").innerHTML;
-            const price = parseInt(document.getElementById("productPrice").innerText.replace('Price: ₱', ''));
-            const quantityError = document.getElementById("quantityError");
-
-            if (quantity > maxQuantity) {
-                quantityError.innerText = `Maximum quantity for ${productName} is ${maxQuantity}.`;
-                quantityError.style.display = "block";
-                return;
-            } else {
-                quantityError.style.display = "none";
+            function openModal(imageSrc, productName, price, requiresSize, maxQty) {
+                document.getElementById("modalImage").src = imageSrc;
+                document.getElementById("caption").innerHTML = productName;
+                document.getElementById("productPrice").innerHTML = "Price: ₱" + price;
+                maxQuantity = maxQty;  // Set the max quantity for the product
+                
+                if (requiresSize) {
+                    document.getElementById("sizeContainer").style.display = "block";
+                } else {
+                    document.getElementById("sizeContainer").style.display = "none";
+                }
+                
+                document.getElementById("availableModal").style.display = "block";  // Show modal
             }
 
-            cartCount += quantity;
-            totalAmount += price * quantity;
-            document.getElementById("cartCount").innerText = cartCount;
-
-            cartItems.push({ productName, price, size, quantity });
-            closeModal();  // Close the modal after adding to cart
-        }
-
-        function viewCart() {
-            const cartItemsContainer = document.getElementById("cartItems");
-            cartItemsContainer.innerHTML = ''; 
-
-            cartItems.forEach(item => {
-                const cartItemDiv = document.createElement("div");
-                cartItemDiv.classList.add("cart-item");
-                cartItemDiv.innerHTML = `
-                    <p>${item.productName} - ₱${item.price} x ${item.quantity}${item.size ? ' (Size: ' + item.size + ')' : ''}</p>
-                `;
-                cartItemsContainer.appendChild(cartItemDiv);
-            });
-
-            document.getElementById("totalAmount").innerText = totalAmount;
-            document.getElementById("cartModal").style.display = "block";  // Show cart modal
-        }
-
-        function closeCartModal() {
-            document.getElementById("cartModal").style.display = "none";  // Hide cart modal
-        }
-
-        function checkout() {
-            if (cartItems.length === 0) {
-                alert("Your cart is empty!");
-                return;
+            function closeModal() {
+                document.getElementById("availableModal").style.display = "none";  // Hide modal
             }
-            
-            // Simulate generating a random QR code for payment
-            const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PaymentAmount:${totalAmount}`;
-            document.getElementById("paymentQRCode").src = qrCodeUrl;
-            
-            // Show payment modal
-            document.getElementById("paymentModal").style.display = "block";
-            
-            // For now, let's simulate checkout with an alert
-            let itemList = cartItems.map(item => 
-                `${item.productName} (₱${item.price} x ${item.quantity}${item.size ? ', Size: ' + item.size : ''})`
-            ).join('\n');
 
-            alert(`Thank you for your purchase! Here is your order summary:\n\n${itemList}\n\nTotal Amount: ₱${totalAmount}`);
-            
-            // After successful checkout, clear the cart
-            cartCount = 0;
-            totalAmount = 0;
-            cartItems = [];
-            
-            document.getElementById("cartCount").innerText = cartCount;
-            document.getElementById("totalAmount").innerText = totalAmount;
-            document.getElementById("cartItems").innerHTML = '';  // Clear the cart items in the modal
-            
-            // Close the cart modal after checkout
-            closeCartModal();
-        }
+            function buyNow() {
+                const size = document.getElementById("sizeContainer").style.display === "block" ? document.getElementById("sizeSelect").value : null;
+                const quantity = parseInt(document.getElementById("quantity").value);
+                const productName = document.getElementById("caption").innerHTML;
+                const price = parseInt(document.getElementById("productPrice").innerText.replace('Price: ₱', ''));
+                const quantityError = document.getElementById("quantityError");
 
-        function closePaymentModal() {
-            document.getElementById("paymentModal").style.display = "none";  // Hide payment modal
-        }
+                if (quantity > maxQuantity) {
+                    quantityError.innerText = `Maximum quantity for ${productName} is ${maxQuantity}.`;
+                    quantityError.style.display = "block";
+                    return;
+                } else {
+                    quantityError.style.display = "none";
+                }
 
-        function searchProducts() {
-            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+                cartCount += quantity;
+                totalAmount += price * quantity;
+                document.getElementById("cartCount").innerText = cartCount;
 
-            // Target both the available and recommended items
-            const availableProducts = document.querySelectorAll(".available-section .product-item");
-            const recommendedProducts = document.querySelectorAll(".recommendations .product-item");
+                cartItems.push({ productName, price, size, quantity });
+                closeModal();  // Close the modal after adding to cart
+            }
 
-            let productFound = false;
+            function viewCart() {
+                const cartItemsContainer = document.getElementById("cartItems");
+                cartItemsContainer.innerHTML = ''; 
 
-            // Function to open the modal if a match is found
-            function tryOpenModal(product) {
-                const productName = product.querySelector("p").innerText.toLowerCase();
-                if (productName.includes(searchInput)) {
-                    const imageSrc = product.querySelector("img").src;
-                    const price = product.getAttribute('data-price'); // Add 'data-price' attribute to your HTML for prices
-                    const requiresSize = product.getAttribute('data-requires-size') === 'true';
-                    const maxQty = product.getAttribute('data-max-qty') || 10; // Set max quantity or default
+                cartItems.forEach(item => {
+                    const cartItemDiv = document.createElement("div");
+                    cartItemDiv.classList.add("cart-item");
+                    cartItemDiv.innerHTML = `
+                        <p>${item.productName} - ₱${item.price} x ${item.quantity}${item.size ? ' (Size: ' + item.size + ')' : ''}</p>
+                    `;
+                    cartItemsContainer.appendChild(cartItemDiv);
+                });
 
-                    openModal(imageSrc, product.querySelector("p").innerText, price, requiresSize, maxQty);
-                    productFound = true;
+                document.getElementById("totalAmount").innerText = totalAmount;
+                document.getElementById("cartModal").style.display = "block";  // Show cart modal
+            }
+
+            function closeCartModal() {
+                document.getElementById("cartModal").style.display = "none";  // Hide cart modal
+            }
+
+            function checkout() {
+                if (cartItems.length === 0) {
+                    alert("Your cart is empty!");
+                    return;
+                }
+                
+                // Simulate generating a random QR code for payment
+                const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PaymentAmount:${totalAmount}`;
+                document.getElementById("paymentQRCode").src = qrCodeUrl;
+                
+                // Show payment modal
+                document.getElementById("paymentModal").style.display = "block";
+                
+                // For now, let's simulate checkout with an alert
+                let itemList = cartItems.map(item => 
+                    `${item.productName} (₱${item.price} x ${item.quantity}${item.size ? ', Size: ' + item.size : ''})`
+                ).join('\n');
+
+                alert(`Thank you for your purchase! Here is your order summary:\n\n${itemList}\n\nTotal Amount: ₱${totalAmount}`);
+                
+                // After successful checkout, clear the cart
+                cartCount = 0;
+                totalAmount = 0;
+                cartItems = [];
+                
+                document.getElementById("cartCount").innerText = cartCount;
+                document.getElementById("totalAmount").innerText = totalAmount;
+                document.getElementById("cartItems").innerHTML = '';  // Clear the cart items in the modal
+                
+                // Close the cart modal after checkout
+                closeCartModal();
+            }
+
+            function closePaymentModal() {
+                document.getElementById("paymentModal").style.display = "none";  // Hide payment modal
+            }
+
+            function searchProducts() {
+                const searchInput = document.getElementById("searchInput").value.toLowerCase();
+
+                // Target both the available and recommended items
+                const availableProducts = document.querySelectorAll(".available-section .product-item");
+                const recommendedProducts = document.querySelectorAll(".recommendations .product-item");
+
+                let productFound = false;
+
+                // Function to open the modal if a match is found
+                function tryOpenModal(product) {
+                    const productName = product.querySelector("p").innerText.toLowerCase();
+                    if (productName.includes(searchInput)) {
+                        const imageSrc = product.querySelector("img").src;
+                        const price = product.getAttribute('data-price'); // Add 'data-price' attribute to your HTML for prices
+                        const requiresSize = product.getAttribute('data-requires-size') === 'true';
+                        const maxQty = product.getAttribute('data-max-qty') || 10; // Set max quantity or default
+
+                        openModal(imageSrc, product.querySelector("p").innerText, price, requiresSize, maxQty);
+                        productFound = true;
+                    }
+                }
+
+                // Search through available products
+                availableProducts.forEach(product => {
+                    tryOpenModal(product);
+                });
+
+                // If not found, search through recommended products
+                if (!productFound) {
+                    recommendedProducts.forEach(product => {
+                        tryOpenModal(product);
+                    });
+                }
+
+                if (!productFound) {
+                    alert("Product not found!"); // Alert if no product matches the search term
                 }
             }
 
-            // Search through available products
-            availableProducts.forEach(product => {
-                tryOpenModal(product);
+                // Redirect users if they are not logged in
+                document.addEventListener("DOMContentLoaded", function() {
+                const userRole = localStorage.getItem('userRole');
+                    if (!userRole) {
+                    window.location.href = 'login.html'; // Redirect to login if no role is found
+                } else if (userRole === 'admin') {
+                    alert('You are logged in as an Admin. You will be redirected to the admin panel.');
+                    window.location.href = 'admin.html'; // Redirect to admin page for admins
+                }
             });
 
-            // If not found, search through recommended products
-            if (!productFound) {
-                recommendedProducts.forEach(product => {
-                    tryOpenModal(product);
-                });
+            // News slider functionality
+            function showSlides(n) {
+            let slides = document.getElementsByClassName("news-slide");
+            if (n >= slides.length) {
+                slideIndex = 0; // Reset to the first slide
             }
+            if (n < 0) {
+                slideIndex = slides.length - 1; // Go to the last slide
+            }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none"; // Hide all slides
+            }
+            slides[slideIndex].style.display = "block"; // Show the current slide
+        }
 
-            if (!productFound) {
-                alert("Product not found!"); // Alert if no product matches the search term
+        function moveSlide(n) {
+            slideIndex += n;
+            showSlides(slideIndex);
+        }
+
+        // Optional: Auto slide every 5 seconds
+        setInterval(function() {
+            moveSlide(1); // Move to the next slide every 5 seconds
+        }, 3000);
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById("profileDropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        function viewProfile() {
+            alert("This would show the user's profile.");
+            // Optionally redirect to a profile page
+            // window.location.href = 'profile.html';
+        }
+        
+        // Hide dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.user-icon')) {
+                const dropdown = document.getElementById("profileDropdown");
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                }
             }
         }
 
-            // Redirect users if they are not logged in
-            document.addEventListener("DOMContentLoaded", function() {
-            const userRole = localStorage.getItem('userRole');
-                if (!userRole) {
-                window.location.href = 'login.html'; // Redirect to login if no role is found
-            } else if (userRole === 'admin') {
-                alert('You are logged in as an Admin. You will be redirected to the admin panel.');
-                window.location.href = 'admin.html'; // Redirect to admin page for admins
+        function logout() {
+            localStorage.removeItem('userRole');
+            window.location.href = 'login.html';
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = 'login.html';
             }
         });
 
-        // News slider functionality
-        function showSlides(n) {
-        let slides = document.getElementsByClassName("news-slide");
-        if (n >= slides.length) {
-            slideIndex = 0; // Reset to the first slide
-        }
-        if (n < 0) {
-            slideIndex = slides.length - 1; // Go to the last slide
-        }
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none"; // Hide all slides
-        }
-        slides[slideIndex].style.display = "block"; // Show the current slide
-    }
+        // Load the profile info when the page loads
+        loadProfile();
 
-    function moveSlide(n) {
-        slideIndex += n;
-        showSlides(slideIndex);
-    }
-
-    // Optional: Auto slide every 5 seconds
-    setInterval(function() {
-        moveSlide(1); // Move to the next slide every 5 seconds
-    }, 3000);
-
-    function toggleProfileDropdown() {
-        const dropdown = document.getElementById("profileDropdown");
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-    }
-
-    function viewProfile() {
-        alert("This would show the user's profile.");
-        // Optionally redirect to a profile page
-        // window.location.href = 'profile.html';
-    }
-
-    function logout() {
-        localStorage.removeItem('token');
-        window.location.href = 'login.html';
-    }
-
-    // Hide dropdown when clicking outside
-    window.onclick = function(event) {
-        if (!event.target.matches('.user-icon')) {
-            const dropdown = document.getElementById("profileDropdown");
-            if (dropdown.style.display === "block") {
-                dropdown.style.display = "none";
-            }
-        }
-    }
-
-    function logout() {
-        localStorage.removeItem('userRole');
-        window.location.href = 'login.html';
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const token = localStorage.getItem('token');
-        if (!token) {
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('role');
             window.location.href = 'login.html';
         }
-    });
-
-    async function loadProfile() {
-        const token = localStorage.getItem('token');
-        try {
-            const response = await fetch('http://localhost:3000/profile', {
-                headers: { 'x-access-token': token }
-            });
-
-            const data = await response.text();
-            document.getElementById('profileInfo').innerText = data;
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
-
-    async function loadProfile() {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            window.location.href = 'login.html';
-        }
-
-        try {
-            const response = await fetch('http://localhost:3000/profile', {
-                headers: { 'x-access-token': token }
-            });
-            const data = await response.text();
-            document.getElementById('profileInfo').innerText = data;
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
-
-    // Load the profile info when the page loads
-    loadProfile();
-
-    function logout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('role');
-        window.location.href = 'login.html';
-    }
-    </script>
-</body>
-</html>
+        </script>
+    </body>
+    </html>

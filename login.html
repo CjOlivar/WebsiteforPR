@@ -4,52 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="styles2.css"> <!-- Link to your existing CSS -->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <!-- Login Form -->
+
     <div class="login-container">
         <h2>Login</h2>
-        <form id="loginForm">
-            <label for="username">Username:</label>
-            <input type="text" id="username" placeholder="Enter your username" required>
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" placeholder="Enter your password" required>
-
-            <button type="submit">Login</button>
-        </form>
-
-        <p id="loginError" style="color: red; display: none;">Invalid username or password!</p>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="login()">Login</button>
+        <p id="error" style="color: red; display: none;"></p>
     </div>
 
     <script>
-    document.getElementById('loginForm').addEventListener('submit', async function(event) {
-        event.preventDefault(); // Prevent the form from submitting
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
 
-        try {
-            const response = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
-            });
-
-            const data = await response.json();
-            if (data.token) {
-                localStorage.setItem('token', data.token); // Store the token if needed
-                localStorage.setItem('userRole', data.role); // Change 'role' to 'userRole' for consistency
-                alert('Login successful!');
-                window.location.href = data.role === 'admin' ? 'admin.html' : 'websitedemo.html'; // Ensure proper redirection
+            // Simple validation (replace with your actual validation logic)
+            if (username === "admin" && password === "admin123") {
+                localStorage.setItem("userRole", "admin");
+                window.location.href = "admin.html"; // Redirect to home page after successful login
+            } else if (username === "user" && password === "user123") {
+                localStorage.setItem("userRole", "user");
+                window.location.href = "websitedemo.html"; // Redirect to home page for regular users
             } else {
-                document.getElementById('loginError').style.display = 'block'; // Show error message
-                alert('Invalid credentials');
+                document.getElementById("error").innerText = "Invalid username or password!";
+                document.getElementById("error").style.display = "block";
             }
-        } catch (error) {
-            console.error('Error:', error);
         }
-    });
     </script>
 </body>
 </html>
