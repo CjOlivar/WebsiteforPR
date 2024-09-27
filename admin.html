@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <a href="https://www.sti.edu" target="_blank">
+                    <img src="stilogo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="title">Admin Panel</div>
+        </div>
+    </header>
+
+    <!-- Admin Features Section -->
+    <section class="admin-section">
+        <h2>Admin Features</h2>
+        <div class="admin-features">
+            <button onclick="viewOrders()">View Orders</button>
+            <button onclick="manageProducts()">Manage Products</button>
+            <button onclick="viewUsers()">View Users</button>
+            <button onclick="generateReports()">Generate Reports</button>
+        </div>
+    </section>
+
+    <!-- Modal for Viewing Orders -->
+    <div id="ordersModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOrdersModal()">&times;</span>
+            <h2>Orders</h2>
+            <div id="ordersList"></div>
+        </div>
+    </div>
+
+    <!-- Modal for Managing Products -->
+    <div id="productsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeProductsModal()">&times;</span>
+            <h2>Manage Products</h2>
+            <div id="productsList"></div>
+        </div>
+    </div>
+
+    <!-- Modal for Viewing Users -->
+    <div id="usersModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeUsersModal()">&times;</span>
+            <h2>Users</h2>
+            <div id="usersList"></div>
+        </div>
+    </div>
+
+    <!-- Modal for Generating Reports -->
+    <div id="reportsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeReportsModal()">&times;</span>
+            <h2>Generate Reports</h2>
+            <p>Reports generation functionality will be here.</p>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+    </footer>
+
+    <!-- JavaScript to handle the modal functionality -->
+    <script>
+        // Function to view orders
+        function viewOrders() {
+            document.getElementById("ordersList").innerHTML = "Fetching orders..."; // Placeholder
+            document.getElementById("ordersModal").style.display = "block";
+            // Logic to fetch and display orders goes here
+        }
+
+        function closeOrdersModal() {
+            document.getElementById("ordersModal").style.display = "none";  // Hide orders modal
+        }
+
+        // Function to manage products
+        function manageProducts() {
+            document.getElementById("productsList").innerHTML = "Fetching products..."; // Placeholder
+            document.getElementById("productsModal").style.display = "block";
+            // Logic to fetch and display products goes here
+        }
+
+        function closeProductsModal() {
+            document.getElementById("productsModal").style.display = "none";  // Hide products modal
+        }
+
+        // Function to view users
+        function viewUsers() {
+            document.getElementById("usersList").innerHTML = "Fetching users..."; // Placeholder
+            document.getElementById("usersModal").style.display = "block";
+            // Logic to fetch and display users goes here
+        }
+
+        function closeUsersModal() {
+            document.getElementById("usersModal").style.display = "none";  // Hide users modal
+        }
+
+        // Function to generate reports
+        function generateReports() {
+            document.getElementById("reportsModal").style.display = "block";
+            // Logic to generate reports goes here
+        }
+
+        function closeReportsModal() {
+            document.getElementById("reportsModal").style.display = "none";  // Hide reports modal
+        }
+
+        // Redirect users if they are not logged in
+        document.addEventListener("DOMContentLoaded", function() {
+            const userRole = localStorage.getItem('userRole');
+            if (!userRole || userRole !== 'admin') {
+                alert('You are not authorized to view this page.');
+                window.location.href = 'login.html'; // Redirect to login if not admin
+            }
+        });
+    </script>
+</body>
+</html>
