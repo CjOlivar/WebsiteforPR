@@ -4,73 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" href="styles2.css"> <!-- Link to your existing CSS -->
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f2f2f2;
-        }
-        .login-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            margin-bottom: 20px;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="styles2.css">
 </head>
 <body>
-
+    <!-- Login Form -->
     <div class="login-container">
         <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button onclick="login()">Login</button>
-        <p id="error" style="color: red; display: none;"></p>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Enter your username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p id="loginError" style="color: red; display: none;">Invalid username or password!</p>
     </div>
 
     <script>
-        function login() {
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loginError = document.getElementById('loginError');
 
-            // Simple validation (replace with your actual validation logic)
-            if (username === "admin" && password === "admin123") {
-                localStorage.setItem("userRole", "admin");
-                window.location.href = "admin.html"; // Redirect to home page after successful login
-            } else if (username === "user" && password === "user123") {
-                localStorage.setItem("userRole", "user");
-                window.location.href = "websitedemo.html"; // Redirect to home page for regular users
+            // Mock user database for demo (replace with backend auth in real application)
+            const users = {
+                admin: { password: 'admin123', role: 'admin' },
+                customer: { password: 'customer123', role: 'customer' }
+            };
+
+            if (users[username] && users[username].password === password) {
+                // Store the role in localStorage for later use
+                localStorage.setItem('userRole', users[username].role);
+                window.location.href = users[username].role === 'admin' ? 'admin.html' : 'index.html';
             } else {
-                document.getElementById("error").innerText = "Invalid username or password!";
-                document.getElementById("error").style.display = "block";
+                loginError.style.display = 'block';
             }
-        }
+        });
     </script>
 </body>
 </html>

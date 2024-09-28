@@ -370,47 +370,22 @@
             moveSlide(1); // Move to the next slide every 5 seconds
         }, 3000);
 
-        function toggleProfileDropdown() {
-            const dropdown = document.getElementById("profileDropdown");
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    // Redirect users if they are not logged in
+    document.addEventListener("DOMContentLoaded", function() {
+        const userRole = localStorage.getItem('userRole');
+        if (!userRole) {
+            window.location.href = 'login.html'; // Redirect to login if no role is found
+        } else if (userRole === 'admin') {
+            alert('You are logged in as an Admin. You will be redirected to the admin panel.');
+            window.location.href = 'admin.html'; // Redirect to admin page for admins
         }
+    });
 
-        function viewProfile() {
-            alert("This would show the user's profile.");
-            // Optionally redirect to a profile page
-            // window.location.href = 'profile.html';
-        }
-        
-        // Hide dropdown when clicking outside
-        window.onclick = function(event) {
-            if (!event.target.matches('.user-icon')) {
-                const dropdown = document.getElementById("profileDropdown");
-                if (dropdown.style.display === "block") {
-                    dropdown.style.display = "none";
-                }
-            }
-        }
+    function logout() {
+        localStorage.removeItem('userRole');
+        window.location.href = 'login.html';
+    }
 
-        function logout() {
-            localStorage.removeItem('userRole');
-            window.location.href = 'login.html';
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                window.location.href = 'login.html';
-            }
-        });
-
-        // Load the profile info when the page loads
-        loadProfile();
-
-        function logout() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('role');
-            window.location.href = 'login.html';
-        }
         </script>
     </body>
     </html>
