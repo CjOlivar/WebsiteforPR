@@ -33,13 +33,13 @@
             // Mock user database for demo (replace with backend auth in real application)
             const users = {
                 admin: { password: 'admin123', role: 'admin' },
-                customer: { password: 'customer123', role: 'customer' }
+                user: { password: 'user123', role: 'user' }
             };
 
             if (users[username] && users[username].password === password) {
                 // Store the role in localStorage for later use
                 localStorage.setItem('userRole', users[username].role);
-                window.location.href = users[username].role === 'admin' ? 'admin.html' : 'index.html';
+                window.location.href = users[username].role === 'admin' ? 'admin.html' : 'websitedemo.html';
             } else {
                 loginError.style.display = 'block';
             }
