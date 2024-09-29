@@ -19,6 +19,15 @@
             </div>
             <div class="title">Admin Dashboard</div>
         </div>
+                <!-- User Profile Icon -->
+                <div class="profile-container">
+                    <img src="usericon.png" alt="User Icon" class="user-icon" onclick="toggleProfileDropdown()">
+                    <!-- Profile Dropdown -->
+                    <div id="profileDropdown" class="profile-dropdown">
+                        <a href="#" onclick="viewProfile()">Profile</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div> 
     </header>
 
     <!-- Admin Features Section -->
@@ -91,20 +100,26 @@
 
         // Add product function
         document.getElementById('productForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
-            const productName = document.getElementById('productName').value;
-            const productPrice = document.getElementById('productPrice').value;
-            const productImage = document.getElementById('productImage').value;
+        event.preventDefault(); // Prevent form submission
+        const productName = document.getElementById('productName').value.trim();
+        const productPrice = document.getElementById('productPrice').value.trim();
+        const productImage = document.getElementById('productImage').value.trim();
+    
+        // Ensure all fields are filled
+        if (!productName || !productPrice || !productImage) {
+            alert("Please fill out all fields");
+            return;
+        }
 
-            // Create new product item
-            const productItemsList = document.getElementById('productItems');
-            const newItem = document.createElement('li');
-            newItem.innerHTML = `${productName} - ₱${productPrice} <img src="${productImage}" alt="${productName}" style="width: 50px;">`;
-            productItemsList.appendChild(newItem);
+        // Create new product item
+        const productItemsList = document.getElementById('productItems');
+        const newItem = document.createElement('li');
+        newItem.innerHTML = `${productName} - ₱${productPrice} <img src="${productImage}" alt="${productName}" style="width: 50px;">`;
+        productItemsList.appendChild(newItem);
 
-            // Clear form fields
-            document.getElementById('productForm').reset();
-        });
+        // Clear form fields
+        document.getElementById('productForm').reset();
+    });
 
         // Simulated view user activity function
         function viewUserActivity() {
@@ -142,6 +157,25 @@
             function logout() {
             localStorage.removeItem('userRole');
             window.location.href = 'login.html';
+        }
+
+        function toggleProfileDropdown() {
+        const dropdown = document.getElementById("profileDropdown");
+        dropdown.classList.toggle("show");
+        }
+
+         function viewProfile() {
+        alert("This would show the user's profile.");
+        // Optionally redirect to a profile page
+        // window.location.href = 'profile.html';
+        }
+
+            // Hide dropdown when clicking outside
+            window.onclick = function(event) {
+            if (!event.target.closest('.user-icon')) {
+            const dropdown = document.getElementById("profileDropdown");
+            dropdown.classList.remove("show");
+            }
         }
     </script>
 </body>

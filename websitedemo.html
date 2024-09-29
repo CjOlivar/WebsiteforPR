@@ -32,7 +32,7 @@
         </div>
         <!-- User Profile Icon -->
         <div class="profile-container">
-            <img src="user-icon.png" alt="User Icon" class="user-icon" onclick="toggleProfileDropdown()">
+            <img src="usericon.png" alt="User Icon" class="user-icon" onclick="toggleProfileDropdown()" aria-label="User Profile Menu">
             <!-- Profile Dropdown -->
             <div id="profileDropdown" class="profile-dropdown">
                 <a href="#" onclick="viewProfile()">Profile</a>
@@ -270,7 +270,7 @@
                 // Show payment modal
                 document.getElementById("paymentModal").style.display = "block";
                 
-                // For now, let's simulate checkout with an alert
+                // simulate checkout with an alert
                 let itemList = cartItems.map(item => 
                     `${item.productName} (₱${item.price} x ${item.quantity}${item.size ? ', Size: ' + item.size : ''})`
                 ).join('\n');
@@ -375,9 +375,9 @@
         const dropdown = document.getElementById("profileDropdown");
         dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
     }
-    function viewProfile() {
+         function viewProfile() {
         alert("This would show the user's profile.");
-        // Optionally redirect to a profile page
+        // Optionally redirect to a profile page    
         // window.location.href = 'profile.html';
     }
 
