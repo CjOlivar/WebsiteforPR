@@ -93,23 +93,6 @@ nav a:hover {
     box-shadow: 0 0 8px rgba(243, 156, 18, 0.8); /* Glow effect on focus */
 }
 
-.search-bar button {
-    padding: 10px 20px;
-    margin-left: 10px;
-    background-color: #f39c12;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-
-.search-bar button:hover {
-    background-color: #e67e22;
-    transform: scale(1.05); /* Slightly enlarges the button on hover */
-}
-
 .recommendations {
     padding: 20px;
     background-color: #fff;
@@ -394,6 +377,64 @@ footer .social-media a img {
     animation: zoomIn 0.5s ease-in-out; /* Smooth modal content zoom-in */
 }
 
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #ddd; /* Light border for options */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 10px; /* Space between options */
+    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+}
+
+.payment-option:hover {
+    background-color: #f8f8f8; /* Background change on hover */
+    border-color: #bbb; /* Darker border on hover */
+}
+
+.payment-icon {
+    width: 30px; /* Set icon size */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between icon and text */
+}
+
+.payment-subtext {
+    font-size: 12px; /* Smaller font for subtext */
+    color: #777; /* Subtle color for subtext */
+    margin-top: 2px; /* Space above subtext */
+}
+
+/* Horizontal rule style */
+hr {
+    margin: 10px 0; /* Space above and below the line */
+    border: none; /* Remove default border */
+    border-top: 1px solid #ddd; /* Add custom top border */
+}
+
+/* Close Button Style */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #f39c12;
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #e74c3c;
+    transform: scale(1.1);
+}
+
 .modalImage {
     width: 100%;
     border-radius: 8px;
@@ -496,6 +537,7 @@ footer .social-media a img {
     background-color: #0056b3;
 }
 
+
 @media (max-width: 768px) {
     #item-list-section {
         margin: 10px;
@@ -587,18 +629,6 @@ footer .social-media a img {
         max-height: 90%;
     }
 }
-
-/* Center QR Code in the Payment Modal */
-#paymentModal .modal-content {
-    text-align: center; /* Center content */
-}
-
-#paymentQRCode {
-    display: inline-block; /* Center the image within the content */
-    margin: 0 auto; /* Center align image */
-}
-
-
 
 /* Profile Icon Styles */
 .profile-container {

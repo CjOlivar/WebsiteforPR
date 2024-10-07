@@ -7,6 +7,10 @@
 
     <!-- Link to external CSS file -->
     <link rel="stylesheet" href="styles2.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-qrcode/1.0/jquery.qrcode.min.js"></script>
+    
+
 </head>
 <body>
 
@@ -20,10 +24,10 @@
             </div>
             <div class="title">uniSTIque</div>
         </div>
+
     <!-- Search Bar and Cart -->
     <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search for products...">
-        <button onclick="searchProducts()">Search</button>
+        <input type="text" id="searchInput" placeholder="Search for products..." />
     </div>
     
     <div class="cart-container">
@@ -141,18 +145,46 @@
         </div>
     </div>
 
-    <!-- Modal for Shopping Cart -->
-    <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeCartModal()">&times;</span>
-            <h2>Shopping Cart</h2>
-            <div id="cartItems"></div>
-            <div id="cartTotal">
-                <p>Total: ₱<span id="totalAmount">0</span></p>
-            </div>
-            <button class="cta-button" onclick="checkout()">Checkout</button>
+<!-- Modal for Shopping Cart -->
+<div id="cartModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeCartModal()">&times;</span>
+        <h2>Shopping Cart</h2>
+        <div id="cartItems"></div>
+        <div id="cartTotal">
+            <p>Total: ₱<span id="totalAmount">0</span></p>
         </div>
+        <button class="cta-button" onclick="checkout()">Checkout</button>
     </div>
+</div>
+
+<!-- Payment Modal -->
+<div id="paymentModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closePaymentModal()">&times;</span>
+        <h2>Select Payment Method</h2>
+        <div class="payment-methods">
+            <div class="payment-option" onclick="selectPaymentMethod('gcash')">
+                <img src="gcash-logo.png" alt="GCash" class="payment-icon">
+                <span>GCash</span>
+            </div>
+            <div class="payment-option" onclick="selectPaymentMethod('credit_card')">
+                <img src="creditcard-icon.png" alt="Credit Card" class="payment-icon">
+                <span>Credit Card</span>
+            </div>
+            <div class="payment-option" onclick="selectPaymentMethod('paymaya')">
+                <img src="PayMaya-Logo.png" alt="PayMaya" class="payment-icon">
+                <span>PayMaya</span>
+            </div>
+            <div class="payment-option" onclick="selectPaymentMethod('qr_code')">
+                <img src="qr-code.png" alt="QR Code" class="payment-icon">
+                <span>QR Code</span>
+            </div>
+        </div>
+        <div id="paymentDetails"></div>
+    </div>
+    <div id="qrCodeContainer" style="margin-top: 20px;"></div>
+</div>
 
     <!-- Modal for Profile -->
 <div id="profileModal" class="modal">
@@ -165,16 +197,6 @@
         <!-- Add more profile details here if needed -->
     </div>
 </div>
-
-    <!-- Modal for Payment QR Code -->
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closePaymentModal()">&times;</span>
-            <h2>Payment</h2>
-            <p>Scan the QR code below to complete your payment:</p>
-            <img id="paymentQRCode" src="" alt="QR Code">
-        </div>
-    </div>
 
     <!-- Footer Section -->
     <footer>
@@ -195,233 +217,6 @@
         </div>
     </footer>
 
-    <!-- JavaScript to handle the modal and cart functionality -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-    <script>
-        let cartCount = 0;
-        let cartItems = [];
-        let totalAmount = 0;
-        let maxQuantity = 0;
-        let slideIndex = 0;
-        showSlides(slideIndex);
-
-        function openModal(imageSrc, productName, price, requiresSize, maxQty) {
-            document.getElementById("modalImage").src = imageSrc;
-            document.getElementById("caption").innerHTML = productName;
-            document.getElementById("productPrice").innerHTML = "Price: ₱" + price;
-            maxQuantity = maxQty;  // Set the max quantity for the product
-            
-            if (requiresSize) {
-                document.getElementById("sizeContainer").style.display = "block";
-            } else {
-                document.getElementById("sizeContainer").style.display = "none";
-            }
-            
-            document.getElementById("availableModal").style.display = "block";  // Show modal
-        }
-
-        function closeModal() {
-            document.getElementById("availableModal").style.display = "none";  // Hide modal
-        }
-
-        function buyNow() {
-            const size = document.getElementById("sizeContainer").style.display === "block" ? document.getElementById("sizeSelect").value : null;
-            const quantity = parseInt(document.getElementById("quantity").value);
-            const productName = document.getElementById("caption").innerHTML;
-            const price = parseInt(document.getElementById("productPrice").innerText.replace('Price: ₱', ''));
-            const quantityError = document.getElementById("quantityError");
-
-            if (quantity > maxQuantity) {
-                quantityError.innerText = `Maximum quantity for ${productName} is ${maxQuantity}.`;
-                quantityError.style.display = "block";
-                return;
-            } else {
-                quantityError.style.display = "none";
-            }
-
-            cartCount += quantity;
-            totalAmount += price * quantity;
-            document.getElementById("cartCount").innerText = cartCount;
-
-            cartItems.push({ productName, price, size, quantity });
-            closeModal();  // Close the modal after adding to cart
-        }
-
-        function viewCart() {
-            const cartItemsContainer = document.getElementById("cartItems");
-            cartItemsContainer.innerHTML = ''; 
-
-            cartItems.forEach(item => {
-                const cartItemDiv = document.createElement("div");
-                cartItemDiv.classList.add("cart-item");
-                cartItemDiv.innerHTML = `
-                    <p>${item.productName} - ₱${item.price} x ${item.quantity}${item.size ? ' (Size: ' + item.size + ')' : ''}</p>
-                `;
-                cartItemsContainer.appendChild(cartItemDiv);
-            });
-
-            document.getElementById("totalAmount").innerText = totalAmount;
-            document.getElementById("cartModal").style.display = "block";  // Show cart modal
-        }
-
-        function closeCartModal() {
-            document.getElementById("cartModal").style.display = "none";  // Hide cart modal
-        }
-
-        function checkout() {
-            if (cartItems.length === 0) {
-                alert("Your cart is empty!");
-                return;
-            }
-            
-            // Simulate generating a random QR code for payment
-            const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PaymentAmount:${totalAmount}`;
-            document.getElementById("paymentQRCode").src = qrCodeUrl;
-            
-            // Show payment modal
-            document.getElementById("paymentModal").style.display = "block";
-            
-            // simulate checkout with an alert
-            let itemList = cartItems.map(item => 
-                `${item.productName} (₱${item.price} x ${item.quantity}${item.size ? ', Size: ' + item.size : ''})`
-            ).join('\n');
-
-            alert(`Thank you for your purchase! Here is your order summary:\n\n${itemList}\n\nTotal Amount: ₱${totalAmount}`);
-            
-            // After successful checkout, clear the cart
-            cartCount = 0;
-            totalAmount = 0;
-            cartItems = [];
-            
-            document.getElementById("cartCount").innerText = cartCount;
-            document.getElementById("totalAmount").innerText = totalAmount;
-            document.getElementById("cartItems").innerHTML = '';  // Clear the cart items in the modal
-            
-            // Close the cart modal after checkout
-            closeCartModal();
-        }
-
-        function closePaymentModal() {
-            document.getElementById("paymentModal").style.display = "none";  // Hide payment modal
-        }
-
-        function searchProducts() {
-            const searchInput = document.getElementById("searchInput").value.toLowerCase();
-
-            // Target both the available and recommended items
-            const availableProducts = document.querySelectorAll(".available-section .product-item");
-            const recommendedProducts = document.querySelectorAll(".recommendations .product-item");
-
-            let productFound = false;
-
-            // Function to open the modal if a match is found
-            function tryOpenModal(product) {
-                const productName = product.querySelector("p").innerText.toLowerCase();
-                if (productName.includes(searchInput)) {
-                    const imageSrc = product.querySelector("img").src;
-                    const price = product.getAttribute('data-price'); // Add 'data-price' attribute to your HTML for prices
-                    const requiresSize = product.getAttribute('data-requires-size') === 'true';
-                    const maxQty = product.getAttribute('data-max-qty') || 10; // Set max quantity or default
-
-                    openModal(imageSrc, product.querySelector("p").innerText, price, requiresSize, maxQty);
-                    productFound = true;
-                }
-            }
-
-            // Search through available products
-            availableProducts.forEach(product => {
-                tryOpenModal(product);
-            });
-
-            // If not found, search through recommended products
-            if (!productFound) {
-                recommendedProducts.forEach(product => {
-                    tryOpenModal(product);
-                });
-            }
-
-            if (!productFound) {
-                alert("Product not found!"); // Alert if no product matches the search term
-            }
-        }
-
-            // Redirect users if they are not logged in
-            document.addEventListener("DOMContentLoaded", function() {
-            const userRole = localStorage.getItem('userRole');
-                if (!userRole) {
-                window.location.href = 'login.html'; // Redirect to login if no role is found
-            } else if (userRole === 'admin') {
-                alert('You are logged in as an Admin. You will be redirected to the admin panel.');
-                window.location.href = 'admin.html'; // Redirect to admin page for admins
-            }
-        });
-
-        // News slider functionality
-        function showSlides(n) {
-        let slides = document.getElementsByClassName("news-slide");
-        if (n >= slides.length) {
-            slideIndex = 0; // Reset to the first slide
-        }
-        if (n < 0) {
-            slideIndex = slides.length - 1; // Go to the last slide
-        }
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none"; // Hide all slides
-        }
-        slides[slideIndex].style.display = "block"; // Show the current slide
-    }
-
-    function moveSlide(n) {
-        slideIndex += n;
-        showSlides(slideIndex);
-    }
-
-    // Optional: Auto slide every 5 seconds
-    setInterval(function() {
-        moveSlide(1); // Move to the next slide every 5 seconds
-    }, 3000);
-
-
-    function toggleProfileDropdown() {
-    const dropdown = document.getElementById("profileDropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-}
-function openProfileModal() {
-    document.getElementById('profileModal').style.display = 'block';
-}
-
-function closeProfileModal() {
-    document.getElementById('profileModal').style.display = 'none';
-}
-
-        // Hide dropdown when clicking outside
-        window.onclick = function(event) {
-        if (!event.target.matches('.user-icon')) {
-            const dropdown = document.getElementById("profileDropdown");
-            if (dropdown.style.display === "block") {
-                dropdown.style.display = "none";
-            }
-        }
-        }
-
-
-// Redirect users if they are not logged in
-document.addEventListener("DOMContentLoaded", function() {
-    const userRole = localStorage.getItem('userRole');
-    if (!userRole) {
-        window.location.href = 'login.html'; // redirect to login if no role is found
-    } else if (userRole === 'admin') {
-        alert('You are logged in as an Admin. You will be redirected to the admin panel.');
-        window.location.href = 'admin.html'; // redirect to admin page for admins
-    }
-});
-
-function logout() {
-    localStorage.removeItem('userRole');
-    window.location.href = 'login.html';
-}
-
-    </script>
+    <script src="website.js"></script>
 </body>
 </html>

@@ -11,22 +11,22 @@
         <!-- Header with Image and Title -->
         <div class="login-header">
             <img src="stilogo.png" alt="Logo">
-            <h2>Login now</h2>
+            <h2>Login to uniSTIque</h2>
         </div>
         
         <!-- Form Fields -->
-        <form>
+        <form id="loginForm">
             <label for="username">Username</label>
-            <input type="text" id="username" placeholder="Enter your username">
+            <input type="text" id="username" placeholder="Enter your username" required>
             
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password">
+            <input type="password" id="password" placeholder="Enter your password" required>
             
             <button type="submit">Login</button>
         </form>
-    </div>
-    
-
+        
+        <p id="loginError" style="color: red; display: none;">Invalid username or password!</p>
+    </div>    
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting
