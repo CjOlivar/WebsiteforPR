@@ -1,9 +1,9 @@
 /* Background Image for Login Page */
 body {
-    background-image: url('path/to/your/background-image.jpg'); /* Update with the correct path */
-    background-size: cover; /* Cover the entire viewport */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat; /* Prevent repetition of the image */
+    background-image: url('portal.'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
 }
 
 /* Login Page Styling */
