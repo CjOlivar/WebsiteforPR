@@ -324,3 +324,6 @@ function logout() {
     localStorage.removeItem('userRole');
     window.location.href = 'login.html';
 }
+
+
+

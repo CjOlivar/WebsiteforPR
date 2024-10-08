@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <!-- Header with Image and Title -->
+        <div class="login-header">
+            <img src="./Images/stilogo.png" alt="Logo">
+            <h2>Sign Up for uniSTIque</h2>
+        </div>
+
+        <!-- Sign-Up Form Fields -->
+        <form id="signupForm">
+            <label for="identifier">Email or Username</label>
+            <input type="text" id="identifier" placeholder="Enter your email or username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter a password" required>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+
+            <fieldset>
+                <legend>Register as:</legend>
+                <label>
+                    <input type="radio" name="role" value="user" checked>
+                    User
+                </label>
+                <label>
+                    <input type="radio" name="role" value="admin">
+                    Admin
+                </label>
+            </fieldset>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <p id="signupError" style="color: red; display: none;">Error: Passwords do not match!</p>
+        <p id="signupSuccess" style="color: green; display: none;">Registration successful! You can now <a href="login.html">login</a>.</p>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting
+            const identifier = document.getElementById('identifier').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const signupError = document.getElementById('signupError');
+            const signupSuccess = document.getElementById('signupSuccess');
+
+            if (password !== confirmPassword) {
+                signupError.style.display = 'block';
+                signupSuccess.style.display = 'none';
+            } else {
+                signupError.style.display = 'none';
+
+                // storing user data in localStorage (or send to backend)
+                let users = JSON.parse(localStorage.getItem('users')) || {};
+                if (users[identifier]) {
+                    signupError.textContent = "Error: Email/Username already exists!";
+                    signupError.style.display = 'block';
+                } else {
+                    // Get the selected role from the radio buttons
+                    const role = document.querySelector('input[name="role"]:checked').value;
+                    users[identifier] = { password: password, role: role };
+                    localStorage.setItem('users', JSON.stringify(users));
+                    signupSuccess.style.display = 'block';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

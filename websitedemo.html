@@ -19,7 +19,7 @@
         <div class="logo-container">
             <div class="logo">
                 <a href="https://www.sti.edu" target="_blank">
-                    <img src="stilogo.png" alt="Logo">
+                    <img src="./Images/stilogo.png" alt="Logo">
                 </a>
             </div>
             <div class="title">uniSTIque</div>
@@ -31,29 +31,31 @@
     </div>
     
     <div class="cart-container">
-        <img src="shoppingcarticon.png" alt="Shopping Cart" class="cart-icon" onclick="viewCart()">
+        <img src="./Images/shoppingcarticon.png" alt="Shopping Cart" class="cart-icon" onclick="viewCart()">
         <span id="cartCount" class="cart-count">0</span>
     </div>
     <!-- User Profile Icon -->
     <div class="profile-container">
-        <img src="usericon.png" alt="User Icon" class="user-icon" onclick="toggleProfileDropdown()" aria-label="User Profile Menu">
+        <img src="./Images/usericon.png" alt="User Icon" class="user-icon" onclick="toggleProfileDropdown()" aria-label="User Profile Menu">
         <!-- Profile Dropdown -->
         <div id="profileDropdown" class="profile-dropdown">
-            <a href="#" onclick="openProfileModal()">Profile</a>
+            <a href="profile.html">Profile</a>
             <a href="#" onclick="logout()">Logout</a>
         </div>
-    </div>       
+        </div>
+    </div>
+    
     </header>
 
     <!-- Recommendations Section -->
     <section class="recommendations">
         <h2>Recommended for You</h2>
         <div class="recommendation product-item" data-price="200" data-requires-size="true" data-max-qty="10" onclick="openModal('daily-uniform.png', 'Daily Uniform', 200, true, 10)">
-            <img src="daily-uniform.png" alt="Recommended Product">
+            <img src="./Images/daily-uniform.png" alt="Recommended Product">
             <p>Daily Uniform</p>
         </div>
         <div class="recommendation product-item" data-price="250" data-requires-size="true" data-max-qty="10" onclick="openModal('pe-uniform.png', 'PE Uniform', 250, true, 10)">
-            <img src="pe-uniform.png" alt="Recommended Product">
+            <img src="./Images/pe-uniform.png" alt="Recommended Product">
             <p>PE Uniform</p>
         </div>
     </section>
@@ -62,20 +64,20 @@
         <section class="available-section"> 
             <h2>Available:</h2> 
             <div class="available-items"> 
-                <div class="product-item" data-price="200" data-requires-size="true" data-max-qty="10" onclick="openModal('daily-uniform.png', 'Daily Uniform', 200, true, 10)">
-                    <img src="daily-uniform.png" alt="Daily Uniform">
+                <div class="product-item" data-price="200" data-requires-size="true" data-max-qty="10" onclick="openModal('./Images/daily-uniform.png', 'Daily Uniform', 200, true, 10)">
+                    <img src="./Images/daily-uniform.png" alt="Daily Uniform">
                     <p>Daily Uniform</p>
                 </div>
-                <div class="product-item" data-price="40" data-requires-size="false" data-max-qty="10" onclick="openModal('id-lace.png', 'ID Lace', 40, false, 10)">
-                    <img src="id-lace.png" alt="ID Lace">
+                <div class="product-item" data-price="40" data-requires-size="false" data-max-qty="10" onclick="openModal('./Images/id-lace.png', 'ID Lace', 40, false, 10)">
+                    <img src="./Images/id-lace.png" alt="ID Lace">
                     <p>ID Lace</p>
                 </div>
-                <div class="product-item" data-price="250" data-requires-size="true" data-max-qty="10" onclick="openModal('pe-uniform.png', 'PE Uniform', 250, true, 10)">
-                    <img src="pe-uniform.png" alt="PE Uniform">
+                <div class="product-item" data-price="250" data-requires-size="true" data-max-qty="10" onclick="openModal('./Images/pe-uniform.png', 'PE Uniform', 250, true, 10)">
+                    <img src="./Images/pe-uniform.png" alt="PE Uniform">
                     <p>PE Uniform</p>
                 </div>
-                <div class="product-item" data-price="10" data-requires-size="false" data-max-qty="10" onclick="openModal('sti-pin.png', 'Pin', 10, false, 10)">
-                    <img src="sti-pin.png" alt="Pin">
+                <div class="product-item" data-price="10" data-requires-size="false" data-max-qty="10" onclick="openModal('./Images/sti-pin.png', 'Pin', 10, false, 10)">
+                    <img src="./Images/sti-pin.png" alt="Pin">
                     <p>Pin</p>
                 </div>
             </div>
@@ -86,7 +88,7 @@
     <h2>New Products</h2>
     <div class="news-slider">
         <div class="news-slide">
-            <img src="polo-shirt.png" alt="News Image 1">
+            <img src="./Images/polo-shirt.png" alt="News Image 1">
             <div class="news-info">
                 <h3>Alumni Poloshirt</h3>
                 <p>New Polo shirt in stock</p>
@@ -94,7 +96,7 @@
             </div>
         </div>
         <div class="news-slide">
-            <img src="grey-jacket.png" alt="News Image 2">
+            <img src="./Images/grey-jacket.png" alt="News Image 2">
             <div class="news-info">
                 <h3>Grey Hooded Jacket</h3>
                 <p>New Grey jacket in stock</p>
@@ -102,7 +104,7 @@
             </div>
         </div>
         <div class="news-slide">
-            <img src="blue-jacket.png" alt="News Image 3">
+            <img src="./Images/blue-jacket.png" alt="News Image 3">
             <div class="news-info">
                 <h3>Blue Hooded Jacket</h3>
                 <p>New Blue jacket in stock</p>
@@ -165,19 +167,19 @@
         <h2>Select Payment Method</h2>
         <div class="payment-methods">
             <div class="payment-option" onclick="selectPaymentMethod('gcash')">
-                <img src="gcash-logo.png" alt="GCash" class="payment-icon">
+                <img src="./Images/gcash-logo.png" alt="GCash" class="payment-icon">
                 <span>GCash</span>
             </div>
             <div class="payment-option" onclick="selectPaymentMethod('credit_card')">
-                <img src="creditcard-icon.png" alt="Credit Card" class="payment-icon">
+                <img src="./Images/creditcard-icon.png" alt="Credit Card" class="payment-icon">
                 <span>Credit Card</span>
             </div>
             <div class="payment-option" onclick="selectPaymentMethod('paymaya')">
-                <img src="PayMaya-Logo.png" alt="PayMaya" class="payment-icon">
+                <img src="./Images/portal.png" alt="PayMaya" class="payment-icon">
                 <span>PayMaya</span>
             </div>
             <div class="payment-option" onclick="selectPaymentMethod('qr_code')">
-                <img src="qr-code.png" alt="QR Code" class="payment-icon">
+                <img src="./Images/qr-code.png" alt="QR Code" class="payment-icon">
                 <span>QR Code</span>
             </div>
         </div>
@@ -206,13 +208,13 @@
         </div>
         <div class="social-media">
             <a href="https://www.facebook.com/calamba.sti.edu" target="_blank">
-                <img src="fbicon.png" alt="Facebook">
+                <img src="./Images/fbicon.png" alt="Facebook">
             </a>
             <a href="https://www.youtube.com/@STIdotEdu" target="_blank">
-                <img src="yticon.png" alt="YouTube">
+                <img src="./Images/yticon.png" alt="YouTube">
             </a>
             <a href="https://www.tiktok.com/@sti.edu" target="_blank">
-                <img src="tiktokicon.png" alt="TikTok">
+                <img src="./Images/tiktokicon.png" alt="TikTok">
             </a>
         </div>
     </footer>

@@ -10,14 +10,14 @@
     <div class="login-container">
         <!-- Header with Image and Title -->
         <div class="login-header">
-            <img src="stilogo.png" alt="Logo">
+            <img src="./Images/stilogo.png" alt="Logo">
             <h2>Login to uniSTIque</h2>
         </div>
         
         <!-- Form Fields -->
         <form id="loginForm">
-            <label for="username">Username</label>
-            <input type="text" id="username" placeholder="Enter your username" required>
+            <label for="identifier">Email or Username</label>
+            <input type="text" id="identifier" placeholder="Enter your email or username" required>
             
             <label for="password">Password</label>
             <input type="password" id="password" placeholder="Enter your password" required>
@@ -25,25 +25,26 @@
             <button type="submit">Login</button>
         </form>
         
-        <p id="loginError" style="color: red; display: none;">Invalid username or password!</p>
+        <p id="loginError" style="color: red; display: none;">Invalid email/username or password!</p>
+
+        <!-- Link to Registration Page -->
+        <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
     </div>    
+
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting
-            const username = document.getElementById('username').value;
+            const identifier = document.getElementById('identifier').value;
             const password = document.getElementById('password').value;
             const loginError = document.getElementById('loginError');
 
-            // Mock user database for demo (replace with backend auth in real application)
-            const users = {
-                admin: { password: 'admin123', role: 'admin' },
-                user: { password: 'user123', role: 'user' }
-            };
+            // Fetch users from localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || {};
 
-            if (users[username] && users[username].password === password) {
+            if (users[identifier] && users[identifier].password === password) {
                 // Store the role in localStorage for later use
-                localStorage.setItem('userRole', users[username].role);
-                window.location.href = users[username].role === 'admin' ? 'admin.html' : 'websitedemo.html';
+                localStorage.setItem('userRole', users[identifier].role);
+                window.location.href = users[identifier].role === 'admin' ? 'admin.html' : 'websitedemo.html';
             } else {
                 loginError.style.display = 'block';
             }

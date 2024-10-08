@@ -4,7 +4,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     background-color: #f0f0f0;
-    color: #333;
+    color: black;
     transition: background-color 0.5s ease, color 0.5s ease; /* Smooth background color change */
 }
 
@@ -13,7 +13,7 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    background: url('backgroundimage.png');
+    background: url('./Images/backgroundimage.png');
     background-size: auto;
     background-position: center;
     color: white;
@@ -70,8 +70,6 @@ nav a:hover {
     color: #f39c12;
     transform: scale(1.1); /* Slight scaling for smooth animation on hover */
 }
-
-
 
 .search-bar {
     padding: 20px;
