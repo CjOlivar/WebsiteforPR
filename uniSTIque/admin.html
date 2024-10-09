@@ -7,95 +7,249 @@
     <link rel="stylesheet" href="./css/admindesign.css">
 </head>
 <body>
-
-    <!-- Sidebar Navigation -->
-    <div class="sidebar">
-        <div class="logo">
-            <a href="https://www.sti.edu" target="_blank">
-                <img src="./Images/stilogo.png" alt="Logo">
+    <header>   
+        <div class="logo-container">
+            <div class="logo">
+                <a href="https://www.sti.edu" target="_blank">
+                    <img src="./Images/stilogo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="title">Admin Dashboard</div>
+        </div>
+    <!-- User Profile Icon -->
+    <div class="profile-container">
+        <img src="./Images/usericon.png" alt="User Icon" class="user-icon" onclick="toggleProfileDropdown()" aria-label="User Profile Menu">
+        <!-- Profile Dropdown -->
+        <div id="profileDropdown" class="profile-dropdown">
+            <a href="#" onclick="openProfileModal()">Profile</a>
+            <a href="#" onclick="logout()">Logout</a>
+        </div>
+    </div>  
+    </header>
+    <main>
+        <section class="admin-features">
+            <h2>Admin Features</h2>
+            <div class="manage-products">
+                <h3>Manage Products</h3>
+                <form id="productForm">
+                    <label for="productName">Product Name:</label>
+                    <input type="text" id="productName" required>
+                    <label for="productPrice">Product Price:</label>
+                    <input type="number" id="productPrice" required>
+                    <label for="productImage" class="upload-button">
+                        Upload Image
+                        <input type="file" id="productImage" accept="image/*" required>
+                    </label>                                      
+                    <button type="submit">Add Product</button>
+                </form>
+                <div id="productList">
+                    <h4>Current Products</h4>
+                    <ul id="productItems"></ul>
+                </div>
+            </div>
+            <div class="current-products">
+                <h3>Your Products</h3>
+                <div id="userProductList"></div>
+            </div>
+            <div class="user-activity">
+                <h3>User Activity</h3>
+                <button onclick="viewUserActivity()">View User Activity</button>
+                <div id="userActivityLog"></div>
+            </div>
+            <div class="order-management">
+                <h3>Manage Orders</h3>
+                <button onclick="viewOrders()">View Orders</button>
+                <div id="orderList"></div>
+            </div>
+        </section>
+    </main>
+        <!-- Modal for Profile -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeProfileModal()">&times;</span>
+        <h2>User Profile</h2>
+        <p>Welcome, Admin</p>
+        <p>Email: user2314@example.com</p>
+        <p>Role: Admin</p>
+        <!-- Add more profile details here if needed -->
+    </div>
+</div>
+    <footer>
+        <div class="footer-links">
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <div class="social-media">
+            <a href="https://www.facebook.com/calamba.sti.edu" target="_blank">
+                <img src="./Images/fbicon.png" alt="Facebook">
+            </a>
+            <a href="https://www.youtube.com/@STIdotEdu" target="_blank">
+                <img src="./Images/yticon.png" alt="YouTube">
+            </a>
+            <a href="https://www.tiktok.com/@sti.edu" target="_blank">
+                <img src="./Images/tiktokicon.png" alt="TikTok">
             </a>
         </div>
-        <div class="nav-links">
-            <a href="#">Dashboard</a>
-            <a href="#">Manage Products</a>
-            <a href="#">User Activity</a>
-            <a href="#">Orders</a>
-        </div>
-        <div class="profile">
-            <img src="./Images/usericon.png" alt="User Icon">
-            <h4>Admin</h4>
-            <a href="#" onclick="openProfileModal()">View Profile</a>
-        </div>
-    </div>
+    </footer>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const userRole = localStorage.getItem('userRole');
+    if (userRole !== 'admin') {
+        alert("Access denied! You are not an admin.");
+        window.location.href = 'login.html'; // Redirect if not admin
+    } else {
+        // Automatically display the current products for the user when logged in
+        viewUserProducts();
+    }
+});
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <header>
-            <div class="title">Admin Dashboard</div>
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-                <button type="button">Go</button>
-            </div>
-        </header>
+// Add product function
+document.getElementById('productForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+    const productName = document.getElementById('productName').value.trim();
+    const productPrice = document.getElementById('productPrice').value.trim();
+    const productImageInput = document.getElementById('productImage');
 
-<section class="dashboard">
-    <div class="dashboard-card">
-        <h3>Manage Products</h3>
-        <p>Add, edit, or remove products from the catalog.</p>
-        <button>Add Product</button>
-    </div>
+    // Ensure all fields are filled
+    if (!productName || !productPrice || !productImageInput.files.length) {
+        alert("Please fill out all fields");
+        return;
+    }
 
-    <div class="dashboard-card">
-        <h3>User Management</h3>
-        <p>View, edit, or deactivate users, and manage roles.</p>
-        <button>Manage Users</button>
-    </div>
+    const productImageFile = productImageInput.files[0];
 
-    <div class="dashboard-card">
-        <h3>Analytics & Reports</h3>
-        <p>View website performance data and generate reports.</p>
-        <button>View Reports</button>
-    </div>
+    // Convert image to base64
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const base64Image = e.target.result;
 
-    <div class="dashboard-card">
-        <h3>Inventory Management</h3>
-        <p>Monitor stock levels and set up alerts for low inventory.</p>
-        <button>View Inventory</button>
-    </div>
+        // Send product data with the base64 image to the server
+        fetch('/add-product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                name: productName, 
+                price: productPrice, 
+                image: base64Image // Send the base64 string of the image
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update current product list in the admin dashboard
+                addProductToUserList(productName, productPrice, base64Image);
+                // Clear form fields
+                document.getElementById('productForm').reset();
+            } else {
+                alert("Failed to add product.");
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    };
 
-    <div class="dashboard-card">
-        <h3>Notifications</h3>
-        <p>View recent admin and system notifications.</p>
-        <button>View Notifications</button>
-    </div>
+    // Read the image file as a data URL (base64)
+    reader.readAsDataURL(productImageFile);
+});
 
-    <div class="dashboard-card">
-        <h3>Settings</h3>
-        <p>Configure system-wide settings and preferences.</p>
-        <button>Go to Settings</button>
-    </div>
+// Create new product item
+const addProductToUserList = (name, price, imageUrl) => {
+    const productItemsList = document.getElementById('productItems');
+    const newItem = document.createElement('li');
+    newItem.innerHTML = `${name} - ₱${price} <img src="${imageUrl}" alt="${name}" style="width: 50px;">`;
+    productItemsList.appendChild(newItem);
 
-    <div class="dashboard-card">
-        <h3>Logs & Audit Trail</h3>
-        <p>Track recent admin activities and changes.</p>
-        <button>View Logs</button>
-    </div>
+    // Add the new product to the user's product list
+    const userProductList = document.getElementById('userProductList');
+    const productItem = document.createElement('div');
+    productItem.innerHTML = `${name} - ₱${price} <img src="${imageUrl}" alt="${name}" style="width: 50px;">`;
+    userProductList.appendChild(productItem);
+};
 
-    <div class="dashboard-card">
-        <h3>Customer Support</h3>
-        <p>Manage and respond to customer queries.</p>
-        <button>View Tickets</button>
-    </div>
-</section>
+// Simulated view user products function
+function viewUserProducts() {
+    const userProductList = document.getElementById('userProductList');
+    userProductList.innerHTML = '<p>Loading your products...</p>';
+    
+    // Simulate fetching user's products
+    setTimeout(() => {
+        const products = [
+            { name: 'Daily Uniform', price: '₱200', imageUrl: 'daily-uniform.png' },
+            { name: 'Pe Uniform', price: '₱250', imageUrl: 'pe-uniform.png' },
+            { name: 'ID Lace', price: '₱40', imageUrl: 'id-lace.png' },
+            { name: 'Pin', price: '₱10', imageUrl: 'sti-pin.png' }
+        ];
+        
+        userProductList.innerHTML = '<ul></ul>';
+        const productList = userProductList.querySelector('ul');
+        
+        products.forEach(product => {
+            const productItem = document.createElement('li');
+            productItem.innerHTML = `${product.name} - ${product.price} <img src="${product.imageUrl}" alt="${product.name}" style="width: 50px;">`;
+            productList.appendChild(productItem);
+        });
+    }, 1000); // Simulated delay for loading
+}
 
-        <footer>
-            <p>&copy; 2024 STI College. All rights reserved. <a href="#">Privacy Policy</a></p>
-        </footer>
-    </div>
+// Simulated view user activity function
+function viewUserActivity() {
+    const userActivityLog = document.getElementById('userActivityLog');
+    userActivityLog.innerHTML = '<p>Loading user activity...</p>';
+    setTimeout(() => {
+        userActivityLog.innerHTML = `
+            <h4>User Activity Log</h4>
+            <ul>
+                <li>User1: Logged in at ${new Date().toLocaleTimeString()}</li>
+                <li>User2: Added item to cart at ${new Date().toLocaleTimeString()}</li>
+            </ul>
+        `;
+    }, 1000);
+}
 
-    <script src="./js/admin.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="websiteconnect.js"></script>
+// Simulated view orders function
+function viewOrders() {
+    const orderList = document.getElementById('orderList');
+    orderList.innerHTML = '<p>Loading orders...</p>';
+    setTimeout(() => {
+        orderList.innerHTML = `
+            <h4>Orders</h4>
+            <ul>
+                <li>Order #1: User1 - 2x Daily Uniform</li>
+                <li>Order #2: User2 - 1x PE Uniform</li>
+            </ul>
+        `;
+    }, 1000);
+}
+
+function logout() {
+    localStorage.removeItem('userRole');
+    window.location.href = 'login.html';
+}
+
+function toggleProfileDropdown() {
+    const dropdown = document.getElementById("profileDropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+function openProfileModal() {
+    document.getElementById('profileModal').style.display = 'block';
+}
+
+function closeProfileModal() {
+    document.getElementById('profileModal').style.display = 'none';
+}
+
+// Hide dropdown when clicking outside
+window.onclick = function(event) {
+    if (!event.target.matches('.user-icon')) {
+        const dropdown = document.getElementById("profileDropdown");
+        if (dropdown.style.display === "block") {
+            dropdown.style.display = "none";
+        }
+    }
+}
+
+    </script>
 </body>
-
 </html>
