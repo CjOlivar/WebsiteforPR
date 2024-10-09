@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up Page</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
 <body>
     <div class="login-container">
@@ -42,6 +42,8 @@
 
         <p id="signupError" style="color: red; display: none;">Error: Passwords do not match!</p>
         <p id="signupSuccess" style="color: green; display: none;">Registration successful! You can now <a href="login.html">login</a>.</p>
+                <!-- Link to Registration Page -->
+                <p>Already have an account? <a href="login.html">Login here</a></p>
     </div>
 
     <script>
@@ -74,5 +76,7 @@
             }
         });
     </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="websiteconnect.js"></script>
 </body>
 </html>

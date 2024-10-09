@@ -6,7 +6,7 @@
 
 body {
     font-family: Menlo, Monaca,'Courier New', monospace;
-    background-image: url('./Images/portal.png'); /* Replace with your image path */
+    background-image: url('../Images/portal.png'); /* Replace with your image path */
     background-size: cover;
     background-position: center;
     display: flex;

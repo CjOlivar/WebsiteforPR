@@ -1,0 +1,257 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #1a1d24;
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.sidebar .logo img {
+    width: 80px;
+}
+
+.sidebar .nav-links {
+    flex-grow: 1;
+}
+
+.sidebar .nav-links a {
+    display: block;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: background 0.3s;
+}
+
+.sidebar .nav-links a:hover {
+    background-color: #313742;
+    border-radius: 5px;
+}
+
+.sidebar .profile {
+    margin-top: auto;
+    text-align: center;
+}
+
+.sidebar .profile img {
+    width: 60px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.sidebar .profile h4 {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.sidebar .profile a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.sidebar .profile a:hover {
+    text-decoration: underline;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 250px;
+    padding: 2rem;
+    flex-grow: 1;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.main-content header {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-content header .title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.main-content header .search-bar {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.main-content header .search-bar input {
+    padding: 0.5rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+.main-content header .search-bar button {
+    padding: 0.5rem 1rem;
+    background-color: #1a73e8;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+}
+
+/* Dashboard content */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.dashboard-card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-10px);
+}
+
+.dashboard-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.dashboard-card p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.dashboard-card button {
+    padding: 0.5rem 1rem;
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.dashboard-card button:hover {
+    background-color: #155bb5;
+}
+
+/* Dashboard card hover effect for interactive feel */
+.dashboard-card:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+/* Notification Badge in Header */
+.header .notification-bell {
+    position: relative;
+    cursor: pointer;
+}
+
+.notification-bell img {
+    width: 30px;
+}
+
+.notification-bell .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+/* Expanded User Management table */
+.user-management-table {
+    width: 100%;
+    margin-top: 2rem;
+    border-collapse: collapse;
+}
+
+.user-management-table th, 
+.user-management-table td {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    text-align: left;
+}
+
+.user-management-table th {
+    background-color: #f8f9fa;
+}
+
+.user-management-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Analytics section */
+.analytics-container {
+    margin-top: 2rem;
+}
+
+.analytics-graph {
+    width: 100%;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    color: #666;
+}
+
+footer a {
+    color: #1a73e8;
+    text-decoration: none;
+}
+
