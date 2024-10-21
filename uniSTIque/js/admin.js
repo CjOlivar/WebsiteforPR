@@ -1,4 +1,4 @@
-// Define two product arrays
+
 let currentProducts = [
     {
         name: "Daily Uniform",
