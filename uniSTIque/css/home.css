@@ -1,0 +1,240 @@
+/* Reset some default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Custom Colors */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #61dafb;
+    --text-color: #333;
+    --background-color: #f4f4f4;
+    --white-color: #ffffff;
+}
+
+/* Body Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 100px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+/* Navigation Styles */
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: var(--white-color);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: var(--accent-color);
+}
+
+/* Hero Section Styles */
+.hero-section {
+    height: auto;
+    background: url('../Images/backgroundimage.png');
+    background-repeat: no repeat;
+    color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero-section h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.hero-section p {
+    font-size: 22px;
+    margin-bottom: 30px;
+}
+
+.hero-section button {
+    background-color: var(--white-color);
+    color: var(--primary-color);
+    padding: 12px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-section button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Featured Products Styles */
+.featured-products {
+    margin: 40px 20px;
+}
+
+.featured-products h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.product-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px; /* Space between cards */
+    padding: 20px 0; /* Additional padding */
+}
+
+.product-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 250px; /* Adjust width as needed */
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.img-container img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.product-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.price-container {
+    margin: 10px 0;
+}
+
+.old-price {
+    color: #777; /* Grey color for old price */
+    text-decoration: line-through;
+}
+
+.new-price {
+    color: #28a745; /* Green color for new price */
+    font-weight: bold;
+}
+
+.add-to-cart {
+    background-color: var(--primary-color);
+    color: rgb(0, 0, 0);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart:hover {
+    background-color: darken(var(--primary-color), 10%);
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer .footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+footer .social-media a {
+    margin-left: 10px;
+}
+
+footer .social-media a img {
+    width: 30px;
+    height: 30px;
+}
+
+@media (max-width: 768px) {
+    .restocked-items {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-slider {
+        flex-direction: column; /* Stack cards on small screens */
+        align-items: center;
+    }
+
+    .product-card {
+        width: 100%; /* Full width on smaller screens */
+        margin-bottom: 20px; /* Space between stacked cards */
+    }
+}

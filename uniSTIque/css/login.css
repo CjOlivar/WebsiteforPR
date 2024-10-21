@@ -110,3 +110,31 @@ p {
         width: 90%; /* Responsive width */
     }
 }
+
+.hover-link {
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.hover-link:hover {
+    color: #3498db; /* Change color on hover */
+}
+
+.hover-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #3498db;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.hover-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}

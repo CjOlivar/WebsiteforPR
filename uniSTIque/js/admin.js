@@ -1,184 +1,172 @@
-        // Open the Profile Modal
-        function openProfileModal() {
-            const modal = document.createElement('div');
-            modal.classList.add('modal');
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button" onclick="closeProfileModal()">&times;</span>
-                    <h2>Admin Profile</h2>
-                    <p><strong>Name:</strong> Admin</p>
-                    <p><strong>Email:</strong> admin@example.com</p>
-                    <p><strong>Role:</strong> Administrator</p>
-                    <p><strong>Last Login:</strong> October 9, 2024</p>
-                    <button onclick="closeProfileModal()">Close</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.style.display = 'block';
-        }
+// Define two product arrays
+let currentProducts = [
+    {
+        name: "Daily Uniform",
+        price: 200,
+        image: "./Images/daily-uniform.png",
+        requiresSize: true,
+        requiresGender: true,
+        maxQty: 10
+    },
+    {
+        name: "ID Lace",
+        price: 40,
+        image: "./Images/id-lace.png",
+        requiresSize: false,
+        requiresGender: false,
+        maxQty: 10
+    },
+    {
+        name: "PE Uniform",
+        price: 250,
+        image: "./Images/pe-uniform.png",
+        requiresSize: true,
+        requiresGender: true,
+        maxQty: 10
+    },
+    {
+        name: "Pin",
+        price: 10,
+        image: "./Images/sti-pin.png",
+        requiresSize: false,
+        requiresGender: false,
+        maxQty: 10
+    },
+    {
+        name: "Blue Hooded Jacket",
+        price: 450,
+        image: "./Images/blue-jacket.png",
+        requiresSize: true,
+        requiresGender: true,
+        maxQty: 10
+    },
+    {
+        name: "Grey Hooded Jacket",
+        price: 450,
+        image: "./Images/grey-jacket.png",
+        requiresSize: true,
+        requiresGender: true,
+        maxQty: 10
+    },
+    {
+        name: "Alumni Poloshirt",
+        price: 275,
+        image: "./Images/polo-shirt.png",
+        requiresSize: true,
+        requiresGender: true,
+        maxQty: 10
+    }
+];
 
-        // Close the Profile Modal
-        function closeProfileModal() {
-            const modal = document.querySelector('.modal');
-            if (modal) {
-                modal.remove();
-            }
-        }
+let myProducts = []; // Initialize empty array for my products
 
-        // Function to handle the search
-        function search() {
-            const searchTerm = document.querySelector('.search-bar input').value;
-            alert(`Searching for: ${searchTerm}`);
-            // Implement search logic here
-        }
+// Function to handle product form submission
+document.getElementById("productForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
 
-        // Functionality for Manage Products
-        function addProduct() {
-            const modal = document.createElement('div');
-            modal.classList.add('modal');
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button" onclick="closeModal()">&times;</span>
-                    <h2>Add Product</h2>
-                    <label for="productName">Product Name:</label>
-                    <input type="text" id="productName">
-                    <label for="productPrice">Price:</label>
-                    <input type="number" id="productPrice">
-                    <button onclick="submitProduct()">Add Product</button>
-                    <button onclick="closeModal()">Cancel</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.style.display = 'block';
-        }
+    // Get the values from the form fields
+    const productName = document.getElementById("productName").value;
+    const productPrice = document.getElementById("productPrice").value;
+    const productImageInput = document.getElementById("productImage");
+    
+    // Check if an image file is selected
+    if (productImageInput.files.length === 0) {
+        alert("Please upload an image.");
+        return;
+    }
 
-        // Submit Product Logic
-        function submitProduct() {
-            const name = document.getElementById('productName').value;
-            const price = document.getElementById('productPrice').value;
-            alert(`Product Added: ${name} - Price: $${price}`);
-            // Here you can add logic to save the product to the database
-            closeModal();
-        }
+    const productImage = URL.createObjectURL(productImageInput.files[0]);
 
-        // Functionality for User Management
-        function manageUsers() {
-            const modal = document.createElement('div');
-            modal.classList.add('modal');
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button" onclick="closeModal()">&times;</span>
-                    <h2>User Management</h2>
-                    <p>Implement your user management functionality here.</p>
-                    <button onclick="closeModal()">Close</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.style.display = 'block';
-        }
+    // Create a product object
+    const product = {
+        name: productName,
+        price: productPrice,
+        image: productImage,
+        requiresSize: false, // Default value, change if needed
+        requiresGender: false, // Default value, change if needed
+        maxQty: 10 // Default value, change if needed
+    };
 
-        // Functionality for Viewing Reports
-        function viewReports() {
-            const modal = document.createElement('div');
-            modal.classList.add('modal');
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button" onclick="closeModal()">&times;</span>
-                    <h2>Reports</h2>
-                    <p>Implement report generation logic here.</p>
-                    <button onclick="closeModal()">Close</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.style.display = 'block';
-        }
+    // Add the product to my products array
+    myProducts.push(product);
 
-        // Functionality for Viewing Inventory
-        function viewInventory() {
-            const modal = document.createElement('div');
-            modal.classList.add('modal');
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button" onclick="closeModal()">&times;</span>
-                    <h2>Inventory Management</h2>
-                    <p>Implement inventory monitoring functionality here.</p>
-                    <button onclick="closeModal()">Close</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.style.display = 'block';
-        }
+    // Clear the form fields for new entry
+    document.getElementById("productForm").reset();
 
-        // Functionality for Viewing Notifications
-        function viewNotifications() {
-            const modal = document.createElement('div');
-            modal.classList.add('modal');
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button" onclick="closeModal()">&times;</span>
-                    <h2>Notifications</h2>
-                    <p>View recent notifications here.</p>
-                    <button onclick="closeModal()">Close</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.style.display = 'block';
-        }
+    // Render the updated product lists
+    renderCurrentProductList();
+    renderMyProductList();
+});
 
-        // Functionality for Settings
-        function goToSettings() {
-            alert('Navigating to Settings...');
-            // Add your logic to navigate to settings here
-        }
+// Function to render the list of current products
+function renderCurrentProductList() {
+    const currentProductItemsContainer = document.getElementById("currentProductItems");
+    currentProductItemsContainer.innerHTML = ""; // Clear existing items
 
-        // Functionality for Viewing Logs
-        function viewLogs() {
-            const modal = document.createElement('div');
-            modal.classList.add('modal');
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button" onclick="closeModal()">&times;</span>
-                    <h2>Logs & Audit Trail</h2>
-                    <p>View admin activity logs here.</p>
-                    <button onclick="closeModal()">Close</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.style.display = 'block';
-        }
+    // Loop through the current products array and create list items
+    currentProducts.forEach((product) => {
+        const productItem = document.createElement("li");
+        productItem.innerHTML = `
+            <h4>${product.name}</h4>
+            <p>Price: $${product.price}</p>
+            <img src="${product.image}" alt="${product.name}" style="width: 100px; height: auto;">
+        `;
+        currentProductItemsContainer.appendChild(productItem);
+    });
+}
 
-        // Functionality for Viewing Customer Support Tickets
-        function viewTickets() {
-            const modal = document.createElement('div');
-            modal.classList.add('modal');
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button" onclick="closeModal()">&times;</span>
-                    <h2>Customer Support</h2>
-                    <p>Manage and respond to customer queries here.</p>
-                    <button onclick="closeModal()">Close</button>
-                </div>
-            `;
-            document.body.appendChild(modal);
-            modal.style.display = 'block';
-        }
+// Function to render the list of my products
+function renderMyProductList() {
+    const myProductItemsContainer = document.getElementById("myProductItems");
+    myProductItemsContainer.innerHTML = ""; // Clear existing items
 
-        // Close all modals
-        function closeModal() {
-            const modal = document.querySelector('.modal');
-            if (modal) {
-                modal.remove();
-            }
-        }
+    // Loop through the my products array and create list items
+    myProducts.forEach((product) => {
+        const productItem = document.createElement("li");
+        productItem.innerHTML = `
+            <h4>${product.name}</h4>
+            <p>Price: $${product.price}</p>
+            <img src="${product.image}" alt="${product.name}" style="width: 100px; height: auto;">
+        `;
+        myProductItemsContainer.appendChild(productItem);
+    });
+}
 
-        // Event Listeners for Buttons
-        document.getElementById('addProductBtn').onclick = addProduct;
-        document.getElementById('manageUsersBtn').onclick = manageUsers;
-        document.getElementById('viewReportsBtn').onclick = viewReports;
-        document.getElementById('viewInventoryBtn').onclick = viewInventory;
-        document.getElementById('viewNotificationsBtn').onclick = viewNotifications;
-        document.getElementById('goToSettingsBtn').onclick = goToSettings;
-        document.getElementById('viewLogsBtn').onclick = viewLogs;
-        document.getElementById('viewTicketsBtn').onclick = viewTickets;
+// Call render functions to show initial products on page load
+renderCurrentProductList();
+renderMyProductList();
 
-        
+// Function to toggle the profile dropdown
+function toggleProfileDropdown() {
+    const dropdown = document.getElementById("profileDropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
+
+// Function to open the profile modal
+function openProfileModal() {
+    const modal = document.getElementById("profileModal");
+    modal.style.display = "block";
+}
+
+// Function to close the profile modal
+function closeProfileModal() {
+    const modal = document.getElementById("profileModal");
+    modal.style.display = "none";
+}
+
+function logout() {
+    localStorage.removeItem('userRole');
+    window.location.href = 'login.html';
+}
+
+// Example function to view user activity (placeholder)
+function viewUserActivity() {
+    const logDiv = document.getElementById("userActivityLog");
+    logDiv.innerHTML = "<p>User activity log will be displayed here.</p>";
+}
+
+// Example function to view orders (placeholder)
+function viewOrders() {
+    const orderDiv = document.getElementById("orderList");
+    orderDiv.innerHTML = "<p>Order list will be displayed here.</p>";
+}

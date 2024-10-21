@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage - uniSTIque</title>
+    
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="./css/home.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <img src="./Images/stilogo.png" alt="uniSTIque Logo">
+            </div>
+            <div class="title">uniSTIque</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="homepage.html">Home</a></li>
+                <li><a href="websitedemo.html">Shop</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <h1>Welcome to uniSTIque</h1>
+        <p>Discover a world of unique products and exceptional experiences.</p>
+        <button onclick="location.href='#new-products'">Explore Now</button>
+    </section>
+
+    <!-- Featured Products Section -->
+    <div class="featured-products" id="new-products">
+        <h2>New Products</h2>
+        <div class="product-slider">
+            <div class="product-card">
+                <div class="img-container">
+                    <img src="./Images/polo-shirt.png" alt="Alumni Poloshirt">
+                </div>
+                <div class="product-info">
+                    <h3>Alumni Poloshirt</h3>
+                    <p>New Polo shirt in stock</p>
+                    <div class="price-container">
+                        <del><span class="old-price">$360.00</span></del>
+                        <ins><span class="new-price">$275.00</span></ins>
+                    </div>
+                    <a href="websitedemo.html" class="add-to-cart">Get it now</a>
+                    <a href="https://alumni.sti.edu/alumni-shop.asp" class="read-more">Read More</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="img-container">
+                    <img src="./Images/grey-jacket.png" alt="Grey Hooded Jacket">
+                </div>
+                <div class="product-info">
+                    <h3>Grey Hooded Jacket</h3>
+                    <p>New Grey jacket in stock</p>
+                    <div class="price-container">
+                        <del><span class="old-price">$700.00</span></del>
+                        <ins><span class="new-price">$450.00</span></ins>
+                    </div>
+                    <a href="websitedemo.html" class="add-to-cart">Get it now</a>
+                    <a href="https://alumni.sti.edu/alumni-shop.asp" class="read-more">Read More</a>
+                </div>
+            </div>
+        
+            <div class="product-card">
+                <div class="img-container">
+                    <img src="./Images/blue-jacket.png" alt="Blue Hooded Jacket">
+                </div>
+                <div class="product-info">
+                    <h3>Blue Hooded Jacket</h3>
+                    <p>New Blue jacket in stock</p>
+                    <div class="price-container">
+                        <del><span class="old-price">$700.00</span></del>
+                        <ins><span class="new-price">$450.00</span></ins>
+                    </div>
+                    <a href="websitedemo.html" class="add-to-cart">Get it now</a>
+                    <a href="https://alumni.sti.edu/alumni-shop.asp" class="read-more">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+        <div class="social-media">
+            <a href="https://www.facebook.com/calamba.sti.edu" target="_blank">
+                <img src="./Images/fbicon.png" alt="Facebook">
+            </a>
+            <a href="https://www.youtube.com/@STIdotEdu" target="_blank">
+                <img src="./Images/yticon.png" alt="YouTube">
+            </a>
+            <a href="https://www.tiktok.com/@sti.edu" target="_blank">
+                <img src="./Images/tiktokicon.png" alt="TikTok">
+            </a>
+        </div>
+    </footer>
+
+</body>
+</html>

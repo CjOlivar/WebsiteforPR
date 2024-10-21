@@ -11,8 +11,16 @@ function openModal(imageSrc, productName, price, requiresSize, maxQty) {
     document.getElementById("productPrice").innerHTML = "Price: ₱" + price;
     maxQuantity = maxQty;  // Set the max quantity for the product
 
-    document.getElementById("sizeContainer").style.display = requiresSize ? "block" : "none";
-    document.getElementById("availableModal").style.display = "block";  // Show modal
+    // Show or hide size selection
+    document.getElementById('sizeContainer').style.display = requiresSize ? 'block' : 'none';
+
+    // Check if the product requires gender selection
+    const productItem = event.currentTarget; // Get the clicked product item
+    const requiresGender = productItem.getAttribute('data-requires-gender') === 'true';
+    document.getElementById('genderContainer').style.display = requiresGender ? 'block' : 'none';
+
+    // Open the modal
+    document.getElementById('availableModal').style.display = 'block';
 }
 
 function closeModal() {
@@ -134,6 +142,13 @@ function selectPaymentMethod(method) {
             generateQRCode(`payment://process?amount=${totalAmount}&message=Your+Order`);
             break;
 
+            case "cash":
+            paymentDetailsContainer.innerHTML = `<h3>Cash Payment</h3>
+                <p>You have selected cash as your payment method. Please prepare the exact amount of ₱${totalAmount} for cash on delivery or in-store payment.</p>
+                <button onclick="submitPayment('cash')">Confirm Cash Payment</button>`;
+            qrCodeContainer.innerHTML = ''; // No QR code for cash
+            break;
+
         default:
             paymentDetailsContainer.innerHTML = '';
             qrCodeContainer.innerHTML = ''; // Clear QR code for invalid method
@@ -187,6 +202,11 @@ function submitPayment(method) {
         case "qr_code":
             paymentInfo = { method };
             break;
+
+            case "cash":
+                paymentInfo = { method: "Cash" };
+                alert("Cash payment confirmed. Please prepare the exact amount at Proware.");
+                break;
 
         default:
             isValid = false;
@@ -325,5 +345,11 @@ function logout() {
     window.location.href = 'login.html';
 }
 
+const hamMenu = document.querySelector(".ham-menu");
 
+const offScreenMenu = document.querySelector(".off-screen-menu");
 
+hamMenu.addEventListener("click", () => {
+  hamMenu.classList.toggle("active");
+  offScreenMenu.classList.toggle("active");
+});

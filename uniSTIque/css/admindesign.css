@@ -1,6 +1,6 @@
 /* General Styles */
 body {
-    font-family: Menlo, Monaco, 'Courier New', monospace;
+    font-family: 'Poppins', sans-serif; /* More modern font */
     margin: 0;
     padding: 0;
     background-color: #f0f0f0;
@@ -8,63 +8,83 @@ body {
     transition: background-color 0.5s ease, color 0.5s ease;
     box-sizing: border-box;
 }
+
 /* Header Styles */
 header {
     position: relative;
     display: flex;
     justify-content: space-between;
-    padding: 10px;
-    background: url('../Images/backgroundimage.png');
-    background-size: auto;
-    background-position: center;
+    padding: 20px; /* Increased padding for better spacing */
+    background: url('../Images/backgroundimage.png') no-repeat center center; /* Improved background property */
+    background-size: cover; /* Adjust background size to cover */
     color: white;
     align-items: center;
     z-index: 1000;
-    margin: 10 auto;
-    transition: background-position 0.5s ease, background-size 0.5s ease; /* Smooth background transition */
+    margin: 0 auto; /* Fixed margin for proper centering */
+    transition: background-color 0.5s ease; /* Smooth background color transition */
 }
+
+/* Media Queries for Responsive Design */
 @media (max-width: 768px) {
     header {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: column; /* Stack items vertically on small screens */
+        align-items: flex-start; /* Align items to the start */
     }
 }
+
+/* Logo Container */
 .logo-container {
     display: flex;
     align-items: center;
     gap: 15px;
 }
+
+/* User Activity and Order Management */
+.user-activity, .order-management {
+    flex: 1; /* Makes these sections take available space */
+    margin-left: 20px; /* Adds space to the left */
+}
+
+/* Logo Style */
 .logo img {
     font-size: 24px;
     font-weight: bold;
 }
+
+/* Title Styles */
 .title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 28px;
+    font-size: 32px; /* Increased font size for better visibility */
     font-weight: 700;
-    color: yellow;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    color: #f39c12; /* Changed color to match theme */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Subtle shadow for better readability */
     transition: text-shadow 0.3s ease;
 }
+
 .title:hover {
     text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
 }
+
 /* Profile Icon and Dropdown */
 .profile-container {
     position: relative;
     display: flex;
     align-items: center;
 }
+
 .user-icon {
-    width: 40px;
-    height: 40px;
+    width: 50px; /* Increased size for better clickability */
+    height: 50px;
     border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease; /* Added filter transition */
 }
+
 .user-icon:hover {
     transform: scale(1.1);
+    filter: brightness(1.2); /* Brightens the icon on hover */
 }
+
+/* Profile Dropdown Styles */
 .profile-dropdown {
     display: none;
     position: absolute;
@@ -75,74 +95,111 @@ header {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border-radius: 8px;
     z-index: 1000;
-    width: 150px;
+    width: 180px; /* Slightly wider for longer names */
     text-align: left;
     padding: 10px 0;
 }
+
 .profile-dropdown.show {
     display: block;
 }
+
 .profile-dropdown a {
     display: block;
     padding: 10px 20px;
     color: #333;
     text-decoration: none;
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Added color transition */
 }
+
 .profile-dropdown a:hover {
     background-color: #f0f0f0;
-    color: #007bff;
+    color: #f39c12; /* Changed hover color to match theme */
 }
+
 /* Main Content */
 main {
     padding: 20px;
 }
+
+/* Admin Features */
 .admin-features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+    display: flex; /* Allows for horizontal layout */
+    flex-wrap: wrap; /* Wraps items on smaller screens */
+    justify-content: space-between; /* Spaces out sections */
 }
+
 .admin-features h2 {
     width: 100%;
     text-align: center;
     margin-bottom: 20px;
-    color: #f39c12;
+    color: #e67e22; /* Updated heading color */
 }
+
 /* Feature Sections */
 .admin-features > div {
     flex: 1 1 30%;
     background-color: white;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Slightly more rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* Added transition for hover effect */
 }
+
+.admin-features > div:hover {
+    transform: translateY(-5px); /* Elevate on hover */
+}
+
 .admin-features h3 {
     margin-bottom: 15px;
     color: #333;
 }
-/* Forms */
+
+/* Form Styles */
 form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
+
 form label {
     font-size: 14px;
     color: #555;
 }
+
 form input[type="text"],
 form input[type="number"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease; /* Added border color transition */
 }
+
 form input[type="text"]:focus,
 form input[type="number"]:focus {
     box-shadow: 0 0 8px rgba(243, 156, 18, 0.8);
+    border-color: #f39c12; /* Change border color on focus */
 }
+
+/* Choose File Button Styles */
+input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    background-color: white;
+}
+
+input[type="file"]:hover {
+    border-color: #f39c12; /* Change border color on hover */
+    background-color: #f9f9f9; /* Light background on hover */
+}
+
+/* Form Submit Button Styles */
 form button {
     padding: 10px;
     background-color: #f39c12;
@@ -153,11 +210,13 @@ form button {
     font-size: 16px;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 form button:hover {
     background-color: #e67e22;
     transform: scale(1.05);
 }
-/* Lists */
+
+/* Lists Styles */
 #productList ul,
 #userActivityLog ul,
 #orderList ul {
@@ -165,6 +224,7 @@ form button:hover {
     padding: 0;
     margin: 0;
 }
+
 #productList li,
 #userActivityLog li,
 #orderList li {
@@ -174,14 +234,23 @@ form button:hover {
     background-color: #ecf0f1;
     padding: 10px;
     border-radius: 5px;
+    transition: background-color 0.3s ease; /* Added transition for hover effect */
 }
+
+#productList li:hover,
+#userActivityLog li:hover,
+#orderList li:hover {
+    background-color: #dcdcdc; /* Darker background on hover */
+}
+
 #productList li img {
     margin-left: auto;
     width: 50px;
     height: 50px;
     border-radius: 5px;
 }
-/* Buttons */
+
+/* Buttons Styles */
 button {
     padding: 10px 20px;
     background-color: #f39c12;
@@ -192,14 +261,12 @@ button {
     font-size: 16px;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 button:hover {
     background-color: #e67e22;
     transform: translateY(-2px);
 }
-button[type="button"] {
-    width: 100%;
-    margin-top: 10px;
-}
+
 /* Footer Styles */
 footer {
     background-color: #2c3e50;
@@ -210,6 +277,8 @@ footer {
     justify-content: space-between;
     align-items: center;
 }
+
+/* Footer Links */
 .footer-links a,
 .social-media a {
     color: white;
@@ -217,54 +286,42 @@ footer {
     margin-right: 15px;
     transition: color 0.3s ease;
 }
+
 .footer-links a:hover,
 .social-media a:hover {
     color: #f39c12;
 }
+
+/* Social Media Icons */
 .social-media a {
     margin-left: 10px;
 }
+
 .social-media img {
     width: 30px;
     height: 30px;
     transition: transform 0.3s ease;
 }
+
 .social-media img:hover {
     transform: scale(1.1);
 }
+
 /* Media Queries */
 @media (max-width: 768px) {
     .admin-features {
         flex-direction: column;
     }
+
     .admin-features > div {
-        flex: 1 1 100%;
+        flex: 1 1 100%; /* Full width on smaller screens */
+        margin-bottom: 20px; /* Add space between sections */
     }
 }
-/* User Product List Styling */
-.current-products {
-    margin-top: 20px;
-}
-.current-products ul {
-    list-style-type: none;
-    padding: 0;
-}
-.current-products li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    background-color: #ecf0f1;
-    padding: 10px;
-    border-radius: 5px;
-}
-.current-products li img {
-    margin-left: 15px;
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-}
+
+/* Modal Styles */
 .modal {
-    display: none;
+    display: none; /* Hidden by default */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -273,90 +330,56 @@ footer {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.7);
-    align-items: center;
     justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
-    animation: fadeIn 0.5s ease-in-out; /* Smooth modal fade-in */
+    align-items: center;
 }
+
 .modal-content {
-    width: 90%;
-    max-width: 640px;
-    max-height: 80%;
-    overflow: auto;
-    border-radius: 8px;
     background-color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin: 15% auto;
     padding: 20px;
-    position: relative;
-    margin: auto;
-    animation: zoomIn 0.5s ease-in-out; /* Smooth modal content zoom-in */
+    width: 80%; /* Adjust width for better responsiveness */
+    max-width: 600px;
 }
+
 .close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    color: #f39c12;
-    font-size: 36px;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
     font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
     cursor: pointer;
-    z-index: 1001;
-    transition: color 0.3s ease, transform 0.3s ease;
-}
-.close:hover {
-    color: #e74c3c;
-    transform: scale(1.1);
 }
 
-/* Style for the upload button */
-.upload-button {
-    padding: 10px;
-    background-color: #f39c12;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    width: 21%;
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #2c3e50;
+    color: #ecf0f1;
 }
 
-/* Hide the actual file input */
-.upload-button input[type="file"] {
-    position: absolute; /* Positioning */
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    top: 0; /* Align to top */
-    left: 0; /* Align to left */
-    opacity: 0; /* Make invisible */
-    cursor: pointer; /* Pointer cursor on input */
+body.dark-mode header {
+    background: rgba(44, 62, 80, 0.8);
 }
 
-/* Hover effect for the upload button */
-.upload-button:hover {
-    background-color: #e67e22; /* Darker shade on hover to match existing styles */
-    transform: scale(1.05); /* Scale effect on hover */
+body.dark-mode .profile-dropdown {
+    background-color: #34495e;
 }
 
-/* Active effect for the upload button */
-.upload-button:active {
-    background-color: #d35400; /* Darker when clicked */
-    box-shadow: 0 5px #666; /* Shadow on click */
-    transform: translateY(2px); /* Push button down */
+body.dark-mode button {
+    background-color: #2980b9; /* Darker button color */
 }
 
-/* Disabled style for the upload button */
-.upload-button:disabled {
-    background-color: #ddd; /* Grey background for disabled state */
-    color: #888; /* Lighter text for disabled */
-    cursor: not-allowed; /* Not-allowed cursor */
+body.dark-mode button:hover {
+    background-color: #3498db;
 }
 
-/* Responsive upload button for smaller screens */
-@media (max-width: 600px) {
-    .upload-button {
-        width: 100%; /* Full width on smaller screens */
-        padding: 15px 0; /* Adjust padding */
-        font-size: 18px; /* Slightly larger font for readability */
-    }
+body.dark-mode .footer-links a,
+body.dark-mode .social-media a {
+    color: #ecf0f1; /* Lighter link color in dark mode */
 }

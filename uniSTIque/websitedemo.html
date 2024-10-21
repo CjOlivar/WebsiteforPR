@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="./css/styles2.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-qrcode/1.0/jquery.qrcode.min.js"></script>
-    
 
 </head>
 <body>
@@ -22,7 +21,11 @@
                     <img src="./Images/stilogo.png" alt="Logo">
                 </a>
             </div>
-            <div class="title">uniSTIque</div>
+            <div class="title">
+                <a href="homepage.html" target="_blank" style="color: inherit; text-decoration: none;">
+                    uniSTIque
+                </a>
+            </div>
         </div>
 
     <!-- Search Bar and Cart -->
@@ -50,11 +53,11 @@
     <!-- Recommendations Section -->
     <section class="recommendations">
         <h2>Recommended for You</h2>
-        <div class="recommendation product-item" data-price="200" data-requires-size="true" data-max-qty="10" onclick="openModal('daily-uniform.png', 'Daily Uniform', 200, true, 10)">
+        <div class="recommendation product-item" data-price="200" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('daily-uniform.png', 'Daily Uniform', 200, true, 10)">
             <img src="./Images/daily-uniform.png" alt="Recommended Product">
             <p>Daily Uniform</p>
         </div>
-        <div class="recommendation product-item" data-price="250" data-requires-size="true" data-max-qty="10" onclick="openModal('pe-uniform.png', 'PE Uniform', 250, true, 10)">
+        <div class="recommendation product-item" data-price="250" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('pe-uniform.png', 'PE Uniform', 250, true, 10)">
             <img src="./Images/pe-uniform.png" alt="Recommended Product">
             <p>PE Uniform</p>
         </div>
@@ -64,21 +67,33 @@
         <section class="available-section"> 
             <h2>Available:</h2> 
             <div class="available-items"> 
-                <div class="product-item" data-price="200" data-requires-size="true" data-max-qty="10" onclick="openModal('./Images/daily-uniform.png', 'Daily Uniform', 200, true, 10)">
+                <div class="product-item" data-price="200" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/daily-uniform.png', 'Daily Uniform', 200, true, 10)">
                     <img src="./Images/daily-uniform.png" alt="Daily Uniform">
                     <p>Daily Uniform</p>
                 </div>
-                <div class="product-item" data-price="40" data-requires-size="false" data-max-qty="10" onclick="openModal('./Images/id-lace.png', 'ID Lace', 40, false, 10)">
+                <div class="product-item" data-price="40" data-requires-size="false" data-requires-gender="false"data-max-qty="10" onclick="openModal('./Images/id-lace.png', 'ID Lace', 40, false, 10)">
                     <img src="./Images/id-lace.png" alt="ID Lace">
                     <p>ID Lace</p>
                 </div>
-                <div class="product-item" data-price="250" data-requires-size="true" data-max-qty="10" onclick="openModal('./Images/pe-uniform.png', 'PE Uniform', 250, true, 10)">
+                <div class="product-item" data-price="250" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/pe-uniform.png', 'PE Uniform', 250, true, 10)">
                     <img src="./Images/pe-uniform.png" alt="PE Uniform">
                     <p>PE Uniform</p>
                 </div>
-                <div class="product-item" data-price="10" data-requires-size="false" data-max-qty="10" onclick="openModal('./Images/sti-pin.png', 'Pin', 10, false, 10)">
+                <div class="product-item" data-price="10" data-requires-size="false" data-requires-gender="false" data-max-qty="10" onclick="openModal('./Images/sti-pin.png', 'Pin', 10, false, 10)">
                     <img src="./Images/sti-pin.png" alt="Pin">
                     <p>Pin</p>
+                </div>
+                <div class="product-item" data-price="450" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/blue-jacket.png', 'Blue Hooded Jacket', 450, true, 10)">
+                    <img src="./Images/blue-jacket.png" alt="Blue Hooded Jacket">
+                    <p>Blue Hooded Jacket</p>
+                </div>
+                <div class="product-item" data-price="450" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/grey-jacket.png', 'Grey Hooded Jacket', 450, true, 10)">
+                    <img src="./Images/grey-jacket.png" alt="Grey Hooded Jacket">
+                    <p>Grey Hooded Jacket</p>
+                </div>
+                <div class="product-item" data-price="275" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/polo-shirt', 'Alumni Poloshirt', 275, true, 10)">
+                    <img src="./Images/polo-shirt.png" alt="Grey Hooded Jacket">
+                    <p>Alumni Poloshirt</p>
                 </div>
             </div>
         </section>
@@ -127,6 +142,14 @@
             <div id="caption"></div>
             <div class="modal-details">
                 <p id="productPrice"></p>
+                <div id="genderContainer" style="display: none;">
+                    <label for="genderSelect">Select Gender:</label>
+                    <select id="genderSelect">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <br>
+                </div>
                 <div id="sizeContainer" style="display: none;">
                     <label for="sizeSelect">Select Size:</label>
                     <select id="sizeSelect">
@@ -146,6 +169,7 @@
             </div>
         </div>
     </div>
+    
 
 <!-- Modal for Shopping Cart -->
 <div id="cartModal" class="modal">
@@ -182,11 +206,17 @@
                 <img src="./Images/qr-code.png" alt="QR Code" class="payment-icon">
                 <span>QR Code</span>
             </div>
+            <!-- Add Cash Option -->
+            <div class="payment-option" onclick="selectPaymentMethod('cash')">
+                <img src="./Images/cash-logo.png" alt="Cash" class="payment-icon">
+                <span>Cash</span>
+            </div>
         </div>
         <div id="paymentDetails"></div>
     </div>
     <div id="qrCodeContainer" style="margin-top: 20px;"></div>
 </div>
+
 
     <!-- Modal for Profile -->
 <div id="profileModal" class="modal">

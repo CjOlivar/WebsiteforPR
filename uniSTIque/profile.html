@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="./css/profile.css">
 </head>
 <body>
     <header>
@@ -19,34 +19,45 @@
     </header>
 
     <main>
-        <section class="profile-info">
-            <h2>Welcome, User</h2>
-            <div class="profile-picture">
-                <img src="profile-pic.jpg" alt="User Profile Picture">
-            </div>
-            <div class="user-details">
-                <p><strong>Email:</strong> user2314@example.com</p>
-                <p><strong>Role:</strong> Student</p>
-                <p><strong>Bio:</strong> Passionate about technology and eager to learn new programming languages.</p>
-                <p><strong>Phone:</strong> (123) 456-7890</p>
-                <p><strong>Location:</strong> Calamba, Philippines</p>
-            </div>
-        </section>
+        <div class="container">
+            <aside class="sidebar">
+                <h3>Navigation</h3>
+                <ul>
+                    <li><a href="#profile-info" onclick="showSection('profile-info')">Profile Info</a></li>
+                    <li><a href="#recent-activities" onclick="showSection('recent-activities')">Recent Activities</a></li>
+                    <li><a href="#account-settings" onclick="showSection('account-settings')">Account Settings</a></li>
+                </ul>
+            </aside>
 
-        <section class="activity-log">
-            <h2>Recent Activities</h2>
-            <ul>
-                <li>Completed JavaScript Basics Course</li>
-                <li>Participated in the School Hackathon</li>
-                <li>Submitted Project: Web App for Students</li>
-            </ul>
-        </section>
+            <section class="profile-info" id="profile-info">
+                <h2>Welcome, <span id="userName">User</span></h2>
+                <div class="profile-picture">
+                    <img src="./Images/usericon.png" alt="User Profile Picture">
+                </div>
+                <div class="user-details">
+                    <p><strong>Email:</strong> <span id="userEmail"></span></p>
+                    <p><strong>Role:</strong> <span id="userRole">Student</span></p>
+                    <p><strong>Bio:</strong> <span id="userBio">Passionate about technology and eager to learn new programming languages.</span></p>
+                    <p><strong>Phone:</strong> <span id="userPhone">(123) 456-7890</span></p>
+                    <p><strong>Location:</strong> <span id="userLocation">Calamba, Philippines</span></p>
+                </div>
+            </section>
 
-        <section class="settings" id="settings">
-            <h2>Account Settings</h2>
-            <button>Edit Profile</button>
-            <button>Change Password</button>
-        </section>
+            <section class="activity-log" id="recent-activities" style="display: none;">
+                <h2>Recent Activities</h2>
+                <ul>
+                    <li>Completed JavaScript Basics Course</li>
+                    <li>Participated in the School Hackathon</li>
+                    <li>Submitted Project: Web App for Students</li>
+                </ul>
+            </section>
+
+            <section class="settings" id="account-settings" style="display: none;">
+                <h2>Account Settings</h2>
+                <button class="btn" onclick="editProfile()">Edit Profile</button>
+                <button class="btn" onclick="changePassword()">Change Password</button>
+            </section>
+        </div>
     </main>
 
     <footer>
@@ -56,5 +67,58 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="websiteconnect.js"></script>
+    <script>
+        // Load user email from local storage
+        document.addEventListener("DOMContentLoaded", function () {
+            const storedEmail = localStorage.getItem("userEmail");
+            document.getElementById('userEmail').innerText = storedEmail ? storedEmail : 'Not set';
+            // Show the default section
+            showSection('profile-info');
+        });
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function editProfile() {
+            const email = document.getElementById('userEmail').innerText;
+            const role = document.getElementById('userRole').innerText;
+            const bio = document.getElementById('userBio').innerText;
+            const phone = document.getElementById('userPhone').innerText;
+            const location = document.getElementById('userLocation').innerText;
+
+            const newEmail = prompt("Edit Email:", email);
+            const newRole = prompt("Edit Role:", role);
+            const newBio = prompt("Edit Bio:", bio);
+            const newPhone = prompt("Edit Phone:", phone);
+            const newLocation = prompt("Edit Location:", location);
+
+            if (newEmail) {
+                document.getElementById('userEmail').innerText = newEmail;
+                localStorage.setItem("userEmail", newEmail);
+            }
+            if (newRole) document.getElementById('userRole').innerText = newRole;
+            if (newBio) document.getElementById('userBio').innerText = newBio;
+            if (newPhone) document.getElementById('userPhone').innerText = newPhone;
+            if (newLocation) document.getElementById('userLocation').innerText = newLocation;
+
+            alert("Profile updated successfully!");
+        }
+
+        function changePassword() {
+            const newPassword = prompt("Enter your new password:");
+            if (newPassword) {
+                localStorage.setItem("userPassword", newPassword);
+                alert("Password changed successfully!");
+            } else {
+                alert("Password change cancelled.");
+            }
+        }
+    </script>
 </body>
 </html>

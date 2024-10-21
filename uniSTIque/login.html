@@ -11,7 +11,11 @@
         <!-- Header with Image and Title -->
         <div class="login-header">
             <img src="./Images/stilogo.png" alt="Logo">
-            <h2>Login to uniSTIque</h2>
+            <h2>Login to 
+                <a href="homepage.html" target="_blank" style="color: inherit; text-decoration: none;" class="hover-link">
+                    uniSTIque
+                </a>
+            </h2>
         </div>
         
         <!-- Form Fields -->
@@ -44,7 +48,7 @@
             if (users[identifier] && users[identifier].password === password) {
                 // Store the role in localStorage for later use
                 localStorage.setItem('userRole', users[identifier].role);
-                window.location.href = users[identifier].role === 'admin' ? 'admin.html' : 'websitedemo.html';
+                window.location.href = users[identifier].role === 'admin' ? 'admin.html' : 'homepage.html';
             } else {
                 loginError.style.display = 'block';
             }
