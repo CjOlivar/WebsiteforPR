@@ -136,7 +136,7 @@ function renderMyProductList() {
 renderCurrentProductList();
 renderMyProductList();
 
-// Function to toggle the profile dropdown
+// Function to toggle the profile 
 function toggleProfileDropdown() {
     const dropdown = document.getElementById("profileDropdown");
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
