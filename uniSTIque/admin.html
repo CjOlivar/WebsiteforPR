@@ -24,9 +24,66 @@
             <a href="#" onclick="openProfileModal()">Profile</a>
             <a href="#" onclick="logout()">Logout</a>
         </div>
-    </div>  
+    </div> 
+    
+    <div class="notifications">
+        <img src="./Images/bell-icon.png" alt="Notifications" onclick="toggleNotifications()">
+        <div id="notificationDropdown" class="notification-dropdown">
+            <h3>Notifications</h3>
+            <ul id="notificationList">
+                <!-- Notifications will be dynamically added here -->
+            </ul>
+        </div>
+    </div>
+    
     </header>
     <main>
+        <section class="dashboard-overview">
+            <h2>Dashboard Overview</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Total Sales</h3>
+                    <p id="totalSales">₱0</p>
+                </div>
+                <div class="metric-card">
+                    <h3>New Orders</h3>
+                    <p id="newOrders">0</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Active Users</h3>
+                    <p id="activeUsers">0</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Product Stock</h3>
+                    <p id="productStock">0</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="quick-actions">
+            <h2>Quick Actions</h2>
+            <button onclick="addNewProduct()">Add New Product</button>
+            <button onclick="viewRecentOrders()">View Recent Orders</button>
+            <button onclick="generateSalesReport()">Generate Sales Report</button>
+        </section>
+
+        <div class="user-management">
+            <h3>Manage Users</h3>
+            <button onclick="viewUsers()">View Users</button>
+            <div id="userList"></div>
+        </div>
+
+        <section class="sales-analytics">
+            <h2>Sales Analytics</h2>
+            <div id="salesChart"></div>
+            <div class="date-range">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate">
+                <button onclick="updateSalesChart()">Update Chart</button>
+            </div>
+        </section>
         <section class="admin-features">
             <h2>Admin Features</h2>
             <div class="manage-products">

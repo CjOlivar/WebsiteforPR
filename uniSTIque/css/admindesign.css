@@ -14,14 +14,14 @@ header {
     position: relative;
     display: flex;
     justify-content: space-between;
-    padding: 20px; /* Increased padding for better spacing */
-    background: url('../Images/backgroundimage.png') no-repeat center center; /* Improved background property */
-    background-size: cover; /* Adjust background size to cover */
+    padding: 20px;
+    background: url('../Images/backgroundimage.png') no-repeat center center;
+    background-size: cover;
     color: white;
     align-items: center;
     z-index: 1000;
-    margin: 0 auto; /* Fixed margin for proper centering */
-    transition: background-color 0.5s ease; /* Smooth background color transition */
+    margin: 0 auto;
+    transition: background-color 0.5s ease;
 }
 
 /* Media Queries for Responsive Design */
@@ -64,19 +64,21 @@ header {
     text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
 }
 
-/* Profile Icon and Dropdown */
+/* Profile Icon and Notification Styles */
 .profile-container {
     position: relative;
     display: flex;
     align-items: center;
+    gap: 15px;
+    margin-left: auto; /* Aligns the profile container to the right */
 }
 
 .user-icon {
-    width: 50px; /* Increased size for better clickability */
+    width: 50px;
     height: 50px;
     border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.3s ease, filter 0.3s ease; /* Added filter transition */
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .user-icon:hover {
@@ -357,29 +359,179 @@ footer {
     cursor: pointer;
 }
 
-/* Dark Mode Styles */
-body.dark-mode {
-    background-color: #2c3e50;
-    color: #ecf0f1;
+/* Dashboard Overview */
+.dashboard-overview {
+    margin-bottom: 30px;
 }
 
-body.dark-mode header {
-    background: rgba(44, 62, 80, 0.8);
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
 }
 
-body.dark-mode .profile-dropdown {
-    background-color: #34495e;
+.metric-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
 }
 
-body.dark-mode button {
-    background-color: #2980b9; /* Darker button color */
+.metric-card:hover {
+    transform: translateY(-5px);
 }
 
-body.dark-mode button:hover {
-    background-color: #3498db;
+.metric-card h3 {
+    margin-top: 0;
+    color: #333;
 }
 
-body.dark-mode .footer-links a,
-body.dark-mode .social-media a {
-    color: #ecf0f1; /* Lighter link color in dark mode */
+.metric-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f39c12;
+    margin-bottom: 0;
+}
+
+/* Quick Actions */
+.quick-actions {
+    margin-bottom: 30px;
+}
+
+.quick-actions button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.quick-actions button:hover {
+    background-color: #e67e22;
+    transform: translateY(-2px);
+}
+
+/* User Management */
+.user-management {
+    margin-bottom: 30px;
+}
+
+#userList {
+    margin-top: 20px;
+}
+
+/* Sales Analytics */
+.sales-analytics {
+    margin-bottom: 30px;
+}
+
+#salesChart {
+    width: 100%;
+    height: 300px;
+    background-color: white;
+    border: 1px solid #ecf0f1;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.date-range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.date-range input[type="date"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.date-range input[type="date"]:focus {
+    box-shadow: 0 0 8px rgba(243, 156, 18, 0.8);
+    border-color: #f39c12;
+}
+
+
+/* Notifications */
+.notifications {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.notifications img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-left: 15px;
+}
+
+.notifications img:hover {
+    transform: scale(1.1);
+}
+
+.notification-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.notification-dropdown h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+#notificationList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+#notificationList li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+#notificationList li:last-child {
+    border-bottom: none;
+}
+
+#notificationList li:hover {
+    background-color: #f9f9f9;
+}
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-actions button {
+        display: block;
+        width: 100%;
+    }
+
+    .date-range {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }

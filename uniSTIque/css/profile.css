@@ -123,10 +123,17 @@ footer {
 }
 
 footer a {
-    color: white;
-    text-decoration: none;
+    font-size: 18px; /* Larger font size */
+    font-weight: bold; /* Make text bold */
+    color: #4CAF50; /* Green color */
+    text-decoration: none; /* Remove underline */
+    padding: 10px 15px; /* Add padding */
+    background-color: #fff; /* White background */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 footer a:hover {
-    text-decoration: underline;
+    background-color: #4CAF50; /* Green background on hover */
+    color: #fff; /* White text on hover */
 }

@@ -5,6 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <link rel="stylesheet" href="./css/profile.css">
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding-top: 60px;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-50px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal-content.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        .form-field {
+            margin-bottom: 15px;
+        }
+
+        .form-field label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-field textarea {
+            resize: vertical;
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -35,9 +126,10 @@
                     <img src="./Images/usericon.png" alt="User Profile Picture">
                 </div>
                 <div class="user-details">
+                    <p><strong>Username:</strong> <span id="userName">User</span></p>
                     <p><strong>Email:</strong> <span id="userEmail"></span></p>
                     <p><strong>Role:</strong> <span id="userRole">Student</span></p>
-                    <p><strong>Bio:</strong> <span id="userBio">Passionate about technology and eager to learn new programming languages.</span></p>
+                    <p><strong>Bio:</strong> <span id="userBio">N/A</span></p>
                     <p><strong>Phone:</strong> <span id="userPhone">(123) 456-7890</span></p>
                     <p><strong>Location:</strong> <span id="userLocation">Calamba, Philippines</span></p>
                 </div>
@@ -46,16 +138,14 @@
             <section class="activity-log" id="recent-activities" style="display: none;">
                 <h2>Recent Activities</h2>
                 <ul>
-                    <li>Completed JavaScript Basics Course</li>
-                    <li>Participated in the School Hackathon</li>
-                    <li>Submitted Project: Web App for Students</li>
+                    <li>Your recent activities will be shown here</li>
                 </ul>
             </section>
 
             <section class="settings" id="account-settings" style="display: none;">
                 <h2>Account Settings</h2>
-                <button class="btn" onclick="editProfile()">Edit Profile</button>
-                <button class="btn" onclick="changePassword()">Change Password</button>
+                <button class="btn" onclick="openEditProfileModal()">Edit Profile</button>
+                <button class="btn" onclick="openChangePasswordModal()">Change Password</button>
             </section>
         </div>
     </main>
@@ -65,60 +155,172 @@
         <a href="websitedemo.html">Back to Home</a>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="websiteconnect.js"></script>
+    <!-- Modal for editing profile -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditProfileModal()">&times;</span>
+            <h2>Edit Profile</h2>
+            <form id="editProfileForm">
+                <div class="form-field">
+                    <label for="username">Username:</label>
+                    <input type="text" id="editUsername" value=""><br><br>
+                </div>                
+                <div class="form-field">
+                    <label for="email">Email:</label>
+                    <input type="email" id="editEmail" value="" readonly><br><br> <!-- Add readonly here -->
+                </div>
+                <div class="form-field">
+                    <label for="role">Role:</label>
+                    <span id="editRole" style="display:inline-block; padding: 5px; background-color: #f0f0f0; color: #555; border: none;">Student</span><br><br>
+                </div>
+                <div class="form-field">
+                    <label for="bio">Bio:</label>
+                    <textarea id="editBio"></textarea><br><br>
+                </div>
+                <div class="form-field">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="editPhone" value=""><br><br>
+                </div>
+                <div class="form-field">
+                    <label for="location">Location:</label>
+                    <input type="text" id="editLocation" value=""><br><br>
+                </div>
+                <button type="button" class="btn" onclick="saveProfileChanges()">Save Changes</button>
+                <button type="button" class="btn" onclick="discardChanges()">Cancel</button>
+            </form>
+
+        
+        </div>
+    </div>
+
+    <!-- Modal for changing password -->
+<div id="changePasswordModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeChangePasswordModal()">&times;</span>
+        <h2>Change Password</h2>
+        <form id="changePasswordForm">
+            <div class="form-field">
+                <label for="currentPassword">Current Password:</label>
+                <input type="password" id="currentPassword" required>
+            </div>
+            <div class="form-field">
+                <label for="newPassword">New Password:</label>
+                <input type="password" id="newPassword" required>
+            </div>
+            <div class="form-field">
+                <label for="confirmPassword">Confirm New Password:</label>
+                <input type="password" id="confirmPassword" required>
+            </div>
+            <button type="button" class="btn" onclick="savePasswordChanges()">Save Changes</button>
+            <button type="button" class="btn" onclick="discardPasswordChanges()">Cancel</button>
+        </form>
+    </div>
+</div>
     <script>
-        // Load user email from local storage
-        document.addEventListener("DOMContentLoaded", function () {
-            const storedEmail = localStorage.getItem("userEmail");
-            document.getElementById('userEmail').innerText = storedEmail ? storedEmail : 'Not set';
-            // Show the default section
-            showSection('profile-info');
-        });
+document.addEventListener("DOMContentLoaded", function () {
+    const storedEmail = localStorage.getItem("userEmail");
+    const storedUsername = localStorage.getItem("userName"); // Get the username from localStorage
+
+    // Set the user's email
+    document.getElementById('userEmail').innerText = storedEmail ? storedEmail : 'Not set';
+
+    // Set the user's name (username)
+    document.getElementById('userName').innerText = storedUsername ? storedUsername : 'User'; // Default to 'User' if not set
+    
+    showSection('profile-info');
+});
+
 
         function showSection(sectionId) {
-            // Hide all sections
             document.querySelectorAll('section').forEach(section => {
                 section.style.display = 'none';
             });
-            // Show the selected section
             document.getElementById(sectionId).style.display = 'block';
         }
 
-        function editProfile() {
-            const email = document.getElementById('userEmail').innerText;
-            const role = document.getElementById('userRole').innerText;
-            const bio = document.getElementById('userBio').innerText;
-            const phone = document.getElementById('userPhone').innerText;
-            const location = document.getElementById('userLocation').innerText;
+        function openEditProfileModal() {
+    document.getElementById('editEmail').value = document.getElementById('userEmail').innerText;
+    document.getElementById('editRole').value = document.getElementById('userRole').innerText;
+    document.getElementById('editBio').value = document.getElementById('userBio').innerText;
+    document.getElementById('editPhone').value = document.getElementById('userPhone').innerText;
+    document.getElementById('editLocation').value = document.getElementById('userLocation').innerText;
+    document.getElementById('editUsername').value = document.getElementById('userName').innerText;  // Add this to pre-fill the username
+    document.getElementById('editProfileModal').style.display = 'block';
+    document.querySelector('.modal-content').classList.add('show');
+}
 
-            const newEmail = prompt("Edit Email:", email);
-            const newRole = prompt("Edit Role:", role);
-            const newBio = prompt("Edit Bio:", bio);
-            const newPhone = prompt("Edit Phone:", phone);
-            const newLocation = prompt("Edit Location:", location);
 
-            if (newEmail) {
-                document.getElementById('userEmail').innerText = newEmail;
-                localStorage.setItem("userEmail", newEmail);
-            }
-            if (newRole) document.getElementById('userRole').innerText = newRole;
-            if (newBio) document.getElementById('userBio').innerText = newBio;
-            if (newPhone) document.getElementById('userPhone').innerText = newPhone;
-            if (newLocation) document.getElementById('userLocation').innerText = newLocation;
 
-            alert("Profile updated successfully!");
+        function closeEditProfileModal() {
+            document.getElementById('editProfileModal').style.display = 'none';
+            document.querySelector('.modal-content').classList.remove('show');
         }
 
-        function changePassword() {
-            const newPassword = prompt("Enter your new password:");
-            if (newPassword) {
-                localStorage.setItem("userPassword", newPassword);
-                alert("Password changed successfully!");
+        function saveProfileChanges() {
+    document.getElementById('userEmail').innerText = document.getElementById('editEmail').value;
+    document.getElementById('userRole').innerText = document.getElementById('editRole').value;
+    document.getElementById('userBio').innerText = document.getElementById('editBio').value;
+    document.getElementById('userPhone').innerText = document.getElementById('editPhone').value;
+    document.getElementById('userLocation').innerText = document.getElementById('editLocation').value;
+    document.getElementById('userName').innerText = document.getElementById('editUsername').value;
+    closeEditProfileModal();
+}
+
+        function discardChanges() {
+            closeEditProfileModal();
+        }
+
+        function savePasswordChanges() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (newPassword !== confirmPassword) {
+                alert("Passwords do not match!");
             } else {
-                alert("Password change cancelled.");
+                alert("Password successfully changed!");
+                closeChangePasswordModal();
             }
         }
+
+        function discardPasswordChanges() {
+            closeChangePasswordModal();
+        }
+
+        function openChangePasswordModal() {
+    document.getElementById('changePasswordModal').style.display = 'block';
+    document.querySelector('#changePasswordModal .modal-content').classList.add('show');
+}
+
+function closeChangePasswordModal() {
+    document.getElementById('changePasswordModal').style.display = 'none';
+    document.querySelector('#changePasswordModal .modal-content').classList.remove('show');
+    // Clear the form fields
+    document.getElementById('currentPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    document.getElementById('confirmPassword').value = '';
+}
+
+function savePasswordChanges() {
+    const currentPassword = document.getElementById('currentPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (newPassword !== confirmPassword) {
+        alert("New passwords do not match!");
+    } else if (newPassword.length < 8) {
+        alert("New password must be at least 8 characters long!");
+    } else {
+        // Here you would typically send the password change request to your server
+        // For now, we'll just show a success message
+        alert("Password successfully changed!");
+        closeChangePasswordModal();
+    }
+}
+
+function discardPasswordChanges() {
+    closeChangePasswordModal();
+}
     </script>
 </body>
 </html>
