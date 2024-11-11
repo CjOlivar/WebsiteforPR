@@ -49,9 +49,16 @@ header {
 }
 
 .title {
-    font-size: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
     font-weight: 700;
-    letter-spacing: 2px;
+    color: yellow;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); /* Added shadow */
+    transition: text-shadow 0.3s ease;
+}
+
+.title:hover {
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6); /* Increased shadow on hover */
 }
 
 /* Navigation Styles */

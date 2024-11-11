@@ -126,7 +126,7 @@
                     <img src="./Images/usericon.png" alt="User Profile Picture">
                 </div>
                 <div class="user-details">
-                    <p><strong>Username:</strong> <span id="userName">User</span></p>
+                    <p><strong>Username:</strong> <span id="userName"></span></p>
                     <p><strong>Email:</strong> <span id="userEmail"></span></p>
                     <p><strong>Role:</strong> <span id="userRole">Student</span></p>
                     <p><strong>Bio:</strong> <span id="userBio">N/A</span></p>
@@ -167,7 +167,7 @@
                 </div>                
                 <div class="form-field">
                     <label for="email">Email:</label>
-                    <input type="email" id="editEmail" value="" readonly><br><br> <!-- Add readonly here -->
+                    <input type="email" id="editEmail" value=""><br><br> <!-- Add readonly here -->
                 </div>
                 <div class="form-field">
                     <label for="role">Role:</label>
@@ -222,10 +222,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const storedUsername = localStorage.getItem("userName"); // Get the username from localStorage
 
     // Set the user's email
-    document.getElementById('userEmail').innerText = storedEmail ? storedEmail : 'Not set';
+    document.getElementItem('users').innerText = storedEmail ? storedEmail : '';
 
     // Set the user's name (username)
-    document.getElementById('userName').innerText = storedUsername ? storedUsername : 'User'; // Default to 'User' if not set
+    document.getElementItem('users').innerText = storedUsername ? storedUsername : ''; // Default to 'User' if not set
     
     showSection('profile-info');
 });
@@ -239,12 +239,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         function openEditProfileModal() {
-    document.getElementById('editEmail').value = document.getElementById('userEmail').innerText;
+    document.getElementById('editEmail').value = document.getElementById('users').innerText;
     document.getElementById('editRole').value = document.getElementById('userRole').innerText;
     document.getElementById('editBio').value = document.getElementById('userBio').innerText;
     document.getElementById('editPhone').value = document.getElementById('userPhone').innerText;
     document.getElementById('editLocation').value = document.getElementById('userLocation').innerText;
-    document.getElementById('editUsername').value = document.getElementById('userName').innerText;  // Add this to pre-fill the username
+    document.getElementById('editUsername').value = document.getElementById('users').innerText;  // Add this to pre-fill the username
     document.getElementById('editProfileModal').style.display = 'block';
     document.querySelector('.modal-content').classList.add('show');
 }

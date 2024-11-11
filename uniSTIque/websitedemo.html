@@ -63,25 +63,27 @@
         </div>
     </section>
 
-        <!-- Available Section -->
-        <section class="available-section"> 
-            <h2>Available:</h2> 
-            <div class="available-items"> 
+    <!-- Available Section -->
+<section class="available-section">
+    <h2>Available:</h2>
+    <div class="available-slider">
+        <div class="available-items-wrapper">
+            <div class="available-items">
                 <div class="product-item" data-price="200" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/daily-uniform.png', 'Daily Uniform', 200, true, 10)">
                     <img src="./Images/daily-uniform.png" alt="Daily Uniform">
-                    <p>Daily Uniform</p>
+                    <p>ㅤDaily Uniformㅤ</p>
                 </div>
-                <div class="product-item" data-price="40" data-requires-size="false" data-requires-gender="false"data-max-qty="10" onclick="openModal('./Images/id-lace.png', 'ID Lace', 40, false, 10)">
+                <div class="product-item" data-price="40" data-requires-size="false" data-requires-gender="false" data-max-qty="10" onclick="openModal('./Images/id-lace.png', 'ID Lace', 40, false, 10)">
                     <img src="./Images/id-lace.png" alt="ID Lace">
-                    <p>ID Lace</p>
+                    <p>ㅤㅤㅤID Laceㅤㅤㅤ</p>
                 </div>
                 <div class="product-item" data-price="250" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/pe-uniform.png', 'PE Uniform', 250, true, 10)">
                     <img src="./Images/pe-uniform.png" alt="PE Uniform">
-                    <p>PE Uniform</p>
+                    <p>ㅤㅤPE Uniformㅤㅤ</p>
                 </div>
                 <div class="product-item" data-price="10" data-requires-size="false" data-requires-gender="false" data-max-qty="10" onclick="openModal('./Images/sti-pin.png', 'Pin', 10, false, 10)">
                     <img src="./Images/sti-pin.png" alt="Pin">
-                    <p>Pin</p>
+                    <p>ㅤㅤㅤㅤPinㅤㅤㅤㅤ</p>
                 </div>
                 <div class="product-item" data-price="450" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/blue-jacket.png', 'Blue Hooded Jacket', 450, true, 10)">
                     <img src="./Images/blue-jacket.png" alt="Blue Hooded Jacket">
@@ -91,12 +93,18 @@
                     <img src="./Images/grey-jacket.png" alt="Grey Hooded Jacket">
                     <p>Grey Hooded Jacket</p>
                 </div>
-                <div class="product-item" data-price="275" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/polo-shirt', 'Alumni Poloshirt', 275, true, 10)">
-                    <img src="./Images/polo-shirt.png" alt="Grey Hooded Jacket">
+                <div class="product-item" data-price="275" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/polo-shirt.png', 'Alumni Poloshirt', 275, true, 10)">
+                    <img src="./Images/polo-shirt.png" alt="Alumni Poloshirt">
                     <p>Alumni Poloshirt</p>
                 </div>
+                <div class="product-item" data-price="650" data-requires-size="false" data-requires-gender="false" data-max-qty="10" onclick="openModal('Untitled design.png', 'Aqua Flask', 650, false, 10)">
+                    <img src="Untitled design.png" alt="Aqua Flask">
+                    <p>ㅤㅤAqua Flaskㅤㅤ</p>
+                </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
 <!-- News Section -->
 <div class="news-section">
@@ -233,7 +241,7 @@
     <!-- Footer Section -->
     <footer>
         <div class="footer-links">
-            <a href="#">Terms & Conditions</a>
+            <a href="easter egg.jpg">Terms & Conditions</a>
             <a href="#">Privacy Policy</a>
         </div>
         <div class="social-media">
@@ -249,6 +257,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script>
         let cartCount = 0;
 let cartItems = [];
@@ -371,7 +380,7 @@ function selectPaymentMethod(method) {
             break;
 
         case "credit_card":
-            paymentDetailsContainer.innerHTML = `
+            paymentDetailsContainer.innerHTML = ` 
             <h3>Credit Card Details</h3>
             <label for="cardNumber">Card Number:</label>
             <input type="text" id="cardNumber" placeholder="Enter card number">
@@ -397,7 +406,7 @@ function selectPaymentMethod(method) {
             generateQRCode(`payment://process?amount=${totalAmount}&message=Your+Order`);
             break;
 
-            case "cash":
+        case "cash":
             paymentDetailsContainer.innerHTML = `<h3>Cash Payment</h3>
                 <p>You have selected cash as your payment method. Please prepare the exact amount of ₱${totalAmount} for cash on delivery or in-store payment.</p>
                 <button onclick="submitPayment('cash')">Confirm Cash Payment</button>`;
@@ -411,7 +420,13 @@ function selectPaymentMethod(method) {
 }
 
 // Function to generate QR code
-
+function generateQRCode(data) {
+    const qrCodeContainer = document.getElementById("qrCodeContainer");
+    QRCode.toCanvas(qrCodeContainer, data, function (error) {
+        if (error) console.error(error);
+        console.log('QR code generated successfully!');
+    });
+}
 
 // Function to clear payment details
 function clearPaymentDetails() {
@@ -419,6 +434,7 @@ function clearPaymentDetails() {
     paymentDetailsContainer.innerHTML = '';
     document.getElementById("qrCodeContainer").innerHTML = ''; // Clear QR code
 }
+
 
 // Function to submit payment
 function submitPayment(method) {
@@ -562,7 +578,7 @@ function moveSlide(n) {
 // Optional: Auto slide every 5 seconds
 setInterval(function() {
     moveSlide(1); // Move to the next slide every 5 seconds
-}, 3000);
+}, 4000);
 
 function toggleProfileDropdown() {
     const dropdown = document.getElementById("profileDropdown");
@@ -600,8 +616,6 @@ hamMenu.addEventListener("click", () => {
   hamMenu.classList.toggle("active");
   offScreenMenu.classList.toggle("active");
 });
-
-
     </script>
 
 </body>

@@ -97,10 +97,14 @@ header {
 }
 
 .product-item img {
-    width: 150px;
-    height: 150px;
-    border-radius: 8px;
+    width: 100%;
+    height: auto;
+    max-height: 120px;
+    object-fit: contain;
+    margin-bottom: 8px;
+    text-align: center;
 }
+
 
 .product-item:hover {
     transform: scale(1.1); /* Enlarges the product card on hover */
@@ -687,4 +691,22 @@ button:focus {
         width: 95%;
         margin: 50px auto;
     }
+}
+
+.available-slider {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.available-slider::-webkit-scrollbar {
+    height: 8px;
+}
+
+.available-slider::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.available-slider::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
 }
