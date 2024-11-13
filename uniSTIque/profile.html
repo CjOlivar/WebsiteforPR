@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('editBio').value = document.getElementById('userBio').innerText;
     document.getElementById('editPhone').value = document.getElementById('userPhone').innerText;
     document.getElementById('editLocation').value = document.getElementById('userLocation').innerText;
-    document.getElementById('editUsername').value = document.getElementById('users').innerText;  // Add this to pre-fill the username
+    document.getElementById('editUsername').value = document.getElementById('users').innerText; 
     document.getElementById('editProfileModal').style.display = 'block';
     document.querySelector('.modal-content').classList.add('show');
 }
@@ -311,8 +311,6 @@ function savePasswordChanges() {
     } else if (newPassword.length < 8) {
         alert("New password must be at least 8 characters long!");
     } else {
-        // Here you would typically send the password change request to your server
-        // For now, we'll just show a success message
         alert("Password successfully changed!");
         closeChangePasswordModal();
     }
