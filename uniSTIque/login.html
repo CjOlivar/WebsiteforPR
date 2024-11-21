@@ -24,7 +24,7 @@
             <input type="text" id="identifier" placeholder="Enter your email or username" required>
             
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" required>
+            <input type="password" id="password" placeholder="Enter your password" required maxlength="8">
             
             <button type="submit">Login</button>
         </form>
@@ -36,23 +36,35 @@
     </div>    
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting
-            const identifier = document.getElementById('identifier').value;
-            const password = document.getElementById('password').value;
-            const loginError = document.getElementById('loginError');
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting
+    const identifier = document.getElementById('identifier').value;
+    const password = document.getElementById('password').value;
+    const loginError = document.getElementById('loginError');
 
-            // Fetch users from localStorage
-            const users = JSON.parse(localStorage.getItem('users')) || {};
+    if (password.length > 8) {
+        loginError.textContent = "Error: Password must be 8 characters or less!";
+        loginError.style.display = 'block';
+        return;
+    }
 
-            if (users[identifier] && users[identifier].password === password) {
-                // Store the role in localStorage for later use
-                localStorage.setItem('userRole', users[identifier].role);
-                window.location.href = users[identifier].role === 'admin' ? 'admin.html' : 'homepage.html';
-            } else {
-                loginError.style.display = 'block';
-            }
-        });
+    // Fetch users from localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || {};
+
+    let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
+     userActivity[identifier] = { lastLogin: new Date().toISOString(), lastLogout: null };
+     localStorage.setItem('userActivity', JSON.stringify(userActivity));
+
+    if (users[identifier] && users[identifier].password === password) {
+        // Store the role in localStorage for later use
+        localStorage.setItem('userRole', users[identifier].role);
+        localStorage.setItem('identifier', identifier);
+        window.location.href = users[identifier].role === 'admin' ? 'admin.html' : 'homepage.html';
+    } else {
+        loginError.style.display = 'block';
+    }
+});
+
     </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="websiteconnect.js"></script>

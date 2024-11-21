@@ -20,10 +20,10 @@
             <input type="text" id="identifier" placeholder="Enter your email or username" required>
 
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter a password" required>
+            <input type="password" id="password" placeholder="Enter a password" required maxlength="8">
 
             <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm your password" required maxlength="8">
 
             <fieldset>
                 <legend>Register as:</legend>
@@ -47,34 +47,41 @@
     </div>
 
     <script>
-        document.getElementById('signupForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting
-            const identifier = document.getElementById('identifier').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const signupError = document.getElementById('signupError');
-            const signupSuccess = document.getElementById('signupSuccess');
+document.getElementById('signupForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from submitting
+    const identifier = document.getElementById('identifier').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    const signupError = document.getElementById('signupError');
+    const signupSuccess = document.getElementById('signupSuccess');
 
-            if (password !== confirmPassword) {
-                signupError.style.display = 'block';
-                signupSuccess.style.display = 'none';
-            } else {
-                signupError.style.display = 'none';
+    if (password.length > 8) {
+        signupError.textContent = "Error: Password must be 8 characters or less!";
+        signupError.style.display = 'block';
+        signupSuccess.style.display = 'none';
+        return;
+    }
 
-                // storing user data in localStorage (or send to backend)
-                let users = JSON.parse(localStorage.getItem('users')) || {};
-                if (users[identifier]) {
-                    signupError.textContent = "Error: Email/Username already exists!";
-                    signupError.style.display = 'block';
-                } else {
-                    // Get the selected role from the radio buttons
-                    const role = document.querySelector('input[name="role"]:checked').value;
-                    users[identifier] = { password: password, role: role };
-                    localStorage.setItem('users', JSON.stringify(users));
-                    signupSuccess.style.display = 'block';
-                }
-            }
-        });
+    if (password !== confirmPassword) {
+        signupError.style.display = 'block';
+        signupSuccess.style.display = 'none';
+    } else {
+        signupError.style.display = 'none';
+
+        // storing user data in localStorage (or send to backend)
+        let users = JSON.parse(localStorage.getItem('users')) || {};
+        if (users[identifier]) {
+            signupError.textContent = "Error: Email/Username already exists!";
+            signupError.style.display = 'block';
+        } else {
+            // Get the selected role from the radio buttons
+            const role = document.querySelector('input[name="role"]:checked').value;
+            users[identifier] = { password: password, role: role };
+            localStorage.setItem('users', JSON.stringify(users));
+            signupSuccess.style.display = 'block';
+        }
+    }
+});
     </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="websiteconnect.js"></script>

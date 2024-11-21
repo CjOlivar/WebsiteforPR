@@ -9,22 +9,21 @@ function openModal(imageSrc, productName, price, requiresSize, maxQty) {
     document.getElementById("modalImage").src = imageSrc;
     document.getElementById("caption").innerHTML = productName;
     document.getElementById("productPrice").innerHTML = "Price: ₱" + price;
-    maxQuantity = maxQty;  // Set the max quantity for the product
+    maxQuantity = maxQty;  
 
-    // Show or hide size selection
+
     document.getElementById('sizeContainer').style.display = requiresSize ? 'block' : 'none';
 
-    // Check if the product requires gender selection
-    const productItem = event.currentTarget; // Get the clicked product item
+
+    const productItem = event.currentTarget;
     const requiresGender = productItem.getAttribute('data-requires-gender') === 'true';
     document.getElementById('genderContainer').style.display = requiresGender ? 'block' : 'none';
 
-    // Open the modal
     document.getElementById('availableModal').style.display = 'block';
 }
 
 function closeModal() {
-    document.getElementById("availableModal").style.display = "none";  // Hide modal
+    document.getElementById("availableModal").style.display = "none";  
 }
 
 function buyNow() {
@@ -36,7 +35,7 @@ function buyNow() {
     const price = parseInt(priceText.replace('Price: ₱', ''));
     const quantityError = document.getElementById("quantityError");
 
-    // Check for valid quantity
+    
     if (isNaN(quantity) || quantity <= 0) {
         quantityError.innerText = "Please enter a valid quantity.";
         quantityError.style.display = "block";
@@ -56,7 +55,7 @@ function buyNow() {
     document.getElementById("cartCount").innerText = cartCount;
 
     cartItems.push({ productName, price, size, quantity });
-    closeModal();  // Close the modal after adding to cart
+    closeModal();  
 }
 
 function viewCart() {
@@ -73,11 +72,11 @@ function viewCart() {
     });
 
     document.getElementById("totalAmount").innerText = totalAmount;
-    document.getElementById("cartModal").style.display = "block";  // Show cart modal
+    document.getElementById("cartModal").style.display = "block";  
 }
 
 function closeCartModal() {
-    document.getElementById("cartModal").style.display = "none";  // Hide cart modal
+    document.getElementById("cartModal").style.display = "none";  
 }
 
 function checkout() {
@@ -92,7 +91,7 @@ function checkout() {
 
     // Close cart modal
     cartModal.style.display = "none"; 
-    paymentModal.style.display = "block"; // Show payment modal
+    paymentModal.style.display = "block"; 
     clearPaymentDetails();
 }
 
@@ -109,7 +108,7 @@ function selectPaymentMethod(method) {
     clearPaymentDetails();
 
     const paymentDetailsContainer = document.getElementById("paymentDetails");
-    const qrCodeContainer = document.getElementById("qrCodeContainer"); // Make sure to have this div in your HTML
+    const qrCodeContainer = document.getElementById("qrCodeContainer"); 
 
     switch (method) {
         case "gcash":
@@ -119,15 +118,18 @@ function selectPaymentMethod(method) {
             break;
 
         case "credit_card":
-            paymentDetailsContainer.innerHTML = `<h3>Credit Card Payment</h3>
-                <label for="cardNumber">Card Number:</label>
-                <input type="text" id="cardNumber" placeholder="XXXX-XXXX-XXXX-XXXX" required />
-                <label for="expiryDate">Expiry Date:</label>
-                <input type="text" id="expiryDate" placeholder="MM/YY" required />
-                <label for="cvv">CVV:</label>
-                <input type="text" id="cvv" placeholder="XXX" required />
-                <button onclick="submitPayment('credit_card')">Pay Now</button>`;
-            qrCodeContainer.innerHTML = ''; // Clear QR code for other payment methods
+            paymentDetailsContainer.innerHTML = ` 
+            <h3>Credit Card Details</h3>
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" placeholder="Enter card number">
+            <br>
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="date" id="expiryDate" placeholder="Select expiry date">
+            <br>
+            <label for="cardCvv">CVV:</label>
+            <input type="text" id="cardCvv" placeholder="Enter CVV">
+        `;
+            qrCodeContainer.innerHTML = ''; 
             break;
 
         case "paymaya":
@@ -142,30 +144,34 @@ function selectPaymentMethod(method) {
             generateQRCode(`payment://process?amount=${totalAmount}&message=Your+Order`);
             break;
 
-            case "cash":
+        case "cash":
             paymentDetailsContainer.innerHTML = `<h3>Cash Payment</h3>
                 <p>You have selected cash as your payment method. Please prepare the exact amount of ₱${totalAmount} for cash on delivery or in-store payment.</p>
                 <button onclick="submitPayment('cash')">Confirm Cash Payment</button>`;
-            qrCodeContainer.innerHTML = ''; // No QR code for cash
+            qrCodeContainer.innerHTML = ''; 
             break;
 
         default:
             paymentDetailsContainer.innerHTML = '';
-            qrCodeContainer.innerHTML = ''; // Clear QR code for invalid method
+            qrCodeContainer.innerHTML = ''; 
     }
 }
 
-// Function to generate QR code
 
+function generateQRCode(data) {
+    const qrCodeContainer = document.getElementById("qrCodeContainer");
+    QRCode.toCanvas(qrCodeContainer, data, function (error) {
+        if (error) console.error(error);
+        console.log('QR code generated successfully!');
+    });
+}
 
-// Function to clear payment details
 function clearPaymentDetails() {
     const paymentDetailsContainer = document.getElementById("paymentDetails");
     paymentDetailsContainer.innerHTML = '';
-    document.getElementById("qrCodeContainer").innerHTML = ''; // Clear QR code
+    document.getElementById("qrCodeContainer").innerHTML = ''; 
 }
 
-// Function to submit payment
 function submitPayment(method) {
     let isValid = true;
     let paymentInfo = {};
@@ -208,12 +214,10 @@ function submitPayment(method) {
     if (isValid) {
         console.log("Processing payment:", paymentInfo);
         alert("Payment successful! Thank you for your purchase.");
-        clearCart(); // Clear cart after successful payment
+        clearCart(); 
     }
 }
 
-
-// Function to clear the cart after successful checkout
 function clearCart() {
     cartCount = 0;
     totalAmount = 0;
@@ -221,19 +225,18 @@ function clearCart() {
 
     document.getElementById("cartCount").innerText = cartCount;
     document.getElementById("totalAmount").innerText = totalAmount;
-    document.getElementById("cartItems").innerHTML = '';  // Clear the cart items in the modal
+    document.getElementById("cartItems").innerHTML = '';  
 
-    // Close the payment modal
     closePaymentModal();
 }
 
 function closePaymentModal() {
-    document.getElementById("paymentModal").style.display = "none";  // Hide payment modal
+    document.getElementById("paymentModal").style.display = "none";  
 }
 
 document.getElementById("searchInput").addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
-        searchProducts(); // Call the search function when Enter is pressed
+        searchProducts(); 
     }
 });
 
@@ -245,14 +248,13 @@ function searchProducts() {
 
     let productFound = false;
 
-    // Function to open the modal if a match is found
     function tryOpenModal(product) {
         const productName = product.querySelector("p").innerText.toLowerCase();
         if (productName.includes(searchInput)) {
             const imageSrc = product.querySelector("img").src;
-            const price = product.getAttribute('data-price'); // Add 'data-price' attribute to your HTML for prices
+            const price = product.getAttribute('data-price');
             const requiresSize = product.getAttribute('data-requires-size') === 'true';
-            const maxQty = product.getAttribute('data-max-qty') || 10; // Set max quantity or default
+            const maxQty = product.getAttribute('data-max-qty') || 10; 
 
             openModal(imageSrc, product.querySelector("p").innerText, price, requiresSize, maxQty);
             productFound = true;
@@ -270,17 +272,17 @@ function searchProducts() {
     }
 
     if (!productFound) {
-        alert("Product not found!"); // Alert if no product matches the search term
+        alert("Product not found!"); 
     }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
     const userRole = localStorage.getItem('userRole');
     if (!userRole) {
-        window.location.href = 'login.html'; // Redirect to login if no role is found
+        window.location.href = 'login.html'; 
     } else if (userRole === 'admin') {
         alert('You are logged in as an Admin. You will be redirected to the admin panel.');
-        window.location.href = 'admin.html'; // Redirect to admin page for admins
+        window.location.href = 'admin.html'
     }
 });
 
@@ -288,15 +290,15 @@ document.addEventListener("DOMContentLoaded", function() {
 function showSlides(n) {
     let slides = document.getElementsByClassName("news-slide");
     if (n >= slides.length) {
-        slideIndex = 0; // Reset to the first slide
+        slideIndex = 0;
     }
     if (n < 0) {
-        slideIndex = slides.length - 1; // Go to the last slide
+        slideIndex = slides.length - 1;
     }
     for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none"; // Hide all slides
+        slides[i].style.display = "none"; 
     }
-    slides[slideIndex].style.display = "block"; // Show the current slide
+    slides[slideIndex].style.display = "block"; 
 }
 
 function moveSlide(n) {
@@ -304,10 +306,10 @@ function moveSlide(n) {
     showSlides(slideIndex);
 }
 
-// Optional: Auto slide every 5 seconds
+
 setInterval(function() {
-    moveSlide(1); // Move to the next slide every 5 seconds
-}, 3000);
+    moveSlide(1); 
+}, 4000);
 
 function toggleProfileDropdown() {
     const dropdown = document.getElementById("profileDropdown");
@@ -322,7 +324,6 @@ function closeProfileModal() {
     document.getElementById('profileModal').style.display = 'none';
 }
 
-// Hide dropdown when clicking outside
 window.addEventListener('click', function(event) {
     if (!event.target.matches('.user-icon')) {
         const dropdown = document.getElementById("profileDropdown");
@@ -333,131 +334,96 @@ window.addEventListener('click', function(event) {
 });
 
 function logout() {
+    const identifier = localStorage.getItem('identifier'); // Retrieve identifier from localStorage
+    if (identifier) {
+        // Update user activity on logout
+        let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
+        if (userActivity[identifier]) {
+            userActivity[identifier].lastLogout = new Date().toISOString(); // Set logout time
+        }
+        localStorage.setItem('userActivity', JSON.stringify(userActivity));
+    }
+
     localStorage.removeItem('userRole');
-    window.location.href = 'login.html';
+    localStorage.removeItem('identifier'); // Clear identifier on logout
+    window.location.href = 'login.html'; // Redirect to login page
 }
 
-const hamMenu = document.querySelector(".ham-menu");
+function submitContactForm(event) {
+    event.preventDefault(); // Prevent the default form submission
 
-const offScreenMenu = document.querySelector(".off-screen-menu");
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
 
-hamMenu.addEventListener("click", () => {
-  hamMenu.classList.toggle("active");
-  offScreenMenu.classList.toggle("active");
-});
+    // Simulate form submission (you can replace this with actual form submission logic)
+    console.log("Form submitted:", { name, email, message });
 
-let date = new Date();
-let year = date.getFullYear();
-let month = date.getMonth();
+    // Show response message
+    const responseDiv = document.getElementById("formResponse");
+    responseDiv.style.display = "block";
+    responseDiv.innerHTML = `<p>Thank you, ${name}! Your message has been sent.</p>`;
 
-const day = document.querySelector(".calendar-dates");
-
-const currdate = document
-    .querySelector(".calendar-current-date");
-
-const prenexIcons = document
-    .querySelectorAll(".calendar-navigation span");
-
-// Array of month names
-const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-];
-
-// Function to generate the calendar
-const manipulate = () => {
-
-    // Get the first day of the month
-    let dayone = new Date(year, month, 1).getDay();
-
-    // Get the last date of the month
-    let lastdate = new Date(year, month + 1, 0).getDate();
-
-    // Get the day of the last date of the month
-    let dayend = new Date(year, month, lastdate).getDay();
-
-    // Get the last date of the previous month
-    let monthlastdate = new Date(year, month, 0).getDate();
-
-    // Variable to store the generated calendar HTML
-    let lit = "";
-
-    // Loop to add the last dates of the previous month
-    for (let i = dayone; i > 0; i--) {
-        lit +=
-            `<li class="inactive">${monthlastdate - i + 1}</li>`;
-    }
-
-    // Loop to add the dates of the current month
-    for (let i = 1; i <= lastdate; i++) {
-
-        // Check if the current date is today
-        let isToday = i === date.getDate()
-            && month === new Date().getMonth()
-            && year === new Date().getFullYear()
-            ? "active"
-            : "";
-        lit += `<li class="${isToday}">${i}</li>`;
-    }
-
-    // Loop to add the first dates of the next month
-    for (let i = dayend; i < 6; i++) {
-        lit += `<li class="inactive">${i - dayend + 1}</li>`
-    }
-
-    // Update the text of the current date element 
-    // with the formatted current month and year
-    currdate.innerText = `${months[month]} ${year}`;
-
-    // update the HTML of the dates element 
-    // with the generated calendar
-    day.innerHTML = lit;
+    // Clear the form fields
+    document.getElementById("contactForm").reset();
+}
+function openCustomerServiceModal() {
+    document.getElementById('customerServiceModal').style.display = 'block';
 }
 
-manipulate();
+function closeCustomerServiceModal() {
+    document.getElementById('customerServiceModal').style.display = 'none';
+}
 
-// Attach a click event listener to each icon
-prenexIcons.forEach(icon => {
+function submitCustomerServiceForm(event) {
+    event.preventDefault(); // Prevent the default form submission
 
-    // When an icon is clicked
-    icon.addEventListener("click", () => {
+    const name = document.getElementById("csName").value;
+    const email = document.getElementById("csEmail").value;
+    const message = document.getElementById("csMessage").value;
 
-        // Check if the icon is "calendar-prev"
-        // or "calendar-next"
-        month = icon.id === "calendar-prev" ? month - 1 : month + 1;
+    // Log the submission (for demonstration purposes)
+    console.log("Customer Service Form submitted:", { name, email, message });
 
-        // Check if the month is out of range
-        if (month < 0 || month > 11) {
+    // Create a notification for the admin
+    const notification = `New message from ${name} (${email}): ${message}`;
+    notifications.push(notification); // Add notification to the array
 
-            // Set the date to the first day of the 
-            // month with the new year
-            date = new Date(year, month, new Date().getDate());
+    // Show response message
+    const responseDiv = document.getElementById("csFormResponse");
+    responseDiv.style.display = "block";
+    responseDiv.innerHTML = `<p>Thank you, ${name}! Your message has been sent.</p>`;
 
-            // Set the year to the new year
-            year = date.getFullYear();
+    // Clear the form fields
+    document.getElementById("customerServiceForm").reset();
+}
 
-            // Set the month to the new month
-            month = date.getMonth();
-        }
+document.addEventListener("DOMContentLoaded", function() {
+    // Check if there is a notification in Local Storage
+    const notification = localStorage.getItem('productAddedNotification');
+    if (notification) {
+        alert(notification); // Show the notification
+        localStorage.removeItem('productAddedNotification'); // Clear the notification
+    }
 
-        else {
+    // Render products from Local Storage
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    const availableItemsContainer = document.getElementById("available-items");
 
-            // Set the date to the current date
-            date = new Date();
-        }
-
-        // Call the manipulate function to 
-        // update the calendar display
-        manipulate();
+    products.forEach((product) => {
+        const productItem = document.createElement("div");
+        productItem.classList.add("product-item");
+        productItem.setAttribute("data-price", product.price);
+        productItem.setAttribute("data-requires-size", product.requiresSize);
+        productItem.setAttribute("data-requires-gender", product.requiresGender);
+        productItem.setAttribute("data-max-qty", product.maxQty);
+        productItem.onclick = function() {
+            openModal(product.image, product.name, product.price, product.requiresSize, product.maxQty);
+        };
+        productItem.innerHTML = `
+            <img src="${product.image}" alt="${product.name}"> <!-- Use Base64 string -->
+            <p>${product.name}</p>
+        `;
+        availableItemsContainer.appendChild(productItem);
     });
 });

@@ -24,14 +24,23 @@
                 <li><a href="homepage.html">Home</a></li>
                 <li><a href="websitedemo.html">Shop</a></li>
                 <li><a href="#">About</a></li>
+                <div class="profile-container">
+                    <img src="./Images/usericon.png" alt="User Icon" class="user-icon" onclick="toggleProfileDropdown()" aria-label="User Profile Menu">
+                    <!-- Profile Dropdown -->
+                    <div id="profileDropdown" class="profile-dropdown">
+                        <a href="profile.html">Profile</a>
+                        <a href="login.html" onclick="logout()">Logout</a>
+                    </div>
+                    </div>
+                </div>
             </ul>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <section class="hero-section">
-        <h1>Welcome to uniSTIque</h1>
-        <p>Discover a world of unique products and exceptional experiences.</p>
+        <h1>Welcome to <h1 class="webname">uniSTIque</h1></h1>
+        <p style="border: 2px solid #333; border-style: dashed; padding: 10px; display: inline-block;">Discover a world of unique products and exceptional experiences.</p>
         <button onclick="location.href='#new-products'">Explore Now</button>
     </section>
 
@@ -88,11 +97,33 @@
             </div>
         </div>
     </div>
+
+    <div id="customerServiceModal" class="modal">
+        <div class="csmodal-content">
+            <span class="close" onclick="closeCustomerServiceModal()">&times;</span>
+            <h2 class="h2cs">Customer Service</h2>
+            <p>If you have any questions or need assistance, please fill out the form below:</p>
+            <form id="customerServiceForm" onsubmit="submitCustomerServiceForm(event)">
+                <label for="csName">Name:</label>
+                <input type="text" id="csName" required>
+                
+                <label for="csEmail">Email:</label>
+                <input type="email" id="csEmail" required>
+                
+                <label for="csMessage">Message:</label>
+                <textarea id="csMessage" rows="4" required></textarea>
+                
+                <button type="submit">Send Message</button>
+            </form>
+            <div id="csFormResponse" style="display: none;"></div>
+        </div>
+    </div>
+    
     <!-- Footer Section -->
     <footer>
         <div class="footer-links">
-            <a href="easter egg.jpg">Terms & Conditions</a>
-            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#" onclick="openCustomerServiceModal()">Customer Service</a>
         </div>
         <div class="social-media">
             <a href="https://www.facebook.com/calamba.sti.edu" target="_blank">
@@ -106,6 +137,29 @@
             </a>
         </div>
     </footer>
+    <script>
+        function toggleProfileDropdown() {
+    const dropdown = document.getElementById("profileDropdown");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+}
 
+function openProfileModal() {
+    document.getElementById('profileModal').style.display = 'block';
+}
+
+function closeProfileModal() {
+    document.getElementById('profileModal').style.display = 'none';
+}
+
+window.addEventListener('click', function(event) {
+    if (!event.target.matches('.user-icon')) {
+        const dropdown = document.getElementById("profileDropdown");
+        if (dropdown.style.display === "block") {
+            dropdown.style.display = "none";
+        }
+    }
+});
+
+    </script>
 </body>
 </html>

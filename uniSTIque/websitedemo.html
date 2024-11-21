@@ -11,6 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-qrcode/1.0/jquery.qrcode.min.js"></script>
 
 </head>
+
 <body>
 
     <!-- Header Section -->
@@ -64,11 +65,11 @@
     </section>
 
     <!-- Available Section -->
-<section class="available-section">
-    <h2>Available:</h2>
-    <div class="available-slider">
-        <div class="available-items-wrapper">
-            <div class="available-items">
+    <section class="available-section">
+        <h2>Available:</h2>
+        <div class="available-slider">
+            <div class="available-items-wrapper">
+                <div class="available-items" id="available-items">
                 <div class="product-item" data-price="200" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/daily-uniform.png', 'Daily Uniform', 200, true, 10)">
                     <img src="./Images/daily-uniform.png" alt="Daily Uniform">
                     <p>ㅤDaily Uniformㅤ</p>
@@ -110,7 +111,7 @@
 <div class="news-section">
     <h2>New Products</h2>
     <div class="news-slider">
-        <div class="news-slide">
+        <div class="news-slide" id="news-slide">
             <img src="./Images/polo-shirt.png" alt="News Image 1">
             <div class="news-info">
                 <h3>Alumni Poloshirt</h3>
@@ -142,46 +143,45 @@
 </div>
 
 
-    <!-- Modal for Available Item --> 
-    <div id="availableModal" class="modal">
-        <div class="modal-content">
+<div id="availableModal" class="modal">
+    <div class="modal-content">
+        <img id="modalImage" src="" alt="Product Image" class="modal-image">
+        <div class="modal-details">
             <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modalImage" src="" alt="Product Image">
             <div id="caption"></div>
-            <div class="modal-details">
-                <p id="productPrice"></p>
-                <div id="genderContainer" style="display: none;">
-                    <label for="genderSelect">Select Gender:</label>
-                    <select id="genderSelect">
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                    <br>
-                </div>
-                <div id="sizeContainer" style="display: none;">
-                    <label for="sizeSelect">Select Size:</label>
-                    <select id="sizeSelect">
-                        <option value="small">Small</option>
-                        <option value="medium">Medium</option>
-                        <option value="large">Large</option>
-                        <option value="xl">XL</option>
-                        <option value="2xl">2XL</option>
-                    </select>
-                    <br>
-                </div>
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" value="1" min="1">
-                <p id="quantityError" style="color: red; display: none;"></p>
+            <p id="productPrice"></p>
+            <div id="genderContainer" style="display: none;">
+                <label for="genderSelect">Select Gender:</label>
+                <select id="genderSelect">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
                 <br>
-                <button class="cta-button" onclick="buyNow()">Buy Now</button>
             </div>
+            <div id="sizeContainer" style="display: none;">
+                <label for="sizeSelect">Select Size:</label>
+                <select id="sizeSelect">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                    <option value="xl">XL</option>
+                    <option value="2xl">2XL</option>
+                </select>
+                <br>
+            </div>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" value="1" min="1">
+            <p id="quantityError" style="color: red; display: none;"></p>
+            <br>
+            <button class="cta-button" onclick="buyNow()">Buy Now</button>
         </div>
     </div>
+</div>
     
 
 <!-- Modal for Shopping Cart -->
-<div id="cartModal" class="modal">
-    <div class="modal-content">
+<div id="cartModal" class="cartmodal">
+    <div class="cartmodal-content">
         <span class="close" onclick="closeCartModal()">&times;</span>
         <h2>Shopping Cart</h2>
         <div id="cartItems"></div>
@@ -194,7 +194,7 @@
 
 <!-- Payment Modal -->
 <div id="paymentModal" class="modal">
-    <div class="modal-content">
+    <div class="paymentmodal-content">
         <span class="close-btn" onclick="closePaymentModal()">&times;</span>
         <h2>Select Payment Method</h2>
         <div class="payment-methods">
@@ -219,395 +219,53 @@
                 <img src="./Images/cash-logo.png" alt="Cash" class="payment-icon">
                 <span>Cash</span>
             </div>
-        </div>
+        </div>  
         <div id="paymentDetails"></div>
     </div>
     <div id="qrCodeContainer" style="margin-top: 20px;"></div>
 </div>
 
-
-    <!-- Modal for Profile -->
-<div id="profileModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeProfileModal()">&times;</span>
-        <h2>User Profile</h2>
-        <p>Welcome, User</p>
-        <p>Email: user2314@example.com</p>
-        <p>Role: Student</p>
-        <!-- Add more profile details here if needed -->
+<div id="customerServiceModal" class="modal">
+    <div class="csmodal-content">
+        <span class="close" onclick="closeCustomerServiceModal()">&times;</span>
+        <h2 class="h2cs">Customer Service</h2>
+        <p>If you have any questions or need assistance, please fill out the form below:</p>
+        <form id="customerServiceForm" onsubmit="submitCustomerServiceForm(event)">
+            <label for="csName">Name:</label>
+            <input type="text" id="csName" required>
+            
+            <label for="csEmail">Email:</label>
+            <input type="email" id="csEmail" required>
+            
+            <label for="csMessage">Message:</label>
+            <textarea id="csMessage" rows="4" required></textarea>
+            
+            <button type="submit">Send Message</button>
+        </form>
+        <div id="csFormResponse" style="display: none;"></div>
     </div>
 </div>
 
-    <!-- Footer Section -->
-    <footer>
-        <div class="footer-links">
-            <a href="#">Terms & Conditions</a>
-            <a href="#">Privacy Policy</a>
-        </div>
-        <div class="social-media">
-            <a href="https://www.facebook.com/calamba.sti.edu" target="_blank">
-                <img src="./Images/fbicon.png" alt="Facebook">
-            </a>
-            <a href="https://www.youtube.com/@STIdotEdu" target="_blank">
-                <img src="./Images/yticon.png" alt="YouTube">
-            </a>
-            <a href="https://www.tiktok.com/@sti.edu" target="_blank">
-                <img src="./Images/tiktokicon.png" alt="TikTok">
-            </a>
-        </div>
-    </footer>
+<footer>
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#" onclick="openCustomerServiceModal()">Customer Service</a>
+    </div>
+    <div class="social-media">
+        <a href="https://www.facebook.com/calamba.sti.edu" target="_blank">
+            <img src="./Images/fbicon.png" alt="Facebook">
+        </a>
+        <a href="https://www.youtube.com/@STIdotEdu" target="_blank">
+            <img src="./Images/yticon.png" alt="YouTube">
+        </a>
+        <a href="https://www.tiktok.com/@sti.edu" target="_blank">
+            <img src="./Images/tiktokicon.png" alt="TikTok">
+        </a>
+    </div>
+</footer>
 
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-    <script>
-        let cartCount = 0;
-let cartItems = [];
-let totalAmount = 0;
-let maxQuantity = 0;
-let slideIndex = 0;
-showSlides(slideIndex);
-
-function openModal(imageSrc, productName, price, requiresSize, maxQty) {
-    document.getElementById("modalImage").src = imageSrc;
-    document.getElementById("caption").innerHTML = productName;
-    document.getElementById("productPrice").innerHTML = "Price: ₱" + price;
-    maxQuantity = maxQty;  
-
-
-    document.getElementById('sizeContainer').style.display = requiresSize ? 'block' : 'none';
-
-
-    const productItem = event.currentTarget;
-    const requiresGender = productItem.getAttribute('data-requires-gender') === 'true';
-    document.getElementById('genderContainer').style.display = requiresGender ? 'block' : 'none';
-
-    document.getElementById('availableModal').style.display = 'block';
-}
-
-function closeModal() {
-    document.getElementById("availableModal").style.display = "none";  
-}
-
-function buyNow() {
-    const size = document.getElementById("sizeContainer").style.display === "block" ? document.getElementById("sizeSelect").value : null;
-    const quantityInput = document.getElementById("quantity").value;
-    const quantity = parseInt(quantityInput);
-    const productName = document.getElementById("caption").innerHTML;
-    const priceText = document.getElementById("productPrice").innerText;
-    const price = parseInt(priceText.replace('Price: ₱', ''));
-    const quantityError = document.getElementById("quantityError");
-
+    <script src="./js/website.js"></script>
     
-    if (isNaN(quantity) || quantity <= 0) {
-        quantityError.innerText = "Please enter a valid quantity.";
-        quantityError.style.display = "block";
-        return;
-    }
-
-    if (quantity > maxQuantity) {
-        quantityError.innerText = `Maximum quantity for ${productName} is ${maxQuantity}.`;
-        quantityError.style.display = "block";
-        return;
-    } else {
-        quantityError.style.display = "none";
-    }
-
-    cartCount += quantity;
-    totalAmount += price * quantity;
-    document.getElementById("cartCount").innerText = cartCount;
-
-    cartItems.push({ productName, price, size, quantity });
-    closeModal();  
-}
-
-function viewCart() {
-    const cartItemsContainer = document.getElementById("cartItems");
-    cartItemsContainer.innerHTML = '';
-
-    cartItems.forEach(item => {
-        const cartItemDiv = document.createElement("div");
-        cartItemDiv.classList.add("cart-item");
-        cartItemDiv.innerHTML = `
-            <p>${item.productName} - ₱${item.price} x ${item.quantity}${item.size ? ' (Size: ' + item.size + ')' : ''}</p>
-        `;
-        cartItemsContainer.appendChild(cartItemDiv);
-    });
-
-    document.getElementById("totalAmount").innerText = totalAmount;
-    document.getElementById("cartModal").style.display = "block";  
-}
-
-function closeCartModal() {
-    document.getElementById("cartModal").style.display = "none";  
-}
-
-function checkout() {
-    if (cartItems.length === 0) {
-        alert("Your cart is empty!");
-        return;
-    }
-
-    // Get modal elements
-    const paymentModal = document.getElementById("paymentModal");
-    const cartModal = document.getElementById("cartModal");
-
-    // Close cart modal
-    cartModal.style.display = "none"; 
-    paymentModal.style.display = "block"; 
-    clearPaymentDetails();
-}
-
-// Close payment modal when clicking outside of it
-window.onclick = function (event) {
-    const paymentModal = document.getElementById("paymentModal");
-    if (event.target == paymentModal) {
-        paymentModal.style.display = "none";
-        clearPaymentDetails();
-    }
-};
-
-function selectPaymentMethod(method) {
-    clearPaymentDetails();
-
-    const paymentDetailsContainer = document.getElementById("paymentDetails");
-    const qrCodeContainer = document.getElementById("qrCodeContainer"); 
-
-    switch (method) {
-        case "gcash":
-            paymentDetailsContainer.innerHTML = `<h3>GCash Payment</h3>
-                <p>Scan the QR code with your GCash app.</p>`;
-            generateQRCode(`gcash://pay?amount=${totalAmount}&message=Your+Order`);
-            break;
-
-        case "credit_card":
-            paymentDetailsContainer.innerHTML = ` 
-            <h3>Credit Card Details</h3>
-            <label for="cardNumber">Card Number:</label>
-            <input type="text" id="cardNumber" placeholder="Enter card number">
-            <br>
-            <label for="expiryDate">Expiry Date:</label>
-            <input type="date" id="expiryDate" placeholder="Select expiry date">
-            <br>
-            <label for="cardCvv">CVV:</label>
-            <input type="text" id="cardCvv" placeholder="Enter CVV">
-        `;
-            qrCodeContainer.innerHTML = ''; 
-            break;
-
-        case "paymaya":
-            paymentDetailsContainer.innerHTML = `<h3>PayMaya Payment</h3>
-                <p>Use the PayMaya app to complete your payment.</p>`;
-            generateQRCode(`paymaya://pay?amount=${totalAmount}&message=Your+Order`);
-            break;
-
-        case "qr_code":
-            paymentDetailsContainer.innerHTML = `<h3>QR Code Payment</h3>
-                <p>Scan the QR code to proceed with your payment.</p>`;
-            generateQRCode(`payment://process?amount=${totalAmount}&message=Your+Order`);
-            break;
-
-        case "cash":
-            paymentDetailsContainer.innerHTML = `<h3>Cash Payment</h3>
-                <p>You have selected cash as your payment method. Please prepare the exact amount of ₱${totalAmount} for cash on delivery or in-store payment.</p>
-                <button onclick="submitPayment('cash')">Confirm Cash Payment</button>`;
-            qrCodeContainer.innerHTML = ''; 
-            break;
-
-        default:
-            paymentDetailsContainer.innerHTML = '';
-            qrCodeContainer.innerHTML = ''; 
-    }
-}
-
-
-function generateQRCode(data) {
-    const qrCodeContainer = document.getElementById("qrCodeContainer");
-    QRCode.toCanvas(qrCodeContainer, data, function (error) {
-        if (error) console.error(error);
-        console.log('QR code generated successfully!');
-    });
-}
-
-function clearPaymentDetails() {
-    const paymentDetailsContainer = document.getElementById("paymentDetails");
-    paymentDetailsContainer.innerHTML = '';
-    document.getElementById("qrCodeContainer").innerHTML = ''; 
-}
-
-function submitPayment(method) {
-    let isValid = true;
-    let paymentInfo = {};
-
-    switch (method) {
-        case "credit_card":
-            const cardNumber = document.getElementById("cardNumber").value;
-            const expiryDate = document.getElementById("expiryDate").value;
-            const cvv = document.getElementById("cvv").value;
-
-            if (!cardNumber || !expiryDate || !cvv) {
-                alert("Please fill out all fields.");
-                isValid = false;
-            } else {
-                paymentInfo = {
-                    method: "Credit Card",
-                    cardNumber,
-                    expiryDate,
-                    cvv,
-                };
-            }
-            break;
-
-        case "gcash":
-        case "paymaya":
-        case "qr_code":
-            paymentInfo = { method };
-            break;
-
-            case "cash":
-                paymentInfo = { method: "Cash" };
-                alert("Cash payment confirmed. Please prepare the exact amount at Proware.");
-                break;
-
-        default:
-            isValid = false;
-            alert("Invalid payment method selected.");
-    }
-
-    if (isValid) {
-        console.log("Processing payment:", paymentInfo);
-        alert("Payment successful! Thank you for your purchase.");
-        clearCart(); 
-    }
-}
-
-function clearCart() {
-    cartCount = 0;
-    totalAmount = 0;
-    cartItems = [];
-
-    document.getElementById("cartCount").innerText = cartCount;
-    document.getElementById("totalAmount").innerText = totalAmount;
-    document.getElementById("cartItems").innerHTML = '';  
-
-    closePaymentModal();
-}
-
-function closePaymentModal() {
-    document.getElementById("paymentModal").style.display = "none";  
-}
-
-document.getElementById("searchInput").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        searchProducts(); 
-    }
-});
-
-function searchProducts() {
-    const searchInput = document.getElementById("searchInput").value.toLowerCase();
-
-    const availableProducts = document.querySelectorAll(".available-section .product-item");
-    const recommendedProducts = document.querySelectorAll(".recommendations .product-item");
-
-    let productFound = false;
-
-    function tryOpenModal(product) {
-        const productName = product.querySelector("p").innerText.toLowerCase();
-        if (productName.includes(searchInput)) {
-            const imageSrc = product.querySelector("img").src;
-            const price = product.getAttribute('data-price');
-            const requiresSize = product.getAttribute('data-requires-size') === 'true';
-            const maxQty = product.getAttribute('data-max-qty') || 10; 
-
-            openModal(imageSrc, product.querySelector("p").innerText, price, requiresSize, maxQty);
-            productFound = true;
-        }
-    }
-
-    availableProducts.forEach(product => {
-        tryOpenModal(product);
-    });
-
-    if (!productFound) {
-        recommendedProducts.forEach(product => {
-            tryOpenModal(product);
-        });
-    }
-
-    if (!productFound) {
-        alert("Product not found!"); 
-    }
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    const userRole = localStorage.getItem('userRole');
-    if (!userRole) {
-        window.location.href = 'login.html'; 
-    } else if (userRole === 'admin') {
-        alert('You are logged in as an Admin. You will be redirected to the admin panel.');
-        window.location.href = 'admin.html'
-    }
-});
-
-// News slider functionality
-function showSlides(n) {
-    let slides = document.getElementsByClassName("news-slide");
-    if (n >= slides.length) {
-        slideIndex = 0;
-    }
-    if (n < 0) {
-        slideIndex = slides.length - 1;
-    }
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none"; 
-    }
-    slides[slideIndex].style.display = "block"; 
-}
-
-function moveSlide(n) {
-    slideIndex += n;
-    showSlides(slideIndex);
-}
-
-
-setInterval(function() {
-    moveSlide(1); 
-}, 4000);
-
-function toggleProfileDropdown() {
-    const dropdown = document.getElementById("profileDropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-}
-
-function openProfileModal() {
-    document.getElementById('profileModal').style.display = 'block';
-}
-
-function closeProfileModal() {
-    document.getElementById('profileModal').style.display = 'none';
-}
-
-window.addEventListener('click', function(event) {
-    if (!event.target.matches('.user-icon')) {
-        const dropdown = document.getElementById("profileDropdown");
-        if (dropdown.style.display === "block") {
-            dropdown.style.display = "none";
-        }
-    }
-});
-
-function logout() {
-    localStorage.removeItem('userRole');
-    window.location.href = 'login.html';
-}
-
-const hamMenu = document.querySelector(".ham-menu");
-
-const offScreenMenu = document.querySelector(".off-screen-menu");
-
-hamMenu.addEventListener("click", () => {
-  hamMenu.classList.toggle("active");
-  offScreenMenu.classList.toggle("active");
-});
-    </script>
-
 </body>
 </html>
