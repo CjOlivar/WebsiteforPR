@@ -48,7 +48,6 @@ function renderCurrentProductList() {
 // Function to render the list of my products
 function renderMyProductList() {
     const myProductItemsContainer = document.getElementById("myProductItems");
-    myProductItemsContainer.innerHTML = ""; // Clear existing items
     myProducts.forEach((product) => {
         const productItem = document.createElement("li");
         productItem.innerHTML = `
@@ -60,9 +59,9 @@ function renderMyProductList() {
     });
 }
 
-// Function to handle product form submission
+
 document.getElementById("productForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); 
     const productName = document.getElementById("productName").value;
     const productPrice = document.getElementById("productPrice").value;
     const productImageInput = document.getElementById("productImage");
@@ -73,25 +72,23 @@ document.getElementById("productForm").addEventListener("submit", function(event
     }
     const productImage = URL.createObjectURL(productImageInput.files[0]);
 
-    // Create a new product object
+    
     const product = {
         name: productName,
         price: productPrice,
         image: productImage,
-        requiresSize: false, // Default value, adjust if necessary
-        requiresGender: false, // Default value, adjust if necessary
-        maxQty: 10 // Default value, adjust if necessary
+        requiresSize: false, 
+        requiresGender: false, 
+        maxQty: 10 
     };
 
-    // Store the new product in Local Storage
     let products = JSON.parse(localStorage.getItem('products')) || [];
     products.push(product);
     localStorage.setItem('products', JSON.stringify(products));
 
-    // Clear form fields
     document.getElementById("productForm").reset();
 
-    // Notify the user and redirect to websitedemo.html
+    
     alert("Product added successfully!");
-    window.location.href = "websitedemo.html"; // Redirect to websitedemo.html
+    window.location.href = "websitedemo.html"; 
 });

@@ -160,6 +160,38 @@ window.addEventListener('click', function(event) {
     }
 });
 
+function openCustomerServiceModal() {
+    document.getElementById('customerServiceModal').style.display = 'block';
+}
+
+function closeCustomerServiceModal() {
+    document.getElementById('customerServiceModal').style.display = 'none';
+}
+
+function submitCustomerServiceForm(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const name = document.getElementById("csName").value;
+    const email = document.getElementById("csEmail").value;
+    const message = document.getElementById("csMessage").value;
+
+    // Log the submission (for demonstration purposes)
+    console.log("Customer Service Form submitted:", { name, email, message });
+
+    // Create a notification for the admin
+    const notification = `New message from ${name} (${email}): ${message}`;
+    notifications.push(notification); // Add notification to the array
+
+    // Show response message
+    const responseDiv = document.getElementById("csFormResponse");
+    responseDiv.style.display = "block";
+    responseDiv.innerHTML = `<p>Thank you, ${name}! Your message has been sent.</p>`;
+
+    
+    document.getElementById("customerServiceForm").reset();
+}
+
+
     </script>
 </body>
 </html>

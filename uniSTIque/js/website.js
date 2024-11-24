@@ -334,23 +334,23 @@ window.addEventListener('click', function(event) {
 });
 
 function logout() {
-    const identifier = localStorage.getItem('identifier'); // Retrieve identifier from localStorage
+    const identifier = localStorage.getItem('identifier'); 
     if (identifier) {
         // Update user activity on logout
         let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
         if (userActivity[identifier]) {
-            userActivity[identifier].lastLogout = new Date().toISOString(); // Set logout time
+            userActivity[identifier].lastLogout = new Date().toISOString(); 
         }
         localStorage.setItem('userActivity', JSON.stringify(userActivity));
     }
 
     localStorage.removeItem('userRole');
-    localStorage.removeItem('identifier'); // Clear identifier on logout
-    window.location.href = 'login.html'; // Redirect to login page
+    localStorage.removeItem('identifier'); 
+    window.location.href = 'login.html'; 
 }
 
 function submitContactForm(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
 
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
@@ -359,7 +359,7 @@ function submitContactForm(event) {
     // Simulate form submission (you can replace this with actual form submission logic)
     console.log("Form submitted:", { name, email, message });
 
-    // Show response message
+    
     const responseDiv = document.getElementById("formResponse");
     responseDiv.style.display = "block";
     responseDiv.innerHTML = `<p>Thank you, ${name}! Your message has been sent.</p>`;
@@ -394,19 +394,17 @@ function submitCustomerServiceForm(event) {
     responseDiv.style.display = "block";
     responseDiv.innerHTML = `<p>Thank you, ${name}! Your message has been sent.</p>`;
 
-    // Clear the form fields
-    document.getElementById("customerServiceForm").reset();
+    
+    document.getElementById("customerServiceForm").reset(); 
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    // Check if there is a notification in Local Storage
     const notification = localStorage.getItem('productAddedNotification');
     if (notification) {
-        alert(notification); // Show the notification
-        localStorage.removeItem('productAddedNotification'); // Clear the notification
+        alert(notification);
+        localStorage.removeItem('productAddedNotification'); 
     }
 
-    // Render products from Local Storage
     const products = JSON.parse(localStorage.getItem('products')) || [];
     const availableItemsContainer = document.getElementById("available-items");
 
@@ -421,7 +419,7 @@ document.addEventListener("DOMContentLoaded", function() {
             openModal(product.image, product.name, product.price, product.requiresSize, product.maxQty);
         };
         productItem.innerHTML = `
-            <img src="${product.image}" alt="${product.name}"> <!-- Use Base64 string -->
+            <img src="${product.image}" alt="${product.name}"> 
             <p>${product.name}</p>
         `;
         availableItemsContainer.appendChild(productItem);

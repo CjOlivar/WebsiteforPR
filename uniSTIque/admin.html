@@ -26,16 +26,6 @@
         </div>
     </div> 
     
-    <div class="notifications">
-        <img src="./Images/bell-icon.png" alt="Notifications" onclick="toggleNotifications()">
-        <div id="notificationDropdown" class="notification-dropdown">
-            <h3>Notifications</h3>
-            <ul id="notificationList">
-                <!-- Notifications will be dynamically added here -->
-            </ul>
-        </div>
-    </div>
-    
     </header>
     <main>
         <section class="dashboard-overview">
@@ -59,31 +49,7 @@
                 </div>
             </div>
         </section>
-        
-        <section class="quick-actions">
-            <h2>Quick Actions</h2>
-            <button onclick="addNewProduct()">Add New Product</button>
-            <button onclick="viewRecentOrders()">View Recent Orders</button>
-            <button onclick="generateSalesReport()">Generate Sales Report</button>
-        </section>
 
-        <div class="user-management">
-            <h3>Manage Users</h3>
-            <button onclick="viewUsers()">View Users</button>
-            <div id="userList"></div>
-        </div>
-
-        <section class="sales-analytics">
-            <h2>Sales Analytics</h2>
-            <div id="salesChart"></div>
-            <div class="date-range">
-                <label for="startDate">Start Date:</label>
-                <input type="date" id="startDate">
-                <label for="endDate">End Date:</label>
-                <input type="date" id="endDate">
-                <button onclick="updateSalesChart()">Update Chart</button>
-            </div>
-        </section>
         <section class="admin-features">
             <h2>Admin Features</h2>
             <div class="manage-products">
@@ -109,11 +75,6 @@
                 <button onclick="viewUserActivity()">View User Activity</button>
                 <div id="userActivityLog"></div>
             </div>
-            <div class="order-management">
-                <h3>Manage Orders</h3>
-                <button onclick="viewOrders()">View Orders</button>
-                <div id="orderList"></div>
-            </div>
         </section>
     </main>
         <!-- Modal for Profile -->
@@ -128,10 +89,6 @@
     </div>
 </div>
     <footer>
-        <div class="footer-links">
-            <a href="#">Terms & Conditions</a>
-            <a href="#">Privacy Policy</a>
-        </div>
         <div class="social-media">
             <a href="https://www.facebook.com/calamba.sti.edu" target="_blank">
                 <img src="./Images/fbicon.png" alt="Facebook">

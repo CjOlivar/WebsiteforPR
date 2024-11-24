@@ -16,13 +16,13 @@ header {
     justify-content: space-between;
     padding: 20px;
     background: url('../Images/backgroundimage.png') no-repeat center center;
-    background-size: cover;
+    background-size: auto;
     color: white;
     align-items: center;
     z-index: 1000;
     margin: 0 auto;
     transition: background-color 0.5s ease;
-    width: 100%;
+    
 }
 
 /* Media Queries for Responsive Design */
