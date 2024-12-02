@@ -36,33 +36,37 @@
     </div>    
 
     <script>
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the form from submitting
-    const identifier = document.getElementById('identifier').value;
-    const password = document.getElementById('password').value;
-    const loginError = document.getElementById('loginError');
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting
+            const identifier = document.getElementById('identifier').value;
+            const password = document.getElementById('password').value;
+            const loginError = document.getElementById('loginError');
 
-    if (password.length > 8) {
-        loginError.textContent = "Error: Password must be 8 characters or less!";
-        loginError.style.display = 'block';
-        return;
-    }
+            if (password.length > 8) {
+                loginError.textContent = "Error: Password must be 8 characters or less!";
+                loginError.style.display = 'block';
+                return;
+            }
 
-    const users = JSON.parse(localStorage.getItem('users')) || {};
+            const users = JSON.parse(localStorage.getItem('users')) || {};
+            let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
 
-    let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
-     userActivity[identifier] = { lastLogin: new Date().toISOString(), lastLogout: null };
-     localStorage.setItem('userActivity', JSON.stringify(userActivity));
+            // Log login activity
+            const loginTime = new Date().toISOString();
+            if (users[identifier] && users[identifier].password === password) {
+                // Log user login
+                userActivity[identifier] = userActivity[identifier] || [];
+                userActivity[identifier].push({ action: 'Logged In', date: loginTime });
 
-    if (users[identifier] && users[identifier].password === password) {
-        localStorage.setItem('userRole', users[identifier].role);
-        localStorage.setItem('identifier', identifier);
-        window.location.href = users[identifier].role === 'admin' ? 'admin.html' : 'homepage.html';
-    } else {
-        loginError.style.display = 'block';
-    }
-});
+                localStorage.setItem('userActivity', JSON.stringify(userActivity));
 
+                localStorage.setItem('userRole', users[identifier].role);
+                localStorage.setItem('identifier', identifier);
+                window.location.href = users[identifier].role === 'admin' ? 'admin.html' : 'homepage.html';
+            } else {
+                loginError.style.display = 'block';
+            }
+        });
     </script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>

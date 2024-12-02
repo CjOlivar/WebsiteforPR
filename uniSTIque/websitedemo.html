@@ -86,15 +86,18 @@
                     <img src="./Images/sti-pin.png" alt="Pin">
                     <p>ㅤㅤㅤㅤPinㅤㅤㅤㅤ</p>
                 </div>
-                <div class="product-item" data-price="450" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/blue-jacket.png', 'Blue Hooded Jacket', 450, true, 10)">
+                <div class="nproduct-item" data-price="450" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/blue-jacket.png', 'Blue Hooded Jacket', 450, true, 10)">
+                    <div class="new-label">New!</div>
                     <img src="./Images/blue-jacket.png" alt="Blue Hooded Jacket">
                     <p>Blue Hooded Jacket</p>
                 </div>
-                <div class="product-item" data-price="450" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/grey-jacket.png', 'Grey Hooded Jacket', 450, true, 10)">
+                <div class="nproduct-item" data-price="450" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/grey-jacket.png', 'Grey Hooded Jacket', 450, true, 10)">
+                    <div class="new-label">New!</div>
                     <img src="./Images/grey-jacket.png" alt="Grey Hooded Jacket">
                     <p>Grey Hooded Jacket</p>
                 </div>
-                <div class="product-item" data-price="275" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/polo-shirt.png', 'Alumni Poloshirt', 275, true, 10)">
+                <div class="nproduct-item" data-price="275" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('./Images/polo-shirt.png', 'Alumni Poloshirt', 275, true, 10)">
+                    <div class="new-label">New!</div>
                     <img src="./Images/polo-shirt.png" alt="Alumni Poloshirt">
                     <p>Alumni Poloshirt</p>
                 </div>
@@ -222,7 +225,16 @@
         </div>  
         <div id="paymentDetails"></div>
     </div>
-    <div id="qrCodeContainer" style="margin-top: 20px;"></div>
+</div>
+
+<div id="qrCodePaymentModal" class="modal">
+    <div class="pmodal-content">
+        <span class="close" onclick="closeQRCodePaymentModal()">&times;</span>
+        <h2 id="qrCodePaymentTitle"></h2>
+        <p id="qrCodePaymentMessage"></p>
+        <img id="paymentQRCode" src="" alt="Payment QR Code" style="margin-top: 20px; width: 150px; height: 150px;">
+        <button class="cta-button" onclick="submitPayment('qr_code')">Confirm Payment</button>
+    </div>
 </div>
 
 <div id="customerServiceModal" class="modal">
@@ -264,7 +276,7 @@
     </div>
 </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script src="./js/website.js"></script>
     
 </body>

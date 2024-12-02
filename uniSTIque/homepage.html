@@ -191,6 +191,24 @@ function submitCustomerServiceForm(event) {
     document.getElementById("customerServiceForm").reset();
 }
 
+function logout() {
+    const identifier = localStorage.getItem('identifier'); 
+    if (identifier) {
+        // Update user activity on logout
+        let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
+        const logoutTime = new Date().toISOString();
+        
+        // Log user logout
+        userActivity[identifier] = userActivity[identifier] || [];
+        userActivity[identifier].push({ action: 'Logged Out', date: logoutTime });
+        
+        localStorage.setItem('userActivity', JSON.stringify(userActivity));
+    }
+
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('identifier'); 
+    window.location.href = 'login.html'; 
+}
 
     </script>
 </body>

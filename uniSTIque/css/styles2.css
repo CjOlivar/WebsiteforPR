@@ -395,42 +395,42 @@ footer .social-media a img {
     align-items: center;
     padding: 10px;
     cursor: pointer;
-    border: 1px solid #ddd; /* Light border for options */
-    border-radius: 5px; /* Rounded corners */
-    margin-bottom: 10px; /* Space between options */
-    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    margin-bottom: 10px; 
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .payment-option:hover {
-    background-color: #f8f8f8; /* Background change on hover */
-    border-color: #bbb; /* Darker border on hover */
+    background-color: #f8f8f8; 
+    border-color: #bbb; 
 }
 
 .payment-icon {
-    width: 30px; /* Set icon size */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 10px; /* Space between icon and text */
+    width: 30px; 
+    height: auto;
+    margin-right: 10px; 
 }
 
 .payment-subtext {
-    font-size: 12px; /* Smaller font for subtext */
-    color: #777; /* Subtle color for subtext */
-    margin-top: 2px; /* Space above subtext */
+    font-size: 12px;
+    color: #777; 
+    margin-top: 2px; 
 }
 
 /* Horizontal rule style */
 hr {
-    margin: 10px 0; /* Space above and below the line */
-    border: none; /* Remove default border */
-    border-top: 1px solid #ddd; /* Add custom top border */
+    margin: 10px 0; 
+    border: none; 
+    border-top: 1px solid #ddd; 
 }
 
-/* Close Button Style */
+
 .close-btn {
     position: absolute;
     top: 15px;
     right: 15px;
-    color: black;
+    color: #f39c12;
     font-size: 36px;
     font-weight: bold;
     cursor: pointer;
@@ -439,7 +439,7 @@ hr {
 }
 
 .close-btn:hover {
-    color: #000000;
+    color: #e74c3c;
     transform: scale(1.1);
 }
 
@@ -789,83 +789,116 @@ button:focus {
     background-color: #555;
 }
 
-/* Modal for Customer Service */
-#customerServiceModal {
-    margin: auto; 
-    padding: 30px; 
-    border: none; 
-    border-radius: 1px; /* More rounded corners */
-    width: 50%; 
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Deeper shadow effect */
-    animation: fadeIn 0.5s ease-in-out; 
+/* QR Code Payment Modal Styles */
+#qrCodePaymentModal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.7); /* Black with opacity */
+    align-items: center; /* Center modal content */
+    justify-content: center; /* Center modal content */
+    padding: 20px; /* Padding around modal */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+    animation: fadeIn 0.5s ease-in-out; /* Smooth fade-in effect */
 }
 
-.csmodal-content {
-    background-color: white; 
-    margin: auto; 
-    padding: 30px; /* Increased padding */
-    border: none; 
-    border-radius: 15px; /* More rounded corners */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
+/* Modal Content */
+.pmodal-content {
+    background-color: white; /* White background for modal */
+    margin: auto; /* Center modal */
+    padding: 30px; /* Padding inside modal */
+    border: none; /* No border */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    width: 90%; /* Responsive width */
+    max-width: 500px; /* Maximum width */
+    animation: zoomIn 0.5s ease-in-out; /* Smooth zoom-in effect */
 }
 
-.h2cs {
-    margin-top: 0; 
-    color: #333; 
-    font-size: 28px; /* Increased font size */
+/* Close Button */
+.pmodal-content .close {
+    margin: 20px;
+    margin-right: 375px;
+    color: #f39c12;
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.pmodal-content .close:hover,
+.pmodal-content .close:focus {
+    color: #e74c3c;
+    transform: scale(1.1);
+}
+
+/* QR Code Image */
+#paymentQRCode {
+    margin-top: 20px; /* Margin above the QR code */
+    width: 150px; /* Width of QR code */
+    height: 150px; /* Height of QR code */
+    display: block; /* Block display */
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+}
+
+/* Title and Message Styles */
+#qrCodePaymentTitle {
+    font-size: 24px; /* Title font size */
     font-weight: 600; /* Semi-bold */
-    text-align: center; /* Centered title */
+    text-align: center; /* Centered text */
 }
 
-.customer-service label {
-    display: block; 
-    margin: 15px 0 5px; 
-    font-weight: 500; 
-    color: #555; 
+#qrCodePaymentMessage {
+    text-align: center; /* Centered text */
+    margin-top: 10px; /* Space above message */
 }
 
-.customer-service input,
-.customer-service textarea {
-    width: 100%; 
-    padding: 12px; 
-    border: 1px solid #ccc; 
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* Start invisible */
+    }
+    to {
+        opacity: 1; /* End fully visible */
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8); /* Start smaller */
+        opacity: 0; /* Start invisible */
+    }
+    to {
+        transform: scale(1); /* End at normal size */
+        opacity: 1; /* End fully visible */
+    }
+}
+
+.nproduct-item {
+    position: relative; /* Allows positioning of the new label */
+    margin: 10px;
+    border: 2px solid red; /* Red border */
+    padding: 10px; /* Padding inside the border */
     border-radius: 8px; /* Rounded corners */
-    font-size: 16px; 
-    transition: border-color 0.3s; 
+    background-color: white; /* Background color for the product item */
+    transition: transform 0.3s ease; /* Optional: for hover effect */
 }
 
-.customer-service input:focus,
-.customer-service textarea:focus {
-    border-color: #4CAF50; 
-    outline: none; 
-}
-
-.customer-service button {
-    margin-top: 15px; 
-    padding: 12px 20px; 
-    background-color: #4CAF50; 
-    color: white; 
-    border: none; 
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer; 
-    font-size: 16px; 
-    transition: background-color 0.3s ease, transform 0.2s; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
-}
-
-.customer-service button:hover {
-    background-color: #45a049; 
-    transform: translateY(-2px); 
-}
-
-#csFormResponse {
-    margin-top: 15px; 
-    color: #333; 
-    font-size: 16px; 
-    font-weight: 500; 
-    text-align: center; 
-    padding: 10px; /* Padding for response message */
-    border: 1px solid #4CAF50; /* Green border for response */
-    border-radius: 5px; /* Rounded corners */
-    background-color: #e8f5e9; /* Light green background */
+.new-label {
+    position: absolute; /* Positioning the label */
+    top: 10px; /* Adjust as necessary */
+    left: 10px; /* Adjust as necessary */
+    background-color: red; /* Background color for the label */
+    color: white; /* Text color */
+    padding: 5px 10px; /* Padding around the label */
+    border-radius: 5px; /* Rounded corners for the label */
+    font-weight: bold; /* Bold text */
+    z-index: 10; /* Ensure the label is above other elements */
 }

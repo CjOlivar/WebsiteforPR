@@ -54,8 +54,8 @@ function buyNow() {
     totalAmount += price * quantity;
     document.getElementById("cartCount").innerText = cartCount;
 
-    cartItems.push({ productName, price, size, quantity });
-    closeModal();  
+    cartItems.push({ productName, price, size, quantity, timestamp: Date.now() });
+    closeModal();   
 }
 
 function viewCart() {
@@ -65,8 +65,15 @@ function viewCart() {
     cartItems.forEach(item => {
         const cartItemDiv = document.createElement("div");
         cartItemDiv.classList.add("cart-item");
+        
+        // Calculate remaining time
+        const currentTime = Date.now();
+        const timeLeft = Math.max(0, (item.timestamp + (30 * 60 * 1000)) - currentTime); // 7 days in milliseconds
+        const timeLeftInMinutes = Math.floor(timeLeft / (1000 * 60)); // Convert to minutes
+
         cartItemDiv.innerHTML = `
             <p>${item.productName} - ₱${item.price} x ${item.quantity}${item.size ? ' (Size: ' + item.size + ')' : ''}</p>
+            <p>Time left: ${timeLeftInMinutes} minutes</p> <!-- Display remaining time -->
         `;
         cartItemsContainer.appendChild(cartItemDiv);
     });
@@ -74,6 +81,36 @@ function viewCart() {
     document.getElementById("totalAmount").innerText = totalAmount;
     document.getElementById("cartModal").style.display = "block";  
 }
+
+function checkCartExpiry() {
+    const expiryDuration = 30 * 60 * 1000; // 1 week in milliseconds
+    const currentTime = Date.now();
+
+    // Filter out expired items
+    cartItems = cartItems.filter(item => {
+        const isExpired = (currentTime - item.timestamp) > expiryDuration;
+        if (isExpired) {
+            alert(`${item.productName} has been removed from your cart due to inactivity.`);
+        }
+        return !isExpired; // Keep items that are not expired
+    });
+
+    // Update the cart count and total amount
+    cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+    totalAmount = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+    // Update UI
+    document.getElementById("cartCount").innerText = cartCount;
+    document.getElementById("totalAmount").innerText = totalAmount;
+
+    // Refresh cart display only if the cart modal is open
+    if (document.getElementById("cartModal").style.display === "block") {
+        viewCart();
+    }
+}
+
+// Set up a timer to check for expired items every minute
+setInterval(checkCartExpiry, 60 * 1000); // Check every minute
 
 function closeCartModal() {
     document.getElementById("cartModal").style.display = "none";  
@@ -108,68 +145,79 @@ function selectPaymentMethod(method) {
     clearPaymentDetails();
 
     const paymentDetailsContainer = document.getElementById("paymentDetails");
-    const qrCodeContainer = document.getElementById("qrCodeContainer"); 
 
     switch (method) {
         case "gcash":
-            paymentDetailsContainer.innerHTML = `<h3>GCash Payment</h3>
-                <p>Scan the QR code with your GCash app.</p>`;
-            generateQRCode(`gcash://pay?amount=${totalAmount}&message=Your+Order`);
+            document.getElementById("qrCodePaymentTitle").innerText = "GCash Payment";
+            document.getElementById("qrCodePaymentMessage").innerText = "Scan the QR code with your GCash app.";
+            const gcashQRCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PaymentAmount:${totalAmount}`;
+            document.getElementById("paymentQRCode").src = gcashQRCodeUrl; // Set the QR code image source
+            openQRCodePaymentModal(); // Open the QR code modal
             break;
 
-        case "credit_card":
-            paymentDetailsContainer.innerHTML = ` 
-            <h3>Credit Card Details</h3>
-            <label for="cardNumber">Card Number:</label>
-            <input type="text" id="cardNumber" placeholder="Enter card number">
-            <br>
-            <label for="expiryDate">Expiry Date:</label>
-            <input type="date" id="expiryDate" placeholder="Select expiry date">
-            <br>
-            <label for="cardCvv">CVV:</label>
-            <input type="text" id="cardCvv" placeholder="Enter CVV">
-        `;
-            qrCodeContainer.innerHTML = ''; 
-            break;
-
+            case "credit_card":
+                paymentDetailsContainer.innerHTML = ` 
+                <h3>Credit Card Details</h3>
+                <label for="cardNumber">Card Number:</label>
+                <input type="text" id="cardNumber" placeholder="Enter card number" required>
+                <br>
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="date" id="expiryDate" placeholder="Select expiry date" required>
+                <br>
+                <label for="cardCvv">CVV:</label>
+                <input type="text" id="cardCvv" placeholder="Enter CVV" required>
+                <br>
+                <button onclick="submitPayment('credit_card')">Confirm Payment</button> <!-- Add this button -->
+                `;
+                break;
         case "paymaya":
-            paymentDetailsContainer.innerHTML = `<h3>PayMaya Payment</h3>
-                <p>Use the PayMaya app to complete your payment.</p>`;
-            generateQRCode(`paymaya://pay?amount=${totalAmount}&message=Your+Order`);
+            document.getElementById("qrCodePaymentTitle").innerText = "PayMaya Payment";
+            document.getElementById("qrCodePaymentMessage").innerText = "Use the PayMaya app to complete your payment.";
+            const paymayaQRCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PaymentAmount:${totalAmount}`;
+            document.getElementById("paymentQRCode").src = paymayaQRCodeUrl; // Set the QR code image source
+            openQRCodePaymentModal(); // Open the QR code modal
             break;
 
         case "qr_code":
-            paymentDetailsContainer.innerHTML = `<h3>QR Code Payment</h3>
-                <p>Scan the QR code to proceed with your payment.</p>`;
-            generateQRCode(`payment://process?amount=${totalAmount}&message=Your+Order`);
+            document.getElementById("qrCodePaymentTitle").innerText = "QR Code Payment";
+            document.getElementById("qrCodePaymentMessage").innerText = "Scan the QR code to proceed with your payment.";
+            const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PaymentAmount:${totalAmount}`;
+            document.getElementById("paymentQRCode").src = qrCodeUrl; // Set the QR code image source
+            openQRCodePaymentModal(); // Open the QR code modal
             break;
 
         case "cash":
             paymentDetailsContainer.innerHTML = `<h3>Cash Payment</h3>
                 <p>You have selected cash as your payment method. Please prepare the exact amount of ₱${totalAmount} for cash on delivery or in-store payment.</p>
                 <button onclick="submitPayment('cash')">Confirm Cash Payment</button>`;
-            qrCodeContainer.innerHTML = ''; 
             break;
 
         default:
             paymentDetailsContainer.innerHTML = '';
-            qrCodeContainer.innerHTML = ''; 
     }
 }
 
-
-function generateQRCode(data) {
-    const qrCodeContainer = document.getElementById("qrCodeContainer");
-    QRCode.toCanvas(qrCodeContainer, data, function (error) {
-        if (error) console.error(error);
-        console.log('QR code generated successfully!');
-    });
+function openQRCodePaymentModal() {
+    document.getElementById("qrCodePaymentModal").style.display = "block";
 }
+
+function closeQRCodePaymentModal() {
+    document.getElementById("qrCodePaymentModal").style.display = "none";
+    document .getElementById("paymentQRCode").src = ''; // Clear QR code when closing the modal
+}
+
+// Close QR code payment modal when clicking outside of it
+window.onclick = function(event) {
+    const qrCodePaymentModal = document.getElementById("qrCodePaymentModal");
+    if (event.target == qrCodePaymentModal) {
+        closeQRCodePaymentModal();
+    }
+};
 
 function clearPaymentDetails() {
     const paymentDetailsContainer = document.getElementById("paymentDetails");
     paymentDetailsContainer.innerHTML = '';
-    document.getElementById("qrCodeContainer").innerHTML = ''; 
+    document.getElementById("paymentQRCode").innerHTML = ''; 
 }
 
 function submitPayment(method) {
@@ -180,7 +228,7 @@ function submitPayment(method) {
         case "credit_card":
             const cardNumber = document.getElementById("cardNumber").value;
             const expiryDate = document.getElementById("expiryDate").value;
-            const cvv = document.getElementById("cvv").value;
+            const cvv = document.getElementById("cardCvv").value;
 
             if (!cardNumber || !expiryDate || !cvv) {
                 alert("Please fill out all fields.");
@@ -201,10 +249,10 @@ function submitPayment(method) {
             paymentInfo = { method };
             break;
 
-            case "cash":
-                paymentInfo = { method: "Cash" };
-                alert("Cash payment confirmed. Please prepare the exact amount at Proware.");
-                break;
+        case "cash":
+            paymentInfo = { method: "Cash" };
+            alert("Cash payment confirmed. Please prepare the exact amount at Proware.");
+            break;
 
         default:
             isValid = false;
@@ -213,8 +261,40 @@ function submitPayment(method) {
 
     if (isValid) {
         console.log("Processing payment:", paymentInfo);
-        alert("Payment successful! Thank you for your purchase.");
-        clearCart(); 
+        alert("Payment successful! Thank you for your purchase."); // Alert for successful payment
+
+        // Log the checkout activity
+        const identifier = localStorage.getItem('identifier'); // Get the user identifier
+        if (identifier) {
+            let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
+            const checkoutTime = new Date().toISOString();
+
+            // Generate a unique ID for the order
+            const uniqueId = generateUniqueId();
+
+            // Prepare the purchased items details
+            const purchasedItems = cartItems.map(item => ({
+                productName: item.productName,
+                quantity: item.quantity,
+                price: item.price,
+                total: item.price * item.quantity
+            }));
+
+            // Log user checkout activity with items, total amount, and unique ID
+            userActivity[identifier] = userActivity[identifier] || [];
+            userActivity[identifier].push({
+                action: 'Checkout',
+                date: checkoutTime,
+                uniqueId: uniqueId, // Include the unique ID
+                items: purchasedItems,
+                totalAmount: totalAmount // Include the total amount
+            });
+
+            localStorage.setItem('userActivity', JSON.stringify(userActivity)); // Save updated activity
+        }
+
+        closeQRCodePaymentModal(); // Close the QR Code modal
+        clearCart(); // Clear the cart after successful payment
     }
 }
 
@@ -278,11 +358,15 @@ function searchProducts() {
 
 document.addEventListener("DOMContentLoaded", function() {
     const userRole = localStorage.getItem('userRole');
-    if (!userRole) {
-        window.location.href = 'login.html'; 
-    } else if (userRole === 'admin') {
-        alert('You are logged in as an Admin. You will be redirected to the admin panel.');
-        window.location.href = 'admin.html'
+    const currentPage = window.location.pathname; // Get the current page
+    const referer = window.location.referrer; // Get the referer
+
+    // Check if the user is logged in and not on the websitedemo page or being redirected from adding a product
+    if (userRole && currentPage !== '/websitedemo.html' && referer !== 'http://localhost:3000/addproduct.html') {
+        if (userRole === 'admin') {
+            alert('You are logged in as an Admin. You will be redirected to the admin panel.');
+            window.location.href = 'admin.html';
+        }
     }
 });
 
@@ -338,9 +422,12 @@ function logout() {
     if (identifier) {
         // Update user activity on logout
         let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
-        if (userActivity[identifier]) {
-            userActivity[identifier].lastLogout = new Date().toISOString(); 
-        }
+        const logoutTime = new Date().toISOString();
+        
+        // Log user logout
+        userActivity[identifier] = userActivity[identifier] || [];
+        userActivity[identifier].push({ action: 'Logged Out', date: logoutTime });
+        
         localStorage.setItem('userActivity', JSON.stringify(userActivity));
     }
 
@@ -382,14 +469,8 @@ function submitCustomerServiceForm(event) {
     const email = document.getElementById("csEmail").value;
     const message = document.getElementById("csMessage").value;
 
-    // Log the submission (for demonstration purposes)
     console.log("Customer Service Form submitted:", { name, email, message });
 
-    // Create a notification for the admin
-    const notification = `New message from ${name} (${email}): ${message}`;
-    notifications.push(notification); // Add notification to the array
-
-    // Show response message
     const responseDiv = document.getElementById("csFormResponse");
     responseDiv.style.display = "block";
     responseDiv.innerHTML = `<p>Thank you, ${name}! Your message has been sent.</p>`;
@@ -418,10 +499,17 @@ document.addEventListener("DOMContentLoaded", function() {
         productItem.onclick = function() {
             openModal(product.image, product.name, product.price, product.requiresSize, product.maxQty);
         };
+
         productItem.innerHTML = `
-            <img src="${product.image}" alt="${product.name}"> 
+            <img src="${product.image}" alt="${product.name}">
             <p>${product.name}</p>
         `;
         availableItemsContainer.appendChild(productItem);
     });
 });
+
+function generateUniqueId() {
+    const timestamp = Date.now(); // Get the current timestamp
+    const randomNum = Math.floor(Math.random() * 10000); // Generate a random number
+    return `ORD-${timestamp}-${randomNum}`; // Combine them to create a unique ID
+}

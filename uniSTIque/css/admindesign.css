@@ -396,29 +396,6 @@ footer {
     margin-bottom: 0;
 }
 
-/* Quick Actions */
-.quick-actions {
-    margin-bottom: 30px;
-}
-
-.quick-actions button {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    padding: 10px 15px;
-    background-color: #f39c12;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.quick-actions button:hover {
-    background-color: #e67e22;
-    transform: translateY(-2px);
-}
-
 /* User Management */
 .user-management {
     margin-bottom: 30px;
@@ -427,98 +404,6 @@ footer {
 #userList {
     margin-top: 20px;
 }
-
-/* Sales Analytics */
-.sales-analytics {
-    margin-bottom: 30px;
-}
-
-#salesChart {
-    width: 100%;
-    height: 300px;
-    background-color: white;
-    border: 1px solid #ecf0f1;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.date-range {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.date-range input[type="date"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.date-range input[type="date"]:focus {
-    box-shadow: 0 0 8px rgba(243, 156, 18, 0.8);
-    border-color: #f39c12;
-}
-
-
-/* Notifications */
-.notifications {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    margin-left: 15px;
-}
-
-.notifications img {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    margin-left: 15px;
-}
-
-.notifications img:hover {
-    transform: scale(1.1);
-}
-
-.notification-dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: white;
-    min-width: 200px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    border-radius: 8px;
-    padding: 10px;
-}
-
-.notification-dropdown h3 {
-    margin-top: 0;
-    color: #333;
-}
-
-#notificationList {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-#notificationList li {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    transition: background-color 0.3s ease;
-}
-
-#notificationList li:last-child {
-    border-bottom: none;
-}
-
-#notificationList li:hover {
-    background-color: #f9f9f9;
-}
-
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -535,4 +420,14 @@ footer {
         flex-direction: column;
         align-items: stretch;
     }
+}
+
+label {
+    display: inline-block; 
+    margin-right: 10px; 
+}
+
+input[type="checkbox"] {
+    margin-right: 380px;
+    margin-top: -24px;
 }
