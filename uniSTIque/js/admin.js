@@ -1,23 +1,4 @@
-// Existing mock data for demonstration purposes
-let mockProducts = [
-    { id: 1, name: 'Product 1', price: 100, stock: 50 },
-    { id: 2, name: 'Product 2', price: 200, stock: 30 },
-    { id: 3, name: 'Product 3', price: 150, stock: 40 }
-];
 
-let mockOrders = [
-    { id: 1, products: [1, 2], total: 300, date: '2023-07-01' },
-    { id: 2, products: [3], total: 150, date: '2023-07-02' },
-    { id: 3, products: [1, 3], total: 250, date: '2023-07-03' }
-];
-
-let mockUsers = [
-    { id: 1, name: 'User 1', email: 'user1@example.com', lastActive: '2023-07-03' },
-    { id: 2, name: 'User 2', email: 'user2@example.com', lastActive: '2023-07-02' },
-    { id: 3, name: 'User 3', email: 'user3@example.com', lastActive: '2023-07-01' }
-];
-
-// New product data to be integrated
 let currentProducts = [
     { name: "Daily Uniform", price: 200, image: "./Images/daily-uniform.png", requiresSize: true, requiresGender: true, maxQty: 10 },
     { name: "ID Lace", price: 40, image: "./Images/id-lace.png", requiresSize: false, requiresGender: false, maxQty: 10 },

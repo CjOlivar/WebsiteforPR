@@ -356,20 +356,6 @@ function searchProducts() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    const userRole = localStorage.getItem('userRole');
-    const currentPage = window.location.pathname; // Get the current page
-    const referer = window.location.referrer; // Get the referer
-
-    // Check if the user is logged in and not on the websitedemo page or being redirected from adding a product
-    if (userRole && currentPage !== '/websitedemo.html' && referer !== 'http://localhost:3000/addproduct.html') {
-        if (userRole === 'admin') {
-            alert('You are logged in as an Admin. You will be redirected to the admin panel.');
-            window.location.href = 'admin.html';
-        }
-    }
-});
-
 // News slider functionality
 function showSlides(n) {
     let slides = document.getElementsByClassName("news-slide");
