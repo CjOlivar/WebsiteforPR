@@ -67,7 +67,7 @@ function viewCart() {
         cartItemDiv.classList.add("cart-item");
         
         const currentTime = Date.now();
-        const timeLeft = Math.max(0, (item.timestamp + (30 * 60 * 1000)) - currentTime); 
+        const timeLeft = Math.max(0, (item.timestamp + (1 * 60 * 1000)) - currentTime); 
         const timeLeftInMinutes = Math.floor(timeLeft / (1000 * 60)); 
 
         cartItemDiv.innerHTML = `
@@ -83,7 +83,7 @@ function viewCart() {
 }
 
 function checkCartExpiry() {
-    const expiryDuration = 30 * 60 * 1000; 
+    const expiryDuration = 1 * 60 * 1000; 
     const currentTime = Date.now();
 
 
