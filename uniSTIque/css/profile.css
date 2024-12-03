@@ -3,7 +3,7 @@
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensures the body takes at least the full height of the viewport */
+    min-height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
 }
@@ -117,23 +117,23 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
-    position: fixed; /* Change to fixed for a sticky footer */
-    bottom: 0; /* Stick to the bottom */
-    width: 100%; /* Full width */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 footer a {
-    font-size: 18px; /
-    font-weight: bold; /* Make text bold */
-    color: #4CAF50; /* Green color */
-    text-decoration: none; /* Remove underline */
-    padding: 10px 15px; /* Add padding */
-    background-color: #fff; /* White background */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+    font-size: 18px; 
+    font-weight: bold;
+    color: #4CAF50;
+    text-decoration: none;
+    padding: 10px 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 footer a:hover {
-    background-color: #4CAF50; /* Green background on hover */
-    color: #fff; /* White text on hover */
+    background-color: #4CAF50;
+    color: #fff;
 }

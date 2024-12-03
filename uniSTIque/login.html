@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="login-container">
-        <!-- Header with Image and Title -->
         <div class="login-header">
             <img src="./Images/stilogo.png" alt="Logo">
             <h2>Login to 
@@ -17,8 +16,7 @@
                 </a>
             </h2>
         </div>
-        
-        <!-- Form Fields -->
+
         <form id="loginForm">
             <label for="identifier">Email or Username</label>
             <input type="text" id="identifier" placeholder="Enter your email or username" required>
@@ -31,13 +29,12 @@
         
         <p id="loginError" style="color: red; display: none;">Invalid email/username or password!</p>
 
-        <!-- Link to Registration Page -->
         <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
     </div>    
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting
+            event.preventDefault(); 
             const identifier = document.getElementById('identifier').value;
             const password = document.getElementById('password').value;
             const loginError = document.getElementById('loginError');
@@ -51,10 +48,9 @@
             const users = JSON.parse(localStorage.getItem('users')) || {};
             let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
 
-            // Log login activity
             const loginTime = new Date().toISOString();
             if (users[identifier] && users[identifier].password === password) {
-                // Log user login
+
                 userActivity[identifier] = userActivity[identifier] || [];
                 userActivity[identifier].push({ action: 'Logged In', date: loginTime });
 

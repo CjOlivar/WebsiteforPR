@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
 
-    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="./css/styles2.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-qrcode/1.0/jquery.qrcode.min.js"></script>
@@ -14,7 +13,6 @@
 
 <body>
 
-    <!-- Header Section -->
     <header>
         <div class="logo-container">
             <div class="logo">
@@ -29,7 +27,6 @@
             </div>
         </div>
 
-    <!-- Search Bar and Cart -->
     <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Search for products..." />
     </div>
@@ -38,7 +35,6 @@
         <img src="./Images/shoppingcarticon.png" alt="Shopping Cart" class="cart-icon" onclick="viewCart()">
         <span id="cartCount" class="cart-count">0</span>
     </div>
-    <!-- User Profile Icon -->
     <div class="profile-container">
         <img src="./Images/usericon.png" alt="User Icon" class="user-icon" onclick="toggleProfileDropdown()" aria-label="User Profile Menu">
         <!-- Profile Dropdown -->
@@ -51,7 +47,6 @@
     
     </header>
 
-    <!-- Recommendations Section -->
     <section class="recommendations">
         <h2>Recommended for You</h2>
         <div class="recommendation product-item" data-price="200" data-requires-size="true" data-requires-gender="true" data-max-qty="10" onclick="openModal('daily-uniform.png', 'Daily Uniform', 200, true, 10)">
@@ -64,7 +59,6 @@
         </div>
     </section>
 
-    <!-- Available Section -->
     <section class="available-section">
         <h2>Available:</h2>
         <div class="available-slider">
@@ -110,7 +104,6 @@
     </div>
 </section>
 
-<!-- News Section -->
 <div class="news-section">
     <h2>New Products</h2>
     <div class="news-slider">
@@ -181,8 +174,6 @@
     </div>
 </div>
     
-
-<!-- Modal for Shopping Cart -->
 <div id="cartModal" class="cartmodal">
     <div class="cartmodal-content">
         <span class="close" onclick="closeCartModal()">&times;</span>
@@ -195,7 +186,6 @@
     </div>
 </div>
 
-<!-- Payment Modal -->
 <div id="paymentModal" class="modal">
     <div class="paymentmodal-content">
         <span class="close-btn" onclick="closePaymentModal()">&times;</span>
@@ -217,7 +207,6 @@
                 <img src="./Images/qr-code.png" alt="QR Code" class="payment-icon">
                 <span>QR Code</span>
             </div>
-            <!-- Add Cash Option -->
             <div class="payment-option" onclick="selectPaymentMethod('cash')">
                 <img src="./Images/cash-logo.png" alt="Cash" class="payment-icon">
                 <span>Cash</span>

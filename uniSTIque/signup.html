@@ -8,13 +8,11 @@
 </head>
 <body>
     <div class="login-container">
-        <!-- Header with Image and Title -->
         <div class="login-header">
             <img src="./Images/stilogo.png" alt="Logo">
             <h2>Sign Up for uniSTIque</h2>
         </div>
 
-        <!-- Sign-Up Form Fields -->
         <form id="signupForm">
             <label for="identifier">Email or Username</label>
             <input type="text" id="identifier" placeholder="Enter your email or username" required>
@@ -42,13 +40,13 @@
 
         <p id="signupError" style="color: red; display: none;">Error: Passwords do not match!</p>
         <p id="signupSuccess" style="color: green; display: none;">Registration successful! You can now <a href="login.html">login</a>.</p>
-                <!-- Link to Registration Page -->
+             
                 <p>Already have an account? <a href="login.html">Login here</a></p>
     </div>
 
     <script>
 document.getElementById('signupForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the form from submitting
+    event.preventDefault(); 
     const identifier = document.getElementById('identifier').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
@@ -68,13 +66,11 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
     } else {
         signupError.style.display = 'none';
 
-        // storing user data in localStorage (or send to backend)
         let users = JSON.parse(localStorage.getItem('users')) || {};
         if (users[identifier]) {
             signupError.textContent = "Error: Email/Username already exists!";
             signupError.style.display = 'block';
         } else {
-            // Get the selected role from the radio buttons
             const role = document.querySelector('input[name="role"]:checked').value;
             users[identifier] = { password: password, role: role };
             localStorage.setItem('users', JSON.stringify(users));

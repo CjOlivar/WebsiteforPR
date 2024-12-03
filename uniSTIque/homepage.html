@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage - uniSTIque</title>
     
-    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="./css/home.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <div class="logo-container">
             <div class="logo">
@@ -26,7 +24,6 @@
                 <li><a href="#">About</a></li>
                 <div class="profile-container">
                     <img src="./Images/usericon.png" alt="User Icon" class="user-icon" onclick="toggleProfileDropdown()" aria-label="User Profile Menu">
-                    <!-- Profile Dropdown -->
                     <div id="profileDropdown" class="profile-dropdown">
                         <a href="profile.html">Profile</a>
                         <a href="login.html" onclick="logout()">Logout</a>
@@ -37,14 +34,14 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
+
     <section class="hero-section">
         <h1>Welcome to <h1 class="webname">uniSTIque</h1></h1>
         <p style="border: 2px solid #333; border-style: dashed; padding: 10px; display: inline-block;">Discover a world of unique products and exceptional experiences.</p>
         <button onclick="location.href='#new-products'">Explore Now</button>
     </section>
 
-    <!-- Featured Products Section -->
+
     <div class="featured-products" id="new-products">
         <h2>New Products</h2>
         <div class="product-slider">
@@ -119,7 +116,6 @@
         </div>
     </div>
     
-    <!-- Footer Section -->
     <footer>
         <div class="footer-links">
             <a href="#">Terms & Conditions</a>
@@ -169,20 +165,17 @@ function closeCustomerServiceModal() {
 }
 
 function submitCustomerServiceForm(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
 
     const name = document.getElementById("csName").value;
     const email = document.getElementById("csEmail").value;
     const message = document.getElementById("csMessage").value;
 
-    // Log the submission (for demonstration purposes)
     console.log("Customer Service Form submitted:", { name, email, message });
 
-    // Create a notification for the admin
     const notification = `New message from ${name} (${email}): ${message}`;
-    notifications.push(notification); // Add notification to the array
+    notifications.push(notification); 
 
-    // Show response message
     const responseDiv = document.getElementById("csFormResponse");
     responseDiv.style.display = "block";
     responseDiv.innerHTML = `<p>Thank you, ${name}! Your message has been sent.</p>`;
@@ -194,11 +187,10 @@ function submitCustomerServiceForm(event) {
 function logout() {
     const identifier = localStorage.getItem('identifier'); 
     if (identifier) {
-        // Update user activity on logout
+
         let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
         const logoutTime = new Date().toISOString();
         
-        // Log user logout
         userActivity[identifier] = userActivity[identifier] || [];
         userActivity[identifier].push({ action: 'Logged Out', date: logoutTime });
         

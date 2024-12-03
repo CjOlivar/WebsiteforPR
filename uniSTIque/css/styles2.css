@@ -5,7 +5,7 @@ body {
     box-sizing: border-box;
     background-color: #f0f0f0;
     color: black;
-    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth background color change */
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 header {
@@ -20,7 +20,7 @@ header {
     align-items: center;
     z-index: 1000;
     margin: 10 auto;
-    transition: background-position 0.5s ease, background-size 0.5s ease; /* Smooth background transition */
+    transition: background-position 0.5s ease, background-size 0.5s ease;
 }
 
 @media (max-width: 768px) {
@@ -37,9 +37,9 @@ header {
 }
 
 .logo {
-    width: 100%; /* Adjust as necessary */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Ensures no extra space below the image */
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .title {
@@ -47,12 +47,12 @@ header {
     font-size: 28px;
     font-weight: 700;
     color: yellow;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); /* Added shadow */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
     transition: text-shadow 0.3s ease;
 }
 
 .title:hover {
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6); /* Increased shadow on hover */
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6);
 }
 
 .search-bar {
@@ -68,11 +68,11 @@ header {
     border: 1px solid #ccc;
     border-radius: 15px;
     align-items: center;
-    transition: box-shadow 0.3s ease; /* Smooth focus shadow */
+    transition: box-shadow 0.3s ease;
 }
 
 .search-bar input[type="text"]:focus {
-    box-shadow: 0 0 8px rgba(243, 156, 18, 0.8); /* Glow effect on focus */
+    box-shadow: 0 0 8px rgba(243, 156, 18, 0.8);
 }
 
 .recommendations {
@@ -96,8 +96,8 @@ header {
 } 
 
 .product-item:hover {
-    transform: scale(1.1); /* Enlarges the product card on hover */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Smooth shadow effect */
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .filter-section {
@@ -119,10 +119,10 @@ header {
 .news-slider {
     position: relative;
     width: 100%;
-    max-width: 600px; /* Adjust this value as needed */
-    height: 300px; /* Adjust this value to make the container smaller */
-    margin: 0 auto; /* Centers the slider */
-    padding: 0; /* Removes padding */
+    max-width: 600px;
+    height: 300px;
+    margin: 0 auto;
+    padding: 0;
     overflow: hidden;
 }
 
@@ -135,7 +135,7 @@ header {
 .news-slide img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Ensures the entire image is visible without distortion */
+    object-fit: contain;
     display: block;
 }
 
@@ -251,7 +251,7 @@ header {
 
 .cta-button:hover {
     background-color: #45a049;
-    transform: translateY(-3px); /* Button moves up slightly on hover */
+    transform: translateY(-3px);
 }
 
 footer {
@@ -331,12 +331,12 @@ footer .social-media a img {
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    animation: fadeIn 0.5s ease-in-out; /* Smooth modal fade-in */
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .modal-image {
-    width: 300px; /* Set a fixed width for the image */
-    height: auto; /* Maintain aspect ratio */
+    width: 300px;
+    height: auto;
 }
 
 .modal-content {
@@ -351,7 +351,7 @@ footer .social-media a img {
     padding: 20px;
     position: relative;
     margin: auto;
-    animation: zoomIn 0.5s ease-in-out; /* Smooth modal content zoom-in */
+    animation: zoomIn 0.5s ease-in-out;
 }
 
 #paymentModal {
@@ -368,7 +368,7 @@ footer .social-media a img {
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    animation: fadeIn 0.5s ease-in-out; /* Smooth modal fade-in */
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .paymentmodal-content {
@@ -382,7 +382,7 @@ footer .social-media a img {
     padding: 20px;
     position: relative;
     margin: auto;
-    animation: zoomIn 0.5s ease-in-out; /* Smooth modal content zoom-in */
+    animation: zoomIn 0.5s ease-in-out;
     }
     
 .payment-methods {
@@ -418,7 +418,7 @@ footer .social-media a img {
     margin-top: 2px; 
 }
 
-/* Horizontal rule style */
+
 hr {
     margin: 10px 0; 
     border: none; 
@@ -466,18 +466,18 @@ hr {
     position: relative;
 }
 
-/* Scrollbar styles */
+
 .modal-details::-webkit-scrollbar {
-    width: 10px; /* Width of the scrollbar */
+    width: 10px;
 }
 
 .modal-details::-webkit-scrollbar-thumb {
-    background-color: #888; /* Color of the scrollbar thumb */
-    border-radius: 5px; /* Rounded corners */
+    background-color: #888;
+    border-radius: 5px;
 }
 
 .modal-details::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Darker color on hover */
+    background-color: #555;
 }
 
 #productPrice {
@@ -525,7 +525,7 @@ hr {
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    animation: fadeIn 0.5s ease-in-out; /* Smooth modal fade-in */
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .cartmodal-content {
@@ -540,7 +540,7 @@ hr {
     padding: 20px;
     position: relative;
     margin: auto;
-    animation: zoomIn 0.5s ease-in-out; /* Smooth modal content zoom-in */
+    animation: zoomIn 0.5s ease-in-out;
 }
 
 #cartItems {
@@ -658,10 +658,10 @@ hr {
 
 #checkoutBtn:hover {
     background-color: #e67e22;
-    transform: translateY(-2px); /* Smooth hover effect */
+    transform: translateY(-2px);
 }
 
-/* Modal animations */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -682,7 +682,7 @@ hr {
     }
 }
 
-/* Ensure modal content is centered and responsive */
+
 @media (max-width: 768px) {
     .modal-content {
         width: 95%;
@@ -690,7 +690,7 @@ hr {
     }
 }
 
-/* Profile Icon Styles */
+
 .profile-container {
     position: relative;
     display: flex;
@@ -710,11 +710,11 @@ hr {
     transform: scale(1.1);
 }
 
-/* Profile Dropdown Styles */
+
 .profile-dropdown {
-    display: none; /* Initially hidden */
+    display: none;
     position: absolute;
-    top: 50px; /* Positioning dropdown under the user icon */
+    top: 50px;
     right: 0;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -739,7 +739,7 @@ hr {
     color: #007bff;
 }
 
-/* Ensures dropdown stays inside the header and visible */
+
 .profile-dropdown::before {
     content: "";
     position: absolute;
@@ -754,7 +754,7 @@ hr {
     background-color: #d32f2f;
 }
 
-/* General Button Styles */
+
 button {
     transition: background-color 0.3s ease;
 }
@@ -763,7 +763,7 @@ button:focus {
     outline: none;
 }
 
-/* Ensures responsiveness on smaller screens */
+
 @media (max-width: 768px) {
     .login-container, #profile {
         width: 95%;
@@ -789,38 +789,38 @@ button:focus {
     background-color: #555;
 }
 
-/* QR Code Payment Modal Styles */
+
 #qrCodePaymentModal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.7); /* Black with opacity */
-    align-items: center; /* Center modal content */
-    justify-content: center; /* Center modal content */
-    padding: 20px; /* Padding around modal */
-    box-sizing: border-box; /* Include padding in width/height calculations */
-    animation: fadeIn 0.5s ease-in-out; /* Smooth fade-in effect */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Modal Content */
+
 .pmodal-content {
-    background-color: white; /* White background for modal */
-    margin: auto; /* Center modal */
-    padding: 30px; /* Padding inside modal */
-    border: none; /* No border */
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-    width: 90%; /* Responsive width */
-    max-width: 500px; /* Maximum width */
-    animation: zoomIn 0.5s ease-in-out; /* Smooth zoom-in effect */
+    background-color: white;
+    margin: auto;
+    padding: 30px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    animation: zoomIn 0.5s ease-in-out;
 }
 
-/* Close Button */
+
 .pmodal-content .close {
     margin: 20px;
     margin-right: 375px;
@@ -838,67 +838,67 @@ button:focus {
     transform: scale(1.1);
 }
 
-/* QR Code Image */
+
 #paymentQRCode {
-    margin-top: 20px; /* Margin above the QR code */
-    width: 150px; /* Width of QR code */
-    height: 150px; /* Height of QR code */
-    display: block; /* Block display */
-    margin-left: auto; /* Center horizontally */
-    margin-right: auto; /* Center horizontally */
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Title and Message Styles */
+
 #qrCodePaymentTitle {
-    font-size: 24px; /* Title font size */
-    font-weight: 600; /* Semi-bold */
-    text-align: center; /* Centered text */
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
 }
 
 #qrCodePaymentMessage {
-    text-align: center; /* Centered text */
-    margin-top: 10px; /* Space above message */
+    text-align: center;
+    margin-top: 10px;
 }
 
-/* Animation Keyframes */
+
 @keyframes fadeIn {
     from {
-        opacity: 0; /* Start invisible */
+        opacity: 0;
     }
     to {
-        opacity: 1; /* End fully visible */
+        opacity: 1;
     }
 }
 
 @keyframes zoomIn {
     from {
-        transform: scale(0.8); /* Start smaller */
-        opacity: 0; /* Start invisible */
+        transform: scale(0.8);
+        opacity: 0;
     }
     to {
-        transform: scale(1); /* End at normal size */
-        opacity: 1; /* End fully visible */
+        transform: scale(1);
+        opacity: 1;
     }
 }
 
 .nproduct-item {
-    position: relative; /* Allows positioning of the new label */
+    position: relative;
     margin: 10px;
-    border: 2px solid red; /* Red border */
-    padding: 10px; /* Padding inside the border */
-    border-radius: 8px; /* Rounded corners */
-    background-color: white; /* Background color for the product item */
-    transition: transform 0.3s ease; /* Optional: for hover effect */
+    border: 2px solid red;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: white;
+    transition: transform 0.3s ease;
 }
 
 .new-label {
-    position: absolute; /* Positioning the label */
-    top: 10px; /* Adjust as necessary */
-    left: 10px; /* Adjust as necessary */
-    background-color: red; /* Background color for the label */
-    color: white; /* Text color */
-    padding: 5px 10px; /* Padding around the label */
-    border-radius: 5px; /* Rounded corners for the label */
-    font-weight: bold; /* Bold text */
-    z-index: 10; /* Ensure the label is above other elements */
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    z-index: 10;
 }

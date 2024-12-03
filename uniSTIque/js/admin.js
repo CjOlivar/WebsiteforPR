@@ -9,12 +9,12 @@ let currentProducts = [
     { name: "Alumni Poloshirt", price: 275, image: "./Images/polo-shirt.png", requiresSize: true, requiresGender: true, maxQty: 10 }
 ];
 
-let myProducts = []; // Initialize empty array for custom products added by the user
+let myProducts = []; 
 
-// Function to render the list of current products
+
 function renderCurrentProductList() {
     const currentProductItemsContainer = document.getElementById("currentProductItems");
-    currentProductItemsContainer.innerHTML = ""; // Clear existing items
+    currentProductItemsContainer.innerHTML = ""; 
     currentProducts.forEach((product) => {
         const productItem = document.createElement("li");
         productItem.innerHTML = `
@@ -83,31 +83,31 @@ window.addEventListener('click', function(event) {
 });
 
 function viewUserActivity() {
-    console.log("Fetching user activity..."); // Debugging statement
+    console.log("Fetching user activity..."); 
     const activityTableBody = document.getElementById('activityTableBody');
-    activityTableBody.innerHTML = ''; // Clear previous logs
+    activityTableBody.innerHTML = ''; 
 
     const userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
-    console.log("User  Activity Data:", userActivity); // Debugging statement
+    console.log("User  Activity Data:", userActivity); 
 
     for (const user in userActivity) {
         userActivity[user].forEach(log => {
             const row = document.createElement('tr');
             
-            // Prepare the row content based on the action
+            
             if (log.action === 'Checkout') {
                 row.innerHTML = `
                     <td>${user}</td>
                     <td>${log.action}</td>
                     <td>${new Date(log.date).toLocaleString()}</td>
-                    <td>${log.uniqueId}</td> <!-- Add unique ID here for Checkout -->
+                    <td>${log.uniqueId}</td> 
                 `;
             } else {
                 row.innerHTML = `
                     <td>${user}</td>
                     <td>${log.action}</td>
                     <td>${new Date(log.date).toLocaleString()}</td>
-                    <td>N/A</td> <!-- Placeholder for other actions -->
+                    <td>N/A</td> 
                 `;
             }
             
@@ -116,6 +116,6 @@ function viewUserActivity() {
     }
 
     if (activityTableBody.innerHTML === '') {
-        console.log("No activity logs found."); // Debugging statement
+        console.log("No activity logs found."); 
     }
 }

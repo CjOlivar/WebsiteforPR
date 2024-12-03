@@ -147,7 +147,7 @@ nav ul li a:hover {
     background-color: #d32f2f;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -171,7 +171,7 @@ nav ul li a:hover {
     }
 }
 
-/* Hero Section Styles */
+
 .hero-section {
     height: auto;
     background: url('../Images/portal.png') no-repeat center center; 
@@ -349,7 +349,7 @@ footer .social-media a img {
     }
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .product-slider {
         flex-direction: column; 

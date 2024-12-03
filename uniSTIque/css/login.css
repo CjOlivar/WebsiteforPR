@@ -6,14 +6,14 @@
 
 body {
     font-family: Menlo, Monaca,'Courier New', monospace;
-    background-image: url('../Images/portal.png'); /* Replace with your image path */
+    background-image: url('../Images/portal.png');
     background-size: cover;
     background-position: center;
     display: flex;
-    justify-content: flex-end; /* Aligns content to the right */
+    justify-content: flex-end;
     align-items: center;
     height: 100vh;
-    padding-right: 50px; /* Adds padding to the right */
+    padding-right: 50px;
 }
 
 body::before {
@@ -23,9 +23,9 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for contrast */
-    z-index: 1; /* Places overlay below the text */
-    filter: blur(5px); /* Optional: adds blur effect */
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    filter: blur(5px);
 }
 
 .login-container {
@@ -36,7 +36,7 @@ body::before {
     width: 350px;
     text-align: center;
     transition: transform 0.3s;
-    z-index: 2; /* Places container above the overlay */
+    z-index: 2;
 }
 
 .login-header {
@@ -44,7 +44,7 @@ body::before {
 }
 
 .login-header img {
-    width: 120px; /* Adjust the size of the logo as needed */
+    width: 120px;
 }
 
 h2 {
@@ -57,28 +57,28 @@ label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
-    text-align: left; /* Align labels to the left */
+    text-align: left;
 }
 
 input[type="text"], 
 input[type="password"] {
     width: 100%;
-    padding: 12px; /* Increased padding */
+    padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px; /* Increased font size */
-    transition: border-color 0.3s; /* Smooth border color transition */
+    font-size: 16px;
+    transition: border-color 0.3s;
 }
 
 input[type="text"]:focus, 
 input[type="password"]:focus {
-    border-color: #007BFF; /* Highlight border on focus */
-    outline: none; /* Remove default outline */
+    border-color: #007BFF;
+    outline: none;
 }
 
 button {
-    background-color: #007BFF; /* Primary button color */
+    background-color: #007BFF;
     color: white;
     padding: 12px;
     border: none;
@@ -86,28 +86,28 @@ button {
     cursor: pointer;
     font-size: 16px;
     width: 100%;
-    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: translateY(-2px); /* Lift effect */
+    background-color: #0056b3;
+    transform: translateY(-2px);
 }
 
 button:active {
-    transform: translateY(1px); /* Press down effect */
+    transform: translateY(1px);
 }
 
 p {
     margin-top: 15px;
-    color: red; /* Error message color */
-    font-size: 14px; /* Font size for error message */
+    color: red;
+    font-size: 14px;
 }
 
-/* Responsive design */
+
 @media (max-width: 400px) {
     .login-container {
-        width: 90%; /* Responsive width */
+        width: 90%;
     }
 }
 
@@ -118,7 +118,7 @@ p {
 }
 
 .hover-link:hover {
-    color: #3498db; /* Change color on hover */
+    color: #3498db;
 }
 
 .hover-link::after {

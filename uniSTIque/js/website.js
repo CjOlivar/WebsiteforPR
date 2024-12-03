@@ -66,10 +66,9 @@ function viewCart() {
         const cartItemDiv = document.createElement("div");
         cartItemDiv.classList.add("cart-item");
         
-        // Calculate remaining time
         const currentTime = Date.now();
-        const timeLeft = Math.max(0, (item.timestamp + (30 * 60 * 1000)) - currentTime); // 30 minutes in milliseconds
-        const timeLeftInMinutes = Math.floor(timeLeft / (1000 * 60)); // Convert to minutes
+        const timeLeft = Math.max(0, (item.timestamp + (30 * 60 * 1000)) - currentTime); 
+        const timeLeftInMinutes = Math.floor(timeLeft / (1000 * 60)); 
 
         cartItemDiv.innerHTML = `
             <input type="checkbox" id="cartItem${index}" data-index="${index}" />
@@ -84,34 +83,33 @@ function viewCart() {
 }
 
 function checkCartExpiry() {
-    const expiryDuration = 30 * 60 * 1000; // 1 week in milliseconds
+    const expiryDuration = 30 * 60 * 1000; 
     const currentTime = Date.now();
 
-    // Filter out expired items
+
     cartItems = cartItems.filter(item => {
         const isExpired = (currentTime - item.timestamp) > expiryDuration;
         if (isExpired) {
             alert(`${item.productName} has been removed from your cart due to inactivity.`);
         }
-        return !isExpired; // Keep items that are not expired
+        return !isExpired; 
     });
 
-    // Update the cart count and total amount
     cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
     totalAmount = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
-    // Update UI
+
     document.getElementById("cartCount").innerText = cartCount;
     document.getElementById("totalAmount").innerText = totalAmount;
 
-    // Refresh cart display only if the cart modal is open
+
     if (document.getElementById("cartModal").style.display === "block") {
         viewCart();
     }
 }
 
-// Set up a timer to check for expired items every minute
-setInterval(checkCartExpiry, 60 * 1000); // Check every minute
+
+setInterval(checkCartExpiry, 60 * 1000); 
 
 function closeCartModal() {
     document.getElementById("cartModal").style.display = "none";  
@@ -127,7 +125,6 @@ function checkout() {
     const selectedItems = [];
     let selectedTotal = 0;
 
-    // Gather selected items
     cartItems.forEach((item, index) => {
         const checkbox = document.getElementById(`cartItem${index}`);
         if (checkbox.checked) {
@@ -136,18 +133,17 @@ function checkout() {
         }
     });
 
-    // Check if any items are selected
     if (selectedItems.length === 0) {
         alert("Please select at least one item to checkout!");
         return;
     }
 
-    // Proceed to payment with selected items
-    totalAmount = selectedTotal; // Update total amount to the selected total
-    // Open payment modal or any other checkout process
+
+    totalAmount = selectedTotal; 
+
     const paymentModal = document.getElementById("paymentModal");
     paymentModal.style.display = "block";
-    clearPaymentDetails(); // Clear previous payment details if necessary
+    clearPaymentDetails(); 
 }
 
 // Close payment modal when clicking outside of it
@@ -169,8 +165,8 @@ function selectPaymentMethod(method) {
             document.getElementById("qrCodePaymentTitle").innerText = "GCash Payment";
             document.getElementById("qrCodePaymentMessage").innerText = "Scan the QR code with your GCash app.";
             const gcashQRCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PaymentAmount:${totalAmount}`;
-            document.getElementById("paymentQRCode").src = gcashQRCodeUrl; // Set the QR code image source
-            openQRCodePaymentModal(); // Open the QR code modal
+            document.getElementById("paymentQRCode").src = gcashQRCodeUrl; 
+            openQRCodePaymentModal(); 
             break;
 
             case "credit_card":
@@ -193,15 +189,15 @@ function selectPaymentMethod(method) {
             document.getElementById("qrCodePaymentMessage").innerText = "Use the PayMaya app to complete your payment.";
             const paymayaQRCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PaymentAmount:${totalAmount}`;
             document.getElementById("paymentQRCode").src = paymayaQRCodeUrl; // Set the QR code image source
-            openQRCodePaymentModal(); // Open the QR code modal
+            openQRCodePaymentModal(); 
             break;
 
         case "qr_code":
             document.getElementById("qrCodePaymentTitle").innerText = "QR Code Payment";
             document.getElementById("qrCodePaymentMessage").innerText = "Scan the QR code to proceed with your payment.";
             const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PaymentAmount:${totalAmount}`;
-            document.getElementById("paymentQRCode").src = qrCodeUrl; // Set the QR code image source
-            openQRCodePaymentModal(); // Open the QR code modal
+            document.getElementById("paymentQRCode").src = qrCodeUrl; 
+            openQRCodePaymentModal(); 
             break;
 
         case "cash":
@@ -221,10 +217,10 @@ function openQRCodePaymentModal() {
 
 function closeQRCodePaymentModal() {
     document.getElementById("qrCodePaymentModal").style.display = "none";
-    document .getElementById("paymentQRCode").src = ''; // Clear QR code when closing the modal
+    document .getElementById("paymentQRCode").src = ''; 
 }
 
-// Close QR code payment modal when clicking outside of it
+
 window.onclick = function(event) {
     const qrCodePaymentModal = document.getElementById("qrCodePaymentModal");
     if (event.target == qrCodePaymentModal) {
@@ -279,21 +275,19 @@ function submitPayment(method) {
 
     if (isValid) {
         console.log("Processing payment:", paymentInfo);
-        alert("Payment successful! Thank you for your purchase."); // Alert for successful payment
+        alert("Payment successful! Thank you for your purchase."); 
 
-        // Log the checkout activity
-        const identifier = localStorage.getItem('identifier'); // Get the user identifier
+
+        const identifier = localStorage.getItem('identifier'); 
         if (identifier) {
             let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
             const checkoutTime = new Date().toISOString();
 
-            // Generate a unique ID for the order
             const uniqueId = generateUniqueId();
 
-            // Prepare the purchased items details
             const purchasedItems = cartItems.filter((item, index) => {
                 const checkbox = document.getElementById(`cartItem${index}`);
-                return checkbox.checked; // Include only selected items
+                return checkbox.checked; 
             }).map(item => ({
                 productName: item.productName,
                 quantity: item.quantity,
@@ -301,35 +295,34 @@ function submitPayment(method) {
                 total: item.price * item.quantity
             }));
 
-            // Log user checkout activity with items, total amount, and unique ID
             userActivity[identifier] = userActivity[identifier] || [];
             userActivity[identifier].push({
                 action: 'Checkout',
                 date: checkoutTime,
-                uniqueId: uniqueId, // Include the unique ID
+                uniqueId: uniqueId, 
                 items: purchasedItems,
-                totalAmount: totalAmount // Include the total amount
+                totalAmount: totalAmount 
             });
 
-            localStorage.setItem('userActivity', JSON.stringify(userActivity)); // Save updated activity
+            localStorage.setItem('userActivity', JSON.stringify(userActivity)); 
         }
 
-        // Clear selected items from the cart after successful payment
+
         cartItems = cartItems.filter((item, index) => {
             const checkbox = document.getElementById(`cartItem${index}`);
-            return !checkbox.checked; // Keep items that are not checked
+            return !checkbox.checked; 
         });
 
-        // Update cart count and total amount
+
         cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
         totalAmount = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
         document.getElementById("cartCount").innerText = cartCount;
         document.getElementById("totalAmount").innerText = totalAmount;
 
-        // Close payment modal and refresh cart display
+
         closePaymentModal();
         closeQRCodePaymentModal();
-        viewCart(); // Refresh the cart display
+        viewCart(); 
     }
 }
 function clearCart() {
@@ -356,8 +349,7 @@ document.getElementById("searchInput").addEventListener("keypress", function(eve
 
 function searchProducts() {
     const searchInput = document.getElementById("searchInput").value.toLowerCase().trim();
-    
-    // Minimum length requirement for search input
+
     if (searchInput.length < 2) {
         alert("Please enter at least 2 characters to search.");
         return;
@@ -368,16 +360,14 @@ function searchProducts() {
 
     let productFound = false;
 
-    // Function to check and open modal for the product
+
     function tryOpenModal(product) {
         const productName = product.querySelector("p").innerText.toLowerCase();
-        const productLabel = product.querySelector(".new-label") ? "new" : ""; // Check for the 'New!' label
-        const fullProductName = productName + " " + productLabel; // Combine name and label for searching
+        const productLabel = product.querySelector(".new-label") ? "new" : ""; 
+        const fullProductName = productName + " " + productLabel; 
 
-        // Split the search input into words for exact matching
         const searchTerms = searchInput.split(" ");
-        
-        // Check if all search terms are present in the product name
+
         const matchesAllTerms = searchTerms.every(term => fullProductName.includes(term));
         
         if (matchesAllTerms) {
@@ -391,25 +381,21 @@ function searchProducts() {
         }
     }
 
-    // Check available products first
     availableProducts.forEach(product => {
         tryOpenModal(product);
     });
 
-    // If not found, check recommended products
     if (!productFound) {
         recommendedProducts.forEach(product => {
             tryOpenModal(product);
         });
     }
 
-    // If still not found, alert the user
     if (!productFound) {
         alert("Product not found!");
     }
 }
 
-// News slider functionality
 function showSlides(n) {
     let slides = document.getElementsByClassName("news-slide");
     if (n >= slides.length) {
@@ -459,11 +445,10 @@ window.addEventListener('click', function(event) {
 function logout() {
     const identifier = localStorage.getItem('identifier'); 
     if (identifier) {
-        // Update user activity on logout
+
         let userActivity = JSON.parse(localStorage.getItem('userActivity')) || {};
         const logoutTime = new Date().toISOString();
         
-        // Log user logout
         userActivity[identifier] = userActivity[identifier] || [];
         userActivity[identifier].push({ action: 'Logged Out', date: logoutTime });
         
@@ -482,7 +467,7 @@ function submitContactForm(event) {
     const email = document.getElementById("email").value;
     const message = document.getElementById("message").value;
 
-    // Simulate form submission (you can replace this with actual form submission logic)
+
     console.log("Form submitted:", { name, email, message });
 
     
@@ -490,7 +475,6 @@ function submitContactForm(event) {
     responseDiv.style.display = "block";
     responseDiv.innerHTML = `<p>Thank you, ${name}! Your message has been sent.</p>`;
 
-    // Clear the form fields
     document.getElementById("contactForm").reset();
 }
 function openCustomerServiceModal() {
@@ -502,7 +486,7 @@ function closeCustomerServiceModal() {
 }
 
 function submitCustomerServiceForm(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
 
     const name = document.getElementById("csName").value;
     const email = document.getElementById("csEmail").value;
@@ -548,7 +532,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function generateUniqueId() {
-    const timestamp = Date.now(); // Get the current timestamp
-    const randomNum = Math.floor(Math.random() * 10000); // Generate a random number
-    return `ORD-${timestamp}-${randomNum}`; // Combine them to create a unique ID
+    const timestamp = Date.now(); 
+    const randomNum = Math.floor(Math.random() * 10000); 
+    return `ORD-${timestamp}-${randomNum}`; 
 }
