@@ -62,18 +62,19 @@ function viewCart() {
     const cartItemsContainer = document.getElementById("cartItems");
     cartItemsContainer.innerHTML = '';
 
-    cartItems.forEach(item => {
+    cartItems.forEach((item, index) => {
         const cartItemDiv = document.createElement("div");
         cartItemDiv.classList.add("cart-item");
         
         // Calculate remaining time
         const currentTime = Date.now();
-        const timeLeft = Math.max(0, (item.timestamp + (30 * 60 * 1000)) - currentTime); // 7 days in milliseconds
+        const timeLeft = Math.max(0, (item.timestamp + (30 * 60 * 1000)) - currentTime); // 30 minutes in milliseconds
         const timeLeftInMinutes = Math.floor(timeLeft / (1000 * 60)); // Convert to minutes
 
         cartItemDiv.innerHTML = `
-            <p>${item.productName} - ₱${item.price} x ${item.quantity}${item.size ? ' (Size: ' + item.size + ')' : ''}</p>
-            <p>Time left: ${timeLeftInMinutes} minutes</p> <!-- Display remaining time -->
+            <input type="checkbox" id="cartItem${index}" data-index="${index}" />
+            <label for="cartItem${index}">${item.productName} - ₱${item.price} x ${item.quantity}${item.size ? ' (Size: ' + item.size + ')' : ''}</label>
+            <p>Time left: ${timeLeftInMinutes} minutes</p>
         `;
         cartItemsContainer.appendChild(cartItemDiv);
     });
@@ -117,19 +118,36 @@ function closeCartModal() {
 }
 
 function checkout() {
+    // Check if the cart is empty
     if (cartItems.length === 0) {
         alert("Your cart is empty!");
         return;
     }
 
-    // Get modal elements
-    const paymentModal = document.getElementById("paymentModal");
-    const cartModal = document.getElementById("cartModal");
+    const selectedItems = [];
+    let selectedTotal = 0;
 
-    // Close cart modal
-    cartModal.style.display = "none"; 
-    paymentModal.style.display = "block"; 
-    clearPaymentDetails();
+    // Gather selected items
+    cartItems.forEach((item, index) => {
+        const checkbox = document.getElementById(`cartItem${index}`);
+        if (checkbox.checked) {
+            selectedItems.push(item);
+            selectedTotal += item.price * item.quantity;
+        }
+    });
+
+    // Check if any items are selected
+    if (selectedItems.length === 0) {
+        alert("Please select at least one item to checkout!");
+        return;
+    }
+
+    // Proceed to payment with selected items
+    totalAmount = selectedTotal; // Update total amount to the selected total
+    // Open payment modal or any other checkout process
+    const paymentModal = document.getElementById("paymentModal");
+    paymentModal.style.display = "block";
+    clearPaymentDetails(); // Clear previous payment details if necessary
 }
 
 // Close payment modal when clicking outside of it
@@ -273,7 +291,10 @@ function submitPayment(method) {
             const uniqueId = generateUniqueId();
 
             // Prepare the purchased items details
-            const purchasedItems = cartItems.map(item => ({
+            const purchasedItems = cartItems.filter((item, index) => {
+                const checkbox = document.getElementById(`cartItem${index}`);
+                return checkbox.checked; // Include only selected items
+            }).map(item => ({
                 productName: item.productName,
                 quantity: item.quantity,
                 price: item.price,
@@ -293,11 +314,24 @@ function submitPayment(method) {
             localStorage.setItem('userActivity', JSON.stringify(userActivity)); // Save updated activity
         }
 
-        closeQRCodePaymentModal(); // Close the QR Code modal
-        clearCart(); // Clear the cart after successful payment
+        // Clear selected items from the cart after successful payment
+        cartItems = cartItems.filter((item, index) => {
+            const checkbox = document.getElementById(`cartItem${index}`);
+            return !checkbox.checked; // Keep items that are not checked
+        });
+
+        // Update cart count and total amount
+        cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+        totalAmount = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+        document.getElementById("cartCount").innerText = cartCount;
+        document.getElementById("totalAmount").innerText = totalAmount;
+
+        // Close payment modal and refresh cart display
+        closePaymentModal();
+        closeQRCodePaymentModal();
+        viewCart(); // Refresh the cart display
     }
 }
-
 function clearCart() {
     cartCount = 0;
     totalAmount = 0;
@@ -321,38 +355,57 @@ document.getElementById("searchInput").addEventListener("keypress", function(eve
 });
 
 function searchProducts() {
-    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const searchInput = document.getElementById("searchInput").value.toLowerCase().trim();
+    
+    // Minimum length requirement for search input
+    if (searchInput.length < 2) {
+        alert("Please enter at least 2 characters to search.");
+        return;
+    }
 
-    const availableProducts = document.querySelectorAll(".available-section .product-item");
+    const availableProducts = document.querySelectorAll(".available-section .product-item, .available-section .nproduct-item");
     const recommendedProducts = document.querySelectorAll(".recommendations .product-item");
 
     let productFound = false;
 
+    // Function to check and open modal for the product
     function tryOpenModal(product) {
         const productName = product.querySelector("p").innerText.toLowerCase();
-        if (productName.includes(searchInput)) {
+        const productLabel = product.querySelector(".new-label") ? "new" : ""; // Check for the 'New!' label
+        const fullProductName = productName + " " + productLabel; // Combine name and label for searching
+
+        // Split the search input into words for exact matching
+        const searchTerms = searchInput.split(" ");
+        
+        // Check if all search terms are present in the product name
+        const matchesAllTerms = searchTerms.every(term => fullProductName.includes(term));
+        
+        if (matchesAllTerms) {
             const imageSrc = product.querySelector("img").src;
             const price = product.getAttribute('data-price');
             const requiresSize = product.getAttribute('data-requires-size') === 'true';
-            const maxQty = product.getAttribute('data-max-qty') || 10; 
+            const maxQty = product.getAttribute('data-max-qty') || 10;
 
             openModal(imageSrc, product.querySelector("p").innerText, price, requiresSize, maxQty);
             productFound = true;
         }
     }
 
+    // Check available products first
     availableProducts.forEach(product => {
         tryOpenModal(product);
     });
 
+    // If not found, check recommended products
     if (!productFound) {
         recommendedProducts.forEach(product => {
             tryOpenModal(product);
         });
     }
 
+    // If still not found, alert the user
     if (!productFound) {
-        alert("Product not found!"); 
+        alert("Product not found!");
     }
 }
 
