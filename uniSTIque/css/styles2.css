@@ -908,3 +908,30 @@ button:focus {
     transform: scale(1.08);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
+#customerServiceModal {
+    margin: auto; 
+    padding: 30px; 
+    border: none; 
+    border-radius: 1px; 
+    width: 50%; 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
+    animation: fadeIn 0.5s ease-in-out; 
+}
+
+.csmodal-content {
+    background-color: white; 
+    margin: auto; 
+    padding: 30px; 
+    border: none; 
+    border-radius: 15px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
+}
+
+.h2cs {
+    margin-top: 0; 
+    color: #333; 
+    font-size: 28px; 
+    font-weight: 600; 
+    text-align: center; 
+}
